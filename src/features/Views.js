@@ -8,7 +8,7 @@ import {
   FormControl,
   Typography,
   Stack,
-  IconButton
+  IconButton,
 } from "@mui/material";
 import LineTable from "./LineTable";
 import ReportsServices from "../services/reportsServices";
@@ -29,6 +29,7 @@ export default function View() {
   const [sortDirection, setSortDirection] = useState(true);
   const { state } = useLocation();
   const { user } = state;
+
 
   const loadReport = async () => {
     let querySnapshot;
@@ -150,7 +151,7 @@ export default function View() {
         opacity: 0.9,
         p: 1,
 
-        alignItems: "center"
+        alignItems: "center",
       }}
     >
       {listToView && (

@@ -10,7 +10,7 @@ import {
   where,
   arrayRemove,
   query,
-  collection
+  collection,
 } from "firebase/firestore";
 
 import { auth, db } from "../../config/firebase.js";
@@ -55,10 +55,10 @@ export const userSlice = createSlice({
       })
       .addCase(getUser.fulfilled, (state, action) => {
         state = action.payload;
-       
+
         return state;
       });
-  }
+  },
 });
 
 const { actions, reducer } = userSlice;

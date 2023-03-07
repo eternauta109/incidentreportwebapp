@@ -12,6 +12,7 @@ import { getAuth } from "firebase/auth";
 import CssBaseline from "@mui/material/CssBaseline";
 import "bootstrap/dist/css/bootstrap.min.css";
 import image from "./assets/cinema_image.png";
+import Navbar from "./features/Navbar";
 
 const theme = createTheme({
   conatainerStyle: {
@@ -21,21 +22,21 @@ const theme = createTheme({
     backgroundRepeat: "no-repeat",
     backgroundPosition: "center",
     backgroundImage: `url(${image})`,
-    height: "100%"
+    height: "100%",
   },
 
   paperContainer: {},
   palette: {
     primary: {
-      main: "#ff8f00"
+      main: "#ff8f00",
     },
     secondary: {
-      main: "#7cb342"
-    }
+      main: "#7cb342",
+    },
   },
   typography: {
-    fontFamily: ["Josefin Sans", "cursive"].join(",")
-  }
+    fontFamily: ["Josefin Sans", "cursive"].join(","),
+  },
 });
 
 export default function App() {
@@ -52,8 +53,9 @@ export default function App() {
 
   return (
     <ThemeProvider theme={theme}>
+      <CssBaseline />
       <Container style={theme.conatainerStyle} maxWidth={false} sx={{ p: 2 }}>
-        <CssBaseline />
+        {auth.currentUser && <Navbar />}
         <Routes>
           <Route path="/" element={<Login />} />
           <Route

@@ -1,6 +1,6 @@
 import { useState, useEffect, useMemo } from "react";
 /* import ConfirmNewReport from "./ComfirmNewReport"; */
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation, Link } from "react-router-dom";
 import ReportsServices from "../services/reportsServices";
 import {
   Select,
@@ -14,7 +14,7 @@ import {
   Box,
   Container,
   FormControlLabel,
-  Typography
+  Typography,
 } from "@mui/material";
 import { useSelector } from "react-redux";
 import { cinemaList, categoryList } from "../config/structure";
@@ -24,7 +24,6 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import dayjs from "dayjs";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import "dayjs/locale/it";
-import { useMenu } from "@mui/base";
 
 dayjs.locale("it");
 
@@ -46,12 +45,13 @@ export default function Report() {
       : user.cinema.seats_number,
     screen_with_issues: "",
     seats_numeber_closed_screen: "",
+    comps: 0,
     category: "altro",
     screen_state: "open",
     refounds: 0,
     show_stopped: 0,
     issue: "",
-    note: ""
+    note: "",
   });
   const [stDate, setStDate] = useState();
   const [endDate, setEndDate] = useState();
@@ -76,7 +76,7 @@ export default function Report() {
   const reportChange = (e) => {
     setReport({
       ...report,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
   };
 
@@ -109,7 +109,7 @@ export default function Report() {
     if (state) {
       console.log("state", state);
       setReport({
-        ...state
+        ...state,
       });
     }
 
@@ -123,12 +123,13 @@ export default function Report() {
         bgcolor: "#f9fbe7",
         opacity: 0.95,
         width: "100%",
+
         minHeight: 900,
         height: "auto",
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
-        p: 1
+        p: 1,
       }}
     >
       <Typography component="h1" variant="h5" color="primary">
@@ -161,13 +162,13 @@ export default function Report() {
                         setReport({
                           ...report,
                           resolved: !report.resolved,
-                          endDate: dayjs().format("DD/MM/YYYY")
+                          endDate: dayjs().format("DD/MM/YYYY"),
                         });
                       } else {
                         setReport({
                           ...report,
                           resolved: !report.resolved,
-                          endDate: null
+                          endDate: null,
                         });
                       }
                     }}
@@ -210,7 +211,7 @@ export default function Report() {
             <TextField
               //SCREENS NUMBER
               InputLabelProps={{
-                shrink: user.cinema.screens_number ? true : false
+                shrink: user.cinema.screens_number ? true : false,
               }}
               value={report.screens_number}
               helperText="n° screens"
@@ -224,7 +225,7 @@ export default function Report() {
             <TextField
               //SEATS NUMBER
               InputLabelProps={{
-                shrink: user.cinema.seats_number ? true : false
+                shrink: user.cinema.seats_number ? true : false,
               }}
               value={report.seats_number}
               helperText="tot seats"
@@ -301,7 +302,7 @@ export default function Report() {
 
           {/*  LINE REFOUNDS AND SHOW SOPPRIMED */}
 
-          <Grid item xs={6} sm={6}>
+          <Grid item xs={4} sm={4}>
             <TextField
               helperText="insert number show suppressed"
               name="show_stopped"
@@ -311,11 +312,21 @@ export default function Report() {
               fullWidth
             />
           </Grid>
-          <Grid item xs={6} sm={6}>
+          <Grid item xs={4} sm={4}>
             <TextField
               helperText="insert refounds cost"
               name="refounds"
               label="ref. cost"
+              onChange={(e) => reportChange(e)}
+              value={report ? report.refounds : ""}
+              fullWidth
+            />{" "}
+          </Grid>
+          <Grid item xs={4} sm={4}>
+            <TextField
+              helperText="insert complimentary"
+              name="comps"
+              label="comps"
               onChange={(e) => reportChange(e)}
               value={report ? report.refounds : ""}
               fullWidth
@@ -338,16 +349,16 @@ export default function Report() {
 
           {/* LINE days work */}
 
-          <Grid item xs={2} sm={6}>
+          <Grid item xs={6} sm={6}>
             <TextField
-              helperText="days"
+              helperText="work days"
               id="days_work"
               label=""
               value={dayjs().diff(dayjs(report.startDate, "DD/MM/YYYY"), "day")}
               fullWidth
             />
           </Grid>
-          <Grid item xs={2} sm={6}>
+          <Grid item xs={6} sm={6}>
             <TextField
               helperText="resolution day"
               value={report?.endDate ? report.endDate : "in progress"}
@@ -372,9 +383,11 @@ export default function Report() {
             />
           </Grid>
 
-          <Button type="submit" variant="contained" sx={{ mt: 4 }}>
-            {state ? "UpDate" : "Register"}
-          </Button>
+          <Grid item xs={12} sm={12}>
+            <Button type="submit" variant="contained" sx={{ mt: 4 }}>
+              {state ? "UpDate" : "Register"}
+            </Button>
+          </Grid>
         </Grid>
       </Box>
     </Container>
