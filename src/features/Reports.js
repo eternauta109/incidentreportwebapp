@@ -122,7 +122,7 @@ export default function Report() {
         bgcolor: "#f9fbe7",
         opacity: 0.95,
         width: "100%",
-
+      
         minHeight: 900,
         height: "auto",
         display: "flex",

@@ -1,5 +1,4 @@
 import * as React from "react";
-import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import { Link } from "react-router-dom";
 import Stack from "@mui/material/Stack";
@@ -8,13 +7,11 @@ import Drawer from "@mui/material/Drawer";
 import IconButton from "@mui/material/IconButton";
 import Container from "@mui/material/Container";
 import MenuIcon from "@mui/icons-material/Menu";
-import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import { useSelector } from "react-redux";
 
 const drawerWidth = 240;
-const navItems = ["Home", "Views Reports", "Insert new report", "LogOut"];
 
 export default function Navbar(props) {
   const { window } = props;
@@ -26,7 +23,11 @@ export default function Navbar(props) {
   };
   //Toggle menu
   const drawer = (
-    <Box onClick={handleDrawerToggle} sx={{ textAlign: "center" }}>
+    <Box
+      spacing="2"
+      onClick={handleDrawerToggle}
+      sx={{ textAlign: "center", p: 2 }}
+    >
       <Typography variant="h6" sx={{ my: 2 }}>
         menu
       </Typography>
@@ -46,7 +47,9 @@ export default function Navbar(props) {
           </Link>
         </Button>
         <Button variant="outlined" sx={{ color: "#fff", mb: "4px" }}>
-          LogOut
+          <Link to="views" state={{ user: { ...user } }}>
+            LogOut
+          </Link>
         </Button>
       </Stack>
     </Box>
@@ -60,23 +63,19 @@ export default function Navbar(props) {
       sx={{
         mb: "20px",
         width: "65px",
-        bgcolor: "white",
         borderRadius: "50%",
         margin: " 0 auto 20px",
-        opacity: "0.9",
       }}
     >
-      <Toolbar>
-        <IconButton
-          color="inherit"
-          aria-label="open drawer"
-          edge="start"
-          onClick={handleDrawerToggle}
-          sx={{ mr: 2 }}
-        >
-          <MenuIcon />
-        </IconButton>
-      </Toolbar>
+      <IconButton
+        color="inherit"
+        aria-label="open drawer"
+        edge="start"
+        onClick={handleDrawerToggle}
+        sx={{ bgcolor: "yellow", margin: " 0 auto ", opacity: "o.9" }}
+      >
+        <MenuIcon />
+      </IconButton>
 
       <Container component="nav">
         <Drawer
