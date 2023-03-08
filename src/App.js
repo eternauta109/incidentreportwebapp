@@ -18,6 +18,7 @@ const theme = createTheme({
   conatainerStyle: {
     borderRadius: 5,
     width: "100%",
+
     backgroundSize: "cover",
     backgroundRepeat: "no-repeat",
     backgroundPosition: "center",

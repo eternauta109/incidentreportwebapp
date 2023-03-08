@@ -23,7 +23,7 @@ import { useLoaderData, useLocation } from "react-router-dom";
 export default function View() {
   const [listReport, setListReport] = useState([]);
   const [listToView, setListToView] = useState([]);
-  
+
   const [cinemaSelected, setCinemaSelected] = useState([]);
   const [categorySelected, setCategorySelected] = useState([]);
 
@@ -188,7 +188,7 @@ export default function View() {
       }}
     >
       {listToView && (
-        <Container sx={{ fontSize: "0.6rem" }}>
+        <Container sx={{ fontSize: "0.8rem" }}>
           <Table id="table-to-xls" striped bordered hover responsive>
             <thead>
               <tr>
