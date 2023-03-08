@@ -132,7 +132,7 @@ export default function Report() {
       }}
     >
       <Typography component="h1" variant="h5" color="primary">
-        insert incident report form
+        report form
       </Typography>
 
       <Box component="form" onSubmit={onSubmitReport}>
@@ -363,12 +363,14 @@ export default function Report() {
               helperText="work days"
               id="days_work"
               label=""
+              disabled
               value={dayjs().diff(dayjs(report.startDate, "DD/MM/YYYY"), "day")}
               fullWidth
             />
           </Grid>
           <Grid item xs={6} sm={6}>
             <TextField
+              disabled
               helperText="resolution day"
               value={report?.endDate ? report.endDate : "in progress"}
               label="resolution day"
