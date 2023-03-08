@@ -23,6 +23,7 @@ import { useLoaderData, useLocation } from "react-router-dom";
 export default function View() {
   const [listReport, setListReport] = useState([]);
   const [listToView, setListToView] = useState([]);
+  
   const [cinemaSelected, setCinemaSelected] = useState([]);
   const [categorySelected, setCategorySelected] = useState([]);
 
@@ -57,7 +58,7 @@ export default function View() {
 
   const DataSorter = ({ val }) => {
     return (
-      <Stack direction="row" spacing={1}>
+      <Stack direction="row" spacing={0}>
         <Typography>{val}</Typography>
         {sortDirection ? (
           <IconButton
@@ -90,7 +91,7 @@ export default function View() {
 
   const SelectCinema = () => {
     return (
-      <FormControl fullWidth>
+      <FormControl sx={{ width: "100px" }}>
         <InputLabel id="demo-simple-select-label">Cinema</InputLabel>
         <Select
           multiple
@@ -115,6 +116,30 @@ export default function View() {
     );
   };
 
+  const SelectCategory = () => {
+    return (
+      <FormControl sx={{ width: "110px" }}>
+        <InputLabel id="demo-simple-select-label">
+          <Typography>Category</Typography>
+        </InputLabel>
+        <Select
+          multiple
+          value={categorySelected}
+          label="Category"
+          onChange={(e) => setCategorySelected(e.target.value)}
+        >
+          {categoryList.map((el, key) => (
+            <MenuItem key={key} value={el}>
+              {el}
+            </MenuItem>
+          ))}
+        </Select>
+      </FormControl>
+    );
+  };
+
+  //FILTER
+
   const findCinemaInReport = useMemo(() => {
     console.log(cinemaSelected.length);
 
@@ -129,7 +154,19 @@ export default function View() {
         setListToView(arrayCommun);
       });
     }
-  }, [cinemaSelected]);
+
+    if (categorySelected.length < 1) {
+      setListToView(listReport);
+    } else {
+      categorySelected.forEach((el) => {
+        const arrayCommun = listReport.filter((item) =>
+          categorySelected.some((item2) => item2 === item.category)
+        );
+
+        setListToView(arrayCommun);
+      });
+    }
+  }, [cinemaSelected, categorySelected]);
 
   useEffect(() => {
     loadReport();
@@ -144,13 +181,14 @@ export default function View() {
     <Container
       sx={{
         bgcolor: "#f9fbe7",
+        width: "100%",
         borderRadius: "5px",
         opacity: 0.9,
         p: 1,
       }}
     >
       {listToView && (
-        <Container>
+        <Container sx={{ fontSize: "0.6rem" }}>
           <Table id="table-to-xls" striped bordered hover responsive>
             <thead>
               <tr>
@@ -163,19 +201,45 @@ export default function View() {
                 <th scope="col">
                   <SelectCinema />
                 </th>
-                <th scope="col">screens num </th>
-                <th scope="col">total seats</th>
-                <th scope="col">screen with issue</th>
-                <th scope="col">seats screen number </th>
-                <th scope="col">category</th>
-                <th scope="col">screen state</th>
-                <th scope="col">show close</th>
-                <th scope="col">refounds</th>
-                <th scope="col">comps</th>
-                <th scope="col">issues</th>
-                <th scope="col">note</th>
-                <th scope="col">status</th>
-                <th scope="col">work day</th>
+                <th scope="col">
+                  <Typography>screens num </Typography>
+                </th>
+                <th scope="col">
+                  <Typography>total seats</Typography>
+                </th>
+                <th scope="col">
+                  <Typography>screen with issue</Typography>
+                </th>
+                <th scope="col">
+                  <Typography>seats screen number</Typography>{" "}
+                </th>
+                <th scope="col">
+                  <SelectCategory />
+                </th>
+                <th scope="col">
+                  <Typography>screen state</Typography>
+                </th>
+                <th scope="col">
+                  <Typography>show close</Typography>
+                </th>
+                <th scope="col">
+                  <Typography>refounds</Typography>
+                </th>
+                <th scope="col">
+                  <Typography>comps</Typography>
+                </th>
+                <th scope="col">
+                  <Typography>issues</Typography>
+                </th>
+                <th scope="col">
+                  <Typography>note</Typography>
+                </th>
+                <th scope="col">
+                  <Typography>status</Typography>
+                </th>
+                <th scope="col">
+                  <Typography>work day</Typography>
+                </th>
                 {/*   <th scope="col">resolution day</th> */}
               </tr>
             </thead>

@@ -22,7 +22,7 @@ const theme = createTheme({
     backgroundRepeat: "no-repeat",
     backgroundPosition: "center",
     backgroundImage: `url(${image})`,
-    minHeight: "900px",
+    minHeight: "1000px",
     height: "auto",
   },
 
@@ -36,7 +36,18 @@ const theme = createTheme({
     },
   },
   typography: {
-    fontFamily: ["Josefin Sans", "cursive"].join(","),
+    fontFamily: [
+      "-apple-system",
+      "BlinkMacSystemFont",
+      '"Segoe UI"',
+      "Roboto",
+      '"Helvetica Neue"',
+      "Arial",
+      "sans-serif",
+      '"Apple Color Emoji"',
+      '"Segoe UI Emoji"',
+      '"Segoe UI Symbol"',
+    ].join(","),
   },
 });
 

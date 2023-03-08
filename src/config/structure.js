@@ -4,7 +4,7 @@ export const cinemaList = [
   { name: "guidonia", screen: 10 },
   { name: "firenze", screen: 9 },
   { name: "limena", screen: 16 },
-  { name: "surbo", screen: 12 }
+  { name: "surbo", screen: 12 },
 ];
 
 export const categoryList = [
@@ -17,5 +17,5 @@ export const categoryList = [
   "Ristrutturazione",
   "Scale mobili",
   "UPS e gruppi elettrogeni",
-  "altro"
+  "altro",
 ];

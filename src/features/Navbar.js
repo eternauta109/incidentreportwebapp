@@ -28,22 +28,25 @@ export default function Navbar(props) {
   const drawer = (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: "center" }}>
       <Typography variant="h6" sx={{ my: 2 }}>
-        Incident report
+        menu
       </Typography>
       <Divider />
       <Stack>
-        <Button sx={{ color: "#fff" }}>
+        <Button variant="outlined" sx={{ color: "#fff", mb: "4px" }}>
           <Link to="landing"> Home</Link>
         </Button>
 
-        <Button sx={{ color: "#fff" }}>
+        <Button variant="outlined" sx={{ color: "#fff", mb: "4px" }}>
           <Link to="reports"> insert new report</Link>
         </Button>
 
-        <Button sx={{ color: "#fff" }}>
+        <Button variant="outlined" sx={{ color: "#fff", mb: "4px" }}>
           <Link to="views" state={{ user: { ...user } }}>
             reports list
           </Link>
+        </Button>
+        <Button variant="outlined" sx={{ color: "#fff", mb: "4px" }}>
+          LogOut
         </Button>
       </Stack>
     </Box>

@@ -2,29 +2,13 @@ import React from "react";
 import dayjs from "dayjs";
 import { useNavigate } from "react-router-dom";
 import "dayjs/locale/it";
-import {
-  collection,
-  getDocs,
-  deleteDoc,
-  query,
-  where,
-  getDoc,
-  onSnapshot,
-  addDoc,
-  doc,
-  ref,
-  set,
-  setDoc,
-  updateDoc,
-  increment,
-} from "firebase/firestore";
-import { db } from "../config/firebase";
+import { Typography } from "@mui/material";
 
 dayjs.locale("it");
 
 export const LineFound = ({ report }) => {
   const navigate = useNavigate();
-  console.log("report in line table", report);
+
   const manageClick = async (e) => {
     e.preventDefault();
     navigate("../reports", { state: { ...report } });
@@ -32,9 +16,8 @@ export const LineFound = ({ report }) => {
       dayjs(report.startDate).format("DD/MM/YYYY"),
       "day"
     );
-
-    console.log(dayjs(report.startDate).format("DD/MM/YYYY"), dd);
   };
+
   return (
     <>
       {report && (
