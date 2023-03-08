@@ -14,7 +14,7 @@ import {
   Link,
   TextField,
   Button,
-  Avatar
+  Avatar,
 } from "@mui/material";
 /* import Visibility from "@material-ui/icons/Visibility"; */
 /* import VisibilityOff from "@material-ui/icons/VisibilityOff"; */
@@ -73,7 +73,7 @@ export default function Login() {
         height: "900px",
         display: "flex",
         flexDirection: "column",
-        alignItems: "center"
+        alignItems: "center",
       }}
     >
       <Box
@@ -85,7 +85,7 @@ export default function Login() {
           bgcolor: "#f9fbe7",
           display: "flex",
           flexDirection: "column",
-          alignItems: "center"
+          alignItems: "center",
         }}
       >
         <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
@@ -100,7 +100,6 @@ export default function Login() {
             required
             fullWidth
             sx={{ input: { backgroundColor: "white" } }}
-            /* defaultValue="cupertinod" */
             id="email"
             inputRef={emailValue}
             type="email"
