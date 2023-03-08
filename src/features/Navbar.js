@@ -6,7 +6,7 @@ import Stack from "@mui/material/Stack";
 import Divider from "@mui/material/Divider";
 import Drawer from "@mui/material/Drawer";
 import IconButton from "@mui/material/IconButton";
-
+import Container from "@mui/material/Container";
 import MenuIcon from "@mui/icons-material/Menu";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
@@ -53,44 +53,29 @@ export default function Navbar(props) {
     window !== undefined ? () => window().document.body : undefined;
 
   return (
-    <Box sx={{ display: "flex", mb: "60px" }}>
-      <AppBar component="nav">
-        <Toolbar>
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            edge="start"
-            onClick={handleDrawerToggle}
-            sx={{ mr: 2, display: { sm: "none" } }}
-          >
-            <MenuIcon />
-          </IconButton>
-          <Typography
-            variant="h6"
-            component="div"
-            sx={{ flexGrow: 1, display: { xs: "none", sm: "block" } }}
-          >
-            Incident Report
-          </Typography>
-          <Box sx={{ display: { xs: "none", sm: "block" } }}>
-            <Button sx={{ color: "#fff" }}>
-              <Link to="landing"> Home</Link>
-            </Button>
+    <Box
+      sx={{
+        mb: "20px",
+        width: "65px",
+        bgcolor: "white",
+        borderRadius: "50%",
+        margin: " 0 auto 20px",
+        opacity: "0.9",
+      }}
+    >
+      <Toolbar>
+        <IconButton
+          color="inherit"
+          aria-label="open drawer"
+          edge="start"
+          onClick={handleDrawerToggle}
+          sx={{ mr: 2 }}
+        >
+          <MenuIcon />
+        </IconButton>
+      </Toolbar>
 
-            <Button sx={{ color: "#fff" }}>
-              <Link to="reports"> insert new report</Link>
-            </Button>
-
-            <Button sx={{ color: "#fff" }}>
-              <Link to="views" state={{ user }}>
-                {" "}
-                reports list
-              </Link>
-            </Button>
-          </Box>
-        </Toolbar>
-      </AppBar>
-      <Box component="nav">
+      <Container component="nav">
         <Drawer
           container={container}
           variant="temporary"
@@ -100,7 +85,6 @@ export default function Navbar(props) {
             keepMounted: true, // Better open performance on mobile.
           }}
           sx={{
-            display: { xs: "block", sm: "none" },
             "& .MuiDrawer-paper": {
               boxSizing: "border-box",
               width: drawerWidth,
@@ -109,7 +93,7 @@ export default function Navbar(props) {
         >
           {drawer}
         </Drawer>
-      </Box>
+      </Container>
     </Box>
   );
 }

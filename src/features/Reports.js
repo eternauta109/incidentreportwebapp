@@ -30,13 +30,11 @@ dayjs.locale("it");
 export default function Report() {
   const { state } = useLocation();
   const user = useSelector((state) => state.user);
-
-  const [report, setReport] = useState({
+  const initState = {
     startDate: dayjs().format("DD/MM/YYYY"),
     resolved: false,
     endDate: null,
     cinema: user.is_facility ? "insert cinema" : user.cinema.name,
-
     screens_number: user.is_facility
       ? "insert screen number"
       : user.cinema.screens_number,
@@ -52,7 +50,8 @@ export default function Report() {
     show_stopped: 0,
     issue: "",
     note: "",
-  });
+  };
+  const [report, setReport] = useState(initState);
   const [stDate, setStDate] = useState();
   const [endDate, setEndDate] = useState();
 
@@ -113,7 +112,7 @@ export default function Report() {
       });
     }
 
-    return () => setReport("");
+    return () => setReport(initState);
   }, []);
 
   return (
@@ -142,7 +141,7 @@ export default function Report() {
             <Grid item xs={12} sm={6}>
               <MobileDatePicker
                 label="Start report"
-                inputFormat="DD/MM/YYYY"
+                format="DD/MM/YYYY"
                 value={report ? dayjs(report.startDate, "DD/MM/YYYY") : stDate}
                 onChange={handleChangeStDate}
                 renderInput={(params) => <TextField {...params} />}
@@ -181,7 +180,7 @@ export default function Report() {
               <Grid item xs={12} sm={12} sx={{ mb: 2 }}>
                 <MobileDatePicker
                   label="End report"
-                  inputFormat="DD/MM/YYYY"
+                  format="DD/MM/YYYY"
                   value={
                     report.endDate
                       ? dayjs(report.endDate, "DD/MM/YYYY")
@@ -307,6 +306,9 @@ export default function Report() {
               helperText="insert number show suppressed"
               name="show_stopped"
               label="show suppressed"
+              onFocus={(event) => {
+                event.target.select();
+              }}
               onChange={(e) => reportChange(e)}
               value={report ? report.show_stopped : ""}
               fullWidth
@@ -317,6 +319,9 @@ export default function Report() {
               helperText="insert refounds cost"
               name="refounds"
               label="ref. cost"
+              onFocus={(event) => {
+                event.target.select();
+              }}
               onChange={(e) => reportChange(e)}
               value={report ? report.refounds : ""}
               fullWidth
@@ -324,11 +329,15 @@ export default function Report() {
           </Grid>
           <Grid item xs={4} sm={4}>
             <TextField
+              InputLabelProps={{ shrink: true }}
               helperText="insert complimentary"
               name="comps"
               label="comps"
+              onFocus={(event) => {
+                event.target.select();
+              }}
               onChange={(e) => reportChange(e)}
-              value={report ? report.refounds : ""}
+              value={report ? report.comps : ""}
               fullWidth
             />{" "}
           </Grid>

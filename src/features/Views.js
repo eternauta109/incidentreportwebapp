@@ -30,7 +30,6 @@ export default function View() {
   const { state } = useLocation();
   const { user } = state;
 
-
   const loadReport = async () => {
     let querySnapshot;
     console.log("qui");
@@ -143,15 +142,11 @@ export default function View() {
 
   return (
     <Container
-      component="main"
       sx={{
-        width: "100%",
         bgcolor: "#f9fbe7",
-
+        borderRadius: "5px",
         opacity: 0.9,
         p: 1,
-
-        alignItems: "center",
       }}
     >
       {listToView && (
@@ -176,6 +171,7 @@ export default function View() {
                 <th scope="col">screen state</th>
                 <th scope="col">show close</th>
                 <th scope="col">refounds</th>
+                <th scope="col">comps</th>
                 <th scope="col">issues</th>
                 <th scope="col">note</th>
                 <th scope="col">status</th>

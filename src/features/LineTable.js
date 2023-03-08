@@ -16,7 +16,7 @@ import {
   set,
   setDoc,
   updateDoc,
-  increment
+  increment,
 } from "firebase/firestore";
 import { db } from "../config/firebase";
 
@@ -50,6 +50,7 @@ export const LineFound = ({ report }) => {
           <th scope="row">{report.screen_state}</th>
           <th scope="row">{report.show_stopped}</th>
           <th scope="row">{report.refounds}</th>
+          <th scope="row">{report.comps}</th>
           <th scope="row">{report.issue}</th>
           <th scope="row">{report.note}</th>
           <th scope="row">{report.screen_state}</th>

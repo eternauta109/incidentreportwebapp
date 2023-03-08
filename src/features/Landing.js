@@ -10,7 +10,7 @@ import {
   styled,
   Box,
   Typography,
-  Button
+  Button,
 } from "@mui/material";
 
 const ButtonPlus = styled(Button)(({ theme }) => ({
@@ -21,7 +21,7 @@ const ButtonPlus = styled(Button)(({ theme }) => ({
   color: "white",
   opacity: 0.9,
   height: 60,
-  lineHeight: "20px"
+  lineHeight: "20px",
 }));
 
 export default function Landing() {
@@ -30,13 +30,7 @@ export default function Landing() {
   window.scrollTo(0, 0);
 
   return (
-    <Container
-      maxWidth="xs"
-      sx={{
-        width: "100%",
-        height: "900px"
-      }}
-    >
+    <Container maxWidth="xs" sx={{}}>
       <Box sx={{ backgroundColor: "orange", opacity: 1, p: 1, mb: 2 }}>
         <Typography align="center">Welocome {user.name}</Typography>
       </Box>

@@ -22,7 +22,8 @@ const theme = createTheme({
     backgroundRepeat: "no-repeat",
     backgroundPosition: "center",
     backgroundImage: `url(${image})`,
-    height: "100%",
+    minHeight: "900px",
+    height: "auto",
   },
 
   paperContainer: {},
@@ -58,18 +59,9 @@ export default function App() {
         {auth.currentUser && <Navbar />}
         <Routes>
           <Route path="/" element={<Login />} />
-          <Route
-            path="landing"
-            element={auth.currentUser ? <Landing /> : <Login />}
-          />
-          <Route
-            path="reports"
-            element={auth.currentUser ? <Reports /> : <Login />}
-          />
-          <Route
-            path="views"
-            element={auth.currentUser ? <Views /> : <Login />}
-          />
+          <Route path="landing" element={<Landing />} />
+          <Route path="reports" element={<Reports />} />
+          <Route path="views" element={<Views />} />
         </Routes>
       </Container>
     </ThemeProvider>
