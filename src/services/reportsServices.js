@@ -1,4 +1,6 @@
-import { db } from "../config/firebase";
+import { db, auth } from "../config/firebase";
+import { signOut } from "firebase/auth";
+
 
 import {
   collection,
@@ -20,6 +22,7 @@ import {
 const reportsCollectionRef = collection(db, "reports");
 
 class ReportsServices {
+
   addReport = (newReport) => {
     return addDoc(reportsCollectionRef, newReport);
   };
@@ -47,6 +50,14 @@ class ReportsServices {
     const q = query(reportsCollectionRef, where("cinema", "==", cinema));
     return getDocs(q);
   };
+
+  logOut = () => {
+    signOut(auth).then(() => {
+      console.log("usciti",auth)
+    }).catch((error) => {
+      console.log("error logout", e)
+    });
+  }
 }
 
 export default new ReportsServices();
