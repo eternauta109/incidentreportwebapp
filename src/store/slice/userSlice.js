@@ -17,6 +17,9 @@ import { auth, db } from "../../config/firebase.js";
 
 import { signInWithEmailAndPassword } from "firebase/auth";
 
+
+
+
 export const getUser = createAsyncThunk(
   "user/getUser",
   async ({ email, password }) => {
@@ -44,10 +47,19 @@ export const getUser = createAsyncThunk(
   }
 );
 
+
+
 export const userSlice = createSlice({
   name: "user",
   initialState: [],
-  reducers: {},
+  reducers: {
+    userLogOut(state) {
+      state = []
+      return state
+      // Note that this should be left intentionally empty.
+			// Clearing redux state and localForage happens in rootReducer.ts.
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(getUser.pending, (state, action) => {
@@ -62,5 +74,5 @@ export const userSlice = createSlice({
 });
 
 const { actions, reducer } = userSlice;
-
+export const { userLogOut } = userSlice.actions;
 export default reducer;
