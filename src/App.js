@@ -62,7 +62,7 @@ export default function App() {
     if (!auth.currentUser) {
       navigate("/");
     }
-  }, [auth.currentUser]);
+  }, [auth]);
 
   return (
     <ThemeProvider theme={theme}>
