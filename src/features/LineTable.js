@@ -36,7 +36,7 @@ export const LineFound = ({ report }) => {
           <th scope="row">{report.comps}</th>
           <th scope="row">{report.issue}</th>
           <th scope="row">{report.note}</th>
-          <th scope="row">{report.screen_state}</th>
+          <th scope="row">{report.resolved ? "solved" : "in progress"}</th>
           <th scope="row">
             {report.resolved
               ? dayjs(report.endDate, "DD/MM/YYYY").diff(

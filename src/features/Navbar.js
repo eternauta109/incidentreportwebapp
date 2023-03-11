@@ -1,6 +1,6 @@
 import * as React from "react";
 import Box from "@mui/material/Box";
-import { Link,useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Stack from "@mui/material/Stack";
 import Divider from "@mui/material/Divider";
 import Drawer from "@mui/material/Drawer";
@@ -9,7 +9,7 @@ import Container from "@mui/material/Container";
 import MenuIcon from "@mui/icons-material/Menu";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
-import { useDispatch,useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import ReportsServices from "../services/reportsServices";
 import { userLogOut } from "../store/slice/userSlice";
 
@@ -22,46 +22,64 @@ export default function Navbar(props) {
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const user = useSelector((state) => state.user);
 
-  const logOutEventClick =  () => {
+  const logOutEventClick = () => {
     dispatch(userLogOut());
     ReportsServices.logOut();
     navigate("/");
-  }
+  };
 
   const handleDrawerToggle = () => {
     setMobileOpen((prevState) => !prevState);
   };
   //Toggle menu
   const drawer = (
-    <Box
-      
-      onClick={handleDrawerToggle}
-      sx={{ textAlign: "center", p: 2}}
-    >
-      <Typography variant="h6" sx={{ my: 2 }}>
+    <Box onClick={handleDrawerToggle} sx={{ textAlign: "center", p: 2 }}>
+      <Typography variant="h6" sx={{ my: 2, color: "orange" }}>
         menu
       </Typography>
       <Divider />
       <Stack>
-        <Button color="secondary" variant="outlined" sx={{ color: "#fff", mb: "4px" }}>
-          <Link to="landing"> Home</Link>
+        <Button
+          color="secondary"
+          variant="contained"
+          sx={{ color: "#fff", mb: "4px" }}
+          onClick={() => {
+            navigate("/");
+          }}
+        >
+          HOME
         </Button>
 
-        <Button color="secondary" variant="outlined" sx={{ color: "#fff", mb: "4px" }}>
-          <Link to="reports"> insert new report</Link>
+        <Button
+          color="secondary"
+          variant="contained"
+          sx={{ color: "#fff", mb: "4px" }}
+          onClick={() => {
+            navigate("reports");
+          }}
+        >
+          insert new report
         </Button>
 
-        <Button color="secondary"variant="outlined" sx={{ color: "#fff", mb: "4px" }}>
-          <Link to="views" state={{ user: { ...user } }}>
-            reports list
-          </Link>
+        <Button
+          color="secondary"
+          variant="contained"
+          sx={{ color: "#fff", mb: "4px" }}
+          onClick={() => {
+            navigate("views", { state: { user: { ...user } } });
+          }}
+        >
+          reports list
         </Button>
         <Button
           color="error"
-          onClick={(e)=>{logOutEventClick(e)}} variant="contained" sx={{ color: "#fff", mb: "4px" }}>
-         
-            LogOut
-          
+          onClick={(e) => {
+            logOutEventClick(e);
+          }}
+          variant="contained"
+          sx={{ color: "#fff", mb: "4px" }}
+        >
+          LogOut
         </Button>
       </Stack>
     </Box>
@@ -84,7 +102,7 @@ export default function Navbar(props) {
         aria-label="open drawer"
         edge="start"
         onClick={handleDrawerToggle}
-        sx={{ bgcolor: "yellow", margin: " 0 auto ", opacity: "o.9" }}
+        sx={{ bgcolor: "yellow", margin: " 0 auto " }}
       >
         <MenuIcon />
       </IconButton>
@@ -102,7 +120,7 @@ export default function Navbar(props) {
             "& .MuiDrawer-paper": {
               boxSizing: "border-box",
               width: drawerWidth,
-              bgcolor:"rgba(0,0,0,0.5)"
+              bgcolor: "rgba(0,0,0,0.5)",
             },
           }}
         >
