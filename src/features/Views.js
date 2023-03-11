@@ -20,12 +20,15 @@ import { cinemaList, categoryList } from "../config/structure";
 
 import { useLoaderData, useLocation } from "react-router-dom";
 
+const solvedStateInit = ["solved", "in progress", "all"];
+
 export default function View() {
   const [listReport, setListReport] = useState([]);
   const [listToView, setListToView] = useState([]);
 
   const [cinemaSelected, setCinemaSelected] = useState([]);
   const [categorySelected, setCategorySelected] = useState([]);
+  const [solvedState, setSolvedState] = useState([]);
 
   const [sortDirection, setSortDirection] = useState(true);
   const { state } = useLocation();
@@ -56,6 +59,7 @@ export default function View() {
     );
   };
 
+  //FILTER
   const DataSorter = ({ val }) => {
     return (
       <Stack direction="row" spacing={0}>
@@ -138,7 +142,26 @@ export default function View() {
     );
   };
 
-  //FILTER
+  const SelectSolved = () => {
+    return (
+      <FormControl sx={{ width: "110px" }}>
+        <InputLabel id="demo-simple-select-label">
+          <Typography>issue state</Typography>
+        </InputLabel>
+        <Select
+          value={solvedState}
+          label="issueState"
+          onChange={(e) => setSolvedState(e.target.value)}
+        >
+          {solvedStateInit.map((el, key) => (
+            <MenuItem key={key} value={el}>
+              {el}
+            </MenuItem>
+          ))}
+        </Select>
+      </FormControl>
+    );
+  };
 
   const findCinemaInReport = useMemo(() => {
     console.log(cinemaSelected.length);
@@ -167,6 +190,22 @@ export default function View() {
       });
     }
   }, [cinemaSelected, categorySelected]);
+
+  useMemo(() => {
+    if (solvedState === "all") {
+      return setListToView(listReport);
+    }
+
+    if (solvedState === "in progress") {
+      const arrayCommun = listReport.filter((item) => item.resolved === false);
+      setListToView(arrayCommun);
+    }
+
+    if (solvedState === "solved") {
+      const arrayCommun = listReport.filter((item) => item.resolved === true);
+      setListToView(arrayCommun);
+    }
+  }, [solvedState]);
 
   useEffect(() => {
     loadReport();
@@ -235,7 +274,7 @@ export default function View() {
                   <Typography>note</Typography>
                 </th>
                 <th scope="col">
-                  <Typography>status</Typography>
+                  <SelectSolved />
                 </th>
                 <th scope="col">
                   <Typography>work day</Typography>
@@ -270,6 +309,8 @@ export default function View() {
     </Container>
   );
 }
+
+//Functio to use
 
 function sortAscendateDate(a, b) {
   /* console.log(a, b); */
