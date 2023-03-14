@@ -22,9 +22,9 @@ export default function Navbar(props) {
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const user = useSelector((state) => state.user);
 
-  const logOutEventClick = () => {
+  const logOutEventClick = async () => {
     dispatch(userLogOut());
-    ReportsServices.logOut();
+    await ReportsServices.logOut();
     navigate("/");
   };
 
@@ -92,7 +92,8 @@ export default function Navbar(props) {
     <Box
       sx={{
         mb: "20px",
-        width: "65px",
+
+        width: "45px",
         borderRadius: "50%",
         margin: " 0 auto 20px",
       }}
