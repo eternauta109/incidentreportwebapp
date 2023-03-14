@@ -1,7 +1,6 @@
 import { db, auth } from "../config/firebase";
 import { signOut } from "firebase/auth";
 
-
 import {
   collection,
   getDocs,
@@ -16,13 +15,12 @@ import {
   set,
   setDoc,
   updateDoc,
-  increment
+  increment,
 } from "firebase/firestore";
 
 const reportsCollectionRef = collection(db, "reports");
 
 class ReportsServices {
-
   addReport = (newReport) => {
     return addDoc(reportsCollectionRef, newReport);
   };
@@ -52,12 +50,14 @@ class ReportsServices {
   };
 
   logOut = () => {
-    signOut(auth).then(() => {
-      console.log("usciti",auth)
-    }).catch((error) => {
-      console.log("error logout", e)
-    });
-  }
+    signOut(auth)
+      .then(() => {
+        console.log("usciti", auth.currentUser);
+      })
+      .catch((error) => {
+        console.log("error logout", e);
+      });
+  };
 }
 
 export default new ReportsServices();

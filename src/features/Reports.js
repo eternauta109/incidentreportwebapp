@@ -1,6 +1,7 @@
 import { useState, useEffect, useMemo } from "react";
 /* import ConfirmNewReport from "./ComfirmNewReport"; */
 import { useNavigate, useLocation, Link } from "react-router-dom";
+import { useTheme } from "@mui/material/styles";
 import ReportsServices from "../services/reportsServices";
 import {
   Select,
@@ -32,6 +33,7 @@ dayjs.locale("it");
 
 export default function Report() {
   const { state } = useLocation();
+  const theme = useTheme();
   const user = useSelector((state) => state.user);
   const cinema = cinemaList.find((e) => e.name === user.cinema.name);
   console.log(cinema.screens_det);
@@ -123,19 +125,7 @@ export default function Report() {
   }, []);
 
   return (
-    <Container
-      sx={{
-        borderRadius: 5,
-        bgcolor: "rgba(249,251,231,0.9)",
-        width: "100%",
-        minHeight: 900,
-        height: "auto",
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        p: 1,
-      }}
-    >
+    <Container sx={theme.formStyle}>
       <Typography variant="h3" color="primary" sx={{ mb: "50px" }}>
         report form
       </Typography>
@@ -198,7 +188,7 @@ export default function Report() {
         {/* END FOURTH SECTION*/}
 
         <Grid item xs={12} sm={12}>
-          <Button type="submit" variant="contained" sx={{ mt: 4 }}>
+          <Button type="submit" variant="contained" sx={{ mt: 4, mb: 2 }}>
             {state ? "UpDate" : "Register"}
           </Button>
         </Grid>

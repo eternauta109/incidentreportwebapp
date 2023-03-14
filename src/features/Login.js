@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getUser } from "../store/slice/userSlice";
+import { useTheme } from "@mui/material/styles";
 
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 
@@ -49,6 +50,7 @@ export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
   const handleClickShowPassword = () => setShowPassword(!showPassword);
   const handleMouseDownPassword = () => setShowPassword(!showPassword);
+  const theme = useTheme();
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -60,33 +62,16 @@ export default function Login() {
 
   useEffect(() => {
     if (user.name) {
+      
       navigate("landing");
     }
   }, [dispatch, user]);
 
   return (
-    <Container
-      component="main"
-      maxWidth="xs"
-      sx={{
-        width: "100%",
-        height: "900px",
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-      }}
-    >
+    
+    <Container component="main" maxWidth="xs" sx={theme.formStyle}>
       <Box
-        sx={{
-          margin: "50px",
-          padding: "8px",
-          borderRadius: "5px",
-          opacity: 0.95,
-          bgcolor: "#f9fbe7",
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-        }}
+        sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}
       >
         <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
           <LockOutlinedIcon />

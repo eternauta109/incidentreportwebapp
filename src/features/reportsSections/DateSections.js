@@ -29,7 +29,7 @@ const DateSection = ({
 }) => {
   return (
     <>
-      <Grid container sx={{ mb: 2 }} rowSpacing={4} columnSpacing={1}>
+      <Grid container sx={{ mb: 2 }} columnSpacing={1}>
         <LocalizationProvider dateAdapter={AdapterDayjs}>
           <Grid item xs={12} sm={6}>
             <MobileDatePicker
