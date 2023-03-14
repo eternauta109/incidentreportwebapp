@@ -33,6 +33,9 @@ dayjs.locale("it");
 export default function Report() {
   const { state } = useLocation();
   const user = useSelector((state) => state.user);
+  const cinema = cinemaList.find((e) => e.name === user.cinema.name);
+  console.log(cinema.screens_det);
+  console.log(cinema);
   const initState = {
     startDate: dayjs().format("DD/MM/YYYY"),
     resolved: false,
@@ -44,8 +47,9 @@ export default function Report() {
     seats_number: user.is_facility
       ? "insert total seats"
       : user.cinema.seats_number,
-    screen_with_issues: "",
-    seats_numeber_closed_screen: "",
+    screen_with_issue: cinema.screens_det[cinema.screens_det.length - 1].screen,
+    screen_with_issue_capacity:
+      cinema.screens_det[cinema.screens_det.length - 1].seats,
     comps: 0,
     category: "altro",
     screen_state: "open",
@@ -161,7 +165,9 @@ export default function Report() {
         </Typography>
         <IssueDescription
           user={user}
+          setReport={setReport}
           report={report}
+          cinema={cinema}
           reportChange={reportChange}
           setReport={setReport}
         />

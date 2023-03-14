@@ -8,6 +8,7 @@ dayjs.locale("it");
 
 export const LineFound = ({ report }) => {
   const navigate = useNavigate();
+  console.log("view report", report);
 
   const manageClick = async (e) => {
     e.preventDefault();
@@ -27,8 +28,8 @@ export const LineFound = ({ report }) => {
           <th scope="row">{report.cinema}</th>
           <th scope="row">{report.screens_number}</th>
           <th scope="row">{report.seats_number}</th>
-          <th scope="row">{report.screen_with_issues}</th>
-          <th scope="row">{report.seats_numeber_closed_screen}</th>
+          <th scope="row">{report.screen_with_issue}</th>
+          <th scope="row">{report.screen_with_issue_capacity}</th>
           <th scope="row">{report.category}</th>
           <th scope="row">{report.screen_state}</th>
           <th scope="row">{report.show_stopped}</th>

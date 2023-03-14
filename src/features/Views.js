@@ -5,6 +5,7 @@ import {
   InputLabel,
   Select,
   MenuItem,
+  Button,
   FormControl,
   Typography,
   Stack,
@@ -17,6 +18,7 @@ import ReactHTMLTableToExcel from "react-html-table-to-excel";
 import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import { cinemaList, categoryList } from "../config/structure";
+import exportToExcel from "./ExportToExcel";
 
 import { useLoaderData, useLocation } from "react-router-dom";
 
@@ -28,7 +30,7 @@ export default function View() {
 
   const [cinemaSelected, setCinemaSelected] = useState([]);
   const [categorySelected, setCategorySelected] = useState([]);
-  const [solvedState, setSolvedState] = useState([]);
+  const [solvedState, setSolvedState] = useState("all");
 
   const [sortDirection, setSortDirection] = useState(true);
   const { state } = useLocation();
@@ -295,6 +297,7 @@ export default function View() {
             </tbody>
           </Table>
           <Box sx={{ mt: 2 }}>
+            <Button>exp to excelas</Button>
             <ReactHTMLTableToExcel
               id="test-table-xls-button"
               className="download-table-xls-button btn btn-success mb-3"
