@@ -18,7 +18,7 @@ import {
   Typography,
 } from "@mui/material";
 import { useSelector } from "react-redux";
-import { cinemaList, categoryList } from "../config/structure";
+import { categoryList } from "../config/structure";
 import DateSection from "./reportsSections/DateSections";
 import DataCinema from "./reportsSections/DataCinema";
 import IssueDescription from "./reportsSections/IssueDescription";
@@ -35,23 +35,23 @@ export default function Report() {
   const { state } = useLocation();
   const theme = useTheme();
   const user = useSelector((state) => state.user);
-  const cinema = cinemaList.find((e) => e.name === user.cinema.name);
-  console.log(cinema.screens_det);
-  console.log(cinema);
+
+  console.log("user", user);
   const initState = {
     startDate: dayjs().format("DD/MM/YYYY"),
     resolved: false,
     endDate: null,
-    cinema: user.is_facility ? "insert cinema" : user.cinema.name,
+    cinema: user.is_facility ? "insert cinema" : user.cinema,
     screens_number: user.is_facility
       ? "insert screen number"
-      : user.cinema.screens_number,
+      : user.cinemaDet.screens,
     seats_number: user.is_facility
       ? "insert total seats"
-      : user.cinema.seats_number,
-    screen_with_issue: cinema.screens_det[cinema.screens_det.length - 1].screen,
+      : user.cinemaDet.seats,
+    screen_with_issue:
+      user.cinemaDet.screens_det[user.cinemaDet.screens_det.length - 1].screen,
     screen_with_issue_capacity:
-      cinema.screens_det[cinema.screens_det.length - 1].seats,
+      user.cinemaDet.screens_det[user.cinemaDet.screens_det.length - 1].seats,
     comps: 0,
     category: "altro",
     screen_state: "open",
@@ -113,12 +113,24 @@ export default function Report() {
     console.log("report in use memo", report);
   }, [report]);
 
+  const getNumber = async () => {
+    try {
+      res = await ReportsServices.getRefNum(user.cinema);
+      console.log("COUNT", res);
+    } catch {
+      (er) => console.log(er);
+    }
+  };
+
   useEffect(() => {
     if (state) {
       console.log("state", state);
       setReport({
         ...state,
       });
+    } else {
+      console.log("else");
+      getNumber();
     }
 
     return () => setReport(initState);
@@ -127,7 +139,7 @@ export default function Report() {
   return (
     <Container sx={theme.formStyle}>
       <Typography variant="h3" color="primary" sx={{ mb: "50px" }}>
-        report form
+        incident report
       </Typography>
 
       <Box component="form" onSubmit={onSubmitReport}>
@@ -157,7 +169,6 @@ export default function Report() {
           user={user}
           setReport={setReport}
           report={report}
-          cinema={cinema}
           reportChange={reportChange}
           setReport={setReport}
         />

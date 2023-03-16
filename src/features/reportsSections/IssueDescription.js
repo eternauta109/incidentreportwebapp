@@ -20,10 +20,10 @@ const IssueDescription = ({
   report,
   reportChange,
   user,
-  cinema,
+
   setReport,
 }) => {
-  let screens = cinema.screens_det;
+  let screens = user.cinemaDet.screens_det;
   console.log("screens", screens);
 
   const onChangeScreensSelect = (e) => {

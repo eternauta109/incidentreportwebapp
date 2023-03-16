@@ -32,7 +32,7 @@ const theme = createTheme({
     width: "100%",
     bgcolor: "rgba(249,251,231,0.8)",
     margin: "0 auto",
-
+    mt: "80px",
     borderRadius: "5px",
 
     display: "flex",
@@ -70,29 +70,39 @@ export default function App() {
 
   const navigate = useNavigate();
 
-  useEffect(() => {
-    console.log("ciao");
-    console.log("auth in app", auth.currentUser);
-
-    if (!auth.currentUser) {
-      navigate("/");
-    }
-  }, [auth.currentUser, user]);
-
   return (
     <ThemeProvider theme={theme}>
       <Container style={theme.conatainerStyle} maxWidth={false} sx={{ p: 2 }}>
         <CssBaseline />
-        {auth.currentUser && <Navbar />}
+        {user && <Navbar />}
 
         <Routes>
-          <Route path="/" element={<Login />} />
-          <Route path="landing" element={<Landing />} />
+          <Route
+            path="landing"
+            element={
+              <ProtectedRoute>
+                <Landing />{" "}
+              </ProtectedRoute>
+            }
+          />
           <Route
             path="reports"
-            element={auth.currentUser ? <Reports /> : <Login />}
+            element={
+              <ProtectedRoute>
+                <Reports />
+              </ProtectedRoute>
+            }
           />
-          <Route path="views" element={<Views />} />
+          <Route
+            path="views"
+            element={
+              <ProtectedRoute>
+                <Views />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route path="/" element={<Login />} />
         </Routes>
       </Container>
     </ThemeProvider>

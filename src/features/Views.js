@@ -47,7 +47,8 @@ export default function View() {
       }
     } else {
       try {
-        querySnapshot = await ReportsServices.getCinemaReport(user.cinema.name);
+        querySnapshot = await ReportsServices.getCinemaReport(user.cinema);
+        console.log(querySnapshot.docs.length);
       } catch (err) {
         console.log("get all reports for cinema errors", err);
       }

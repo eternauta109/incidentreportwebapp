@@ -21,7 +21,7 @@ const DataCinema = ({ report, reportChange, user }) => {
       <Grid item xs={12} sm={8}>
         <TextField
           value={report.cinema}
-          InputLabelProps={{ shrink: user.cinema.name ? true : false }}
+          InputLabelProps={{ shrink: true }}
           helperText="Please enter cinema name"
           name="cinema"
           onChange={(e) => reportChange(e)}
@@ -34,7 +34,7 @@ const DataCinema = ({ report, reportChange, user }) => {
         <TextField
           //SCREENS NUMBER
           InputLabelProps={{
-            shrink: user.cinema.screens_number ? true : false,
+            shrink: true,
           }}
           value={report.screens_number}
           helperText="n° screens"
@@ -48,7 +48,7 @@ const DataCinema = ({ report, reportChange, user }) => {
         <TextField
           //SEATS NUMBER
           InputLabelProps={{
-            shrink: user.cinema.seats_number ? true : false,
+            shrink: true,
           }}
           value={report.seats_number}
           helperText="tot seats"

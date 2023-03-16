@@ -61,17 +61,20 @@ export default function Login() {
   };
 
   useEffect(() => {
-    if (user.name) {
-      
+    if (user) {
       navigate("landing");
     }
   }, [dispatch, user]);
 
   return (
-    
     <Container component="main" maxWidth="xs" sx={theme.formStyle}>
       <Box
-        sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}
+        sx={{
+          mb: "100px",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+        }}
       >
         <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
           <LockOutlinedIcon />

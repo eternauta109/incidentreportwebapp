@@ -9,6 +9,7 @@ import {
   where,
   getDoc,
   onSnapshot,
+
   addDoc,
   doc,
   ref,
@@ -46,8 +47,17 @@ class ReportsServices {
 
   getCinemaReport = (cinema) => {
     const q = query(reportsCollectionRef, where("cinema", "==", cinema));
+
     return getDocs(q);
   };
+
+ /*  getRefNum = (cinema) => {
+    const q = query(reportsCollectionRef, where("cinema", "==", cinema));
+    const snapshot = getCountFromServer(q);
+    console.log("count: ", snapshot.data().count);
+    return snapshot.data().count;
+    // Do something with the count
+  }; */
 
   logOut = () => {
     signOut(auth)
