@@ -12,13 +12,10 @@ import {
   query,
   collection,
 } from "firebase/firestore";
-
+import { cinemaList } from "../../config/structure";
 import { auth, db } from "../../config/firebase.js";
 
 import { signInWithEmailAndPassword } from "firebase/auth";
-
-
-
 
 export const getUser = createAsyncThunk(
   "user/getUser",
@@ -42,22 +39,22 @@ export const getUser = createAsyncThunk(
         return r.data();
       })
       .catch((e) => alert("error in getDoc-getUser in userSlice:", e));
-
-    return res;
+    console.log(res);
+    const cinemaDet = cinemaList.find((e) => e.name === res.cinema);
+    console.log(cinemaDet);
+    return { ...res, cinemaDet };
   }
 );
 
-
-
 export const userSlice = createSlice({
   name: "user",
-  initialState: [],
+  initialState: null,
   reducers: {
     userLogOut(state) {
-      state = []
-      return state
+      state = null;
+      return state;
       // Note that this should be left intentionally empty.
-			// Clearing redux state and localForage happens in rootReducer.ts.
+      // Clearing redux state and localForage happens in rootReducer.ts.
     },
   },
   extraReducers: (builder) => {
