@@ -1,8 +1,14 @@
 import { useState, useEffect, useMemo } from "react";
 /* import ConfirmNewReport from "./ComfirmNewReport"; */
+import { db, auth } from "../config/firebase";
 import { useNavigate, useLocation, Link } from "react-router-dom";
 import { useTheme } from "@mui/material/styles";
 import ReportsServices from "../services/reportsServices";
+import {
+  addReport,
+  updateReport,
+  getRefNum,
+} from "../services/reportsServices";
 import {
   Select,
   TextField,
@@ -36,7 +42,6 @@ export default function Report() {
   const theme = useTheme();
   const user = useSelector((state) => state.user);
 
-  console.log("user", user);
   const initState = {
     startDate: dayjs().format("DD/MM/YYYY"),
     resolved: false,
@@ -57,12 +62,14 @@ export default function Report() {
     screen_state: "open",
     refounds: 0,
     show_stopped: 0,
+    ref_num: "",
     issue: "",
     note: "",
   };
   const [report, setReport] = useState(initState);
   const [stDate, setStDate] = useState();
   const [endDate, setEndDate] = useState();
+  const [update, setUpdate] = useState(false);
 
   const navigate = useNavigate();
 
@@ -89,23 +96,13 @@ export default function Report() {
   };
 
   //registra o aggiorna il report
-  const onSubmitReport = async (e) => {
+  const onSubmitReport = (e) => {
     e.preventDefault();
 
     if (state) {
-      try {
-        await ReportsServices.updateReport(report.docId, report).then(
-          navigate("../landing")
-        );
-      } catch (err) {
-        console.log(err);
-      }
+      updateReport(state.idDoc, report).then(navigate("../landing"));
     } else {
-      try {
-        await ReportsServices.addReport(report).then(navigate("../landing"));
-      } catch (err) {
-        console.log(err);
-      }
+      addReport(report).then(navigate("../landing"));
     }
   };
 
@@ -113,28 +110,26 @@ export default function Report() {
     console.log("report in use memo", report);
   }, [report]);
 
-  const getNumber = async () => {
-    try {
-      res = await ReportsServices.getRefNum(user.cinema);
-      console.log("COUNT", res);
-    } catch {
-      (er) => console.log(er);
-    }
-  };
-
   useEffect(() => {
     if (state) {
+      setUpdate(true);
+      console.log(update);
       console.log("state", state);
       setReport({
         ...state,
       });
     } else {
-      console.log("else");
-      getNumber();
+      getRefNum(report.cinema).then((r) => {
+        setReport({
+          ...report,
+          ref_num: `${r + 1}/${dayjs(report.startDate, "DD/MM/YYYY").format(
+            "YYYY"
+          )}`,
+        });
+      });
     }
-
     return () => setReport(initState);
-  }, []);
+  }, [state]);
 
   return (
     <Container sx={theme.formStyle}>
@@ -148,7 +143,9 @@ export default function Report() {
           date and cinema data
         </Typography>
         <DateSection
+          update={update}
           report={report}
+          user={user}
           handleChangeStDate={handleChangeStDate}
           handleChangeEndDate={handleChangeEndDate}
           setReport={setReport}
@@ -170,7 +167,6 @@ export default function Report() {
           setReport={setReport}
           report={report}
           reportChange={reportChange}
-          setReport={setReport}
         />
         {/* EDN SECOND SECTION*/}
 

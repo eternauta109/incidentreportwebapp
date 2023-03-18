@@ -8,8 +8,8 @@ import {
   query,
   where,
   getDoc,
+  getCountFromServer,
   onSnapshot,
-
   addDoc,
   doc,
   ref,
@@ -22,15 +22,6 @@ import {
 const reportsCollectionRef = collection(db, "reports");
 
 class ReportsServices {
-  addReport = (newReport) => {
-    return addDoc(reportsCollectionRef, newReport);
-  };
-
-  updateReport = (id, updateReport) => {
-    const reportDoc = doc(db, "reports", id);
-    return updateDoc(reportDoc, updateReport);
-  };
-
   deleteReport = (id) => {
     const reportDoc = doc(db, "reports", id);
     return deleteDoc(reportDoc);
@@ -51,14 +42,6 @@ class ReportsServices {
     return getDocs(q);
   };
 
- /*  getRefNum = (cinema) => {
-    const q = query(reportsCollectionRef, where("cinema", "==", cinema));
-    const snapshot = getCountFromServer(q);
-    console.log("count: ", snapshot.data().count);
-    return snapshot.data().count;
-    // Do something with the count
-  }; */
-
   logOut = () => {
     signOut(auth)
       .then(() => {
@@ -69,5 +52,32 @@ class ReportsServices {
       });
   };
 }
+
+export const addReport = async (newReport) => {
+  try {
+    await addDoc(reportsCollectionRef, newReport).then((docRef) => {
+      return updateDoc(docRef, { idDoc: docRef.id });
+    });
+  } catch {
+    (err) => console.log("error in report add:", err);
+  }
+};
+
+export const updateReport = async (id, updateReport) => {
+  console.log("update", id, updateReport);
+  try {
+    return await updateDoc(id, updateReport);
+  } catch {
+    (err) => console.log("error in report add:", err);
+  }
+};
+
+export const getRefNum = async (cinema) => {
+  const q = query(reportsCollectionRef, where("cinema", "==", cinema));
+  const snapshot = await getCountFromServer(q);
+  const res = await snapshot.data().count;
+  console.log("count: ", res);
+  return res;
+};
 
 export default new ReportsServices();

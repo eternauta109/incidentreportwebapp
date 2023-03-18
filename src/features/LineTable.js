@@ -8,8 +8,7 @@ dayjs.locale("it");
 
 export const LineFound = ({ report }) => {
   const navigate = useNavigate();
-  console.log("view report", report);
-
+  console.log(report);
   const manageClick = async (e) => {
     e.preventDefault();
     navigate("../reports", { state: { ...report } });
@@ -23,6 +22,7 @@ export const LineFound = ({ report }) => {
     <>
       {report && (
         <tr onClick={(e) => manageClick(e)}>
+          <th scope="row">{report.ref_num}</th>
           <th scope="row">{report.startDate}</th>
           <th scope="row">{report.endDate ? report.endDate : "run"}</th>
           <th scope="row">{report.cinema}</th>
@@ -41,7 +41,7 @@ export const LineFound = ({ report }) => {
           <th scope="row">
             {report.resolved
               ? dayjs(report.endDate, "DD/MM/YYYY").diff(
-                  dayjs(report.startDate).format("DD/MM/YYYY"),
+                  dayjs(report.startDate, "DD/MM/YYYY"),
                   "day"
                 )
               : dayjs().diff(dayjs(report.startDate, "DD/MM/YYYY"), "day")}
