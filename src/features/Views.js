@@ -48,18 +48,14 @@ export default function View() {
     } else {
       try {
         querySnapshot = await ReportsServices.getCinemaReport(user.cinema);
-        console.log(querySnapshot.docs.length);
       } catch (err) {
         console.log("get all reports for cinema errors", err);
       }
     }
 
-    setListToView(
-      querySnapshot.docs.map((doc) => ({ ...doc.data(), docId: doc.id }))
-    );
-    setListReport(
-      querySnapshot.docs.map((doc) => ({ ...doc.data(), docId: doc.id }))
-    );
+    setListToView(querySnapshot.docs.map((doc) => doc.data()));
+
+    setListReport(querySnapshot.docs.map((doc) => doc.data()));
   };
 
   //FILTER
@@ -167,8 +163,6 @@ export default function View() {
   };
 
   const findCinemaInReport = useMemo(() => {
-    console.log(cinemaSelected.length);
-
     if (cinemaSelected.length < 1) {
       setListToView(listReport);
     } else {
@@ -234,6 +228,9 @@ export default function View() {
           <Table id="table-to-xls" striped bordered hover responsive>
             <thead>
               <tr>
+                <th scope="col">
+                  <Typography>report number </Typography>
+                </th>
                 <th scope="col">
                   <DataSorter val="startDate" />
                 </th>

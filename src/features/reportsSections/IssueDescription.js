@@ -24,7 +24,6 @@ const IssueDescription = ({
   setReport,
 }) => {
   let screens = user.cinemaDet.screens_det;
-  console.log("screens", screens);
 
   const onChangeScreensSelect = (e) => {
     let seatsObj = screens.find((el) => el.screen === e.target.value);
@@ -36,7 +35,7 @@ const IssueDescription = ({
     });
   };
   return (
-    <Grid container sx={{ mb: 2 }} rowSpacing={4} columnSpacing={1}>
+    <Grid container sx={{ mb: 2 }} rowSpacing={2} columnSpacing={10}>
       <Grid item xs={12} sm={6}>
         <FormControl fullWidth>
           <InputLabel id="demo-simple-select-label">

@@ -38,10 +38,10 @@ export const getUser = createAsyncThunk(
       .then((r) => {
         return r.data();
       })
-      .catch((e) => alert("error in getDoc-getUser in userSlice:", e));
-    console.log(res);
+      .catch((e) => alert("error in getDoc-getUser in userSlice:", e.message));
+
     const cinemaDet = cinemaList.find((e) => e.name === res.cinema);
-    console.log(cinemaDet);
+
     return { ...res, cinemaDet };
   }
 );
