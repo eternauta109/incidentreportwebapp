@@ -47,7 +47,7 @@ class ReportsServices {
       .then(() => {
         console.log("usciti", auth.currentUser);
       })
-      .catch((error) => {
+      .catch((e) => {
         console.log("error logout", e);
       });
   };
@@ -65,8 +65,9 @@ export const addReport = async (newReport) => {
 
 export const updateReport = async (id, updateReport) => {
   console.log("update", id, updateReport);
+  const userRef = doc(db, "reports", id);
   try {
-    return await updateDoc(id, updateReport);
+    return await updateDoc(userRef, { ...updateReport });
   } catch {
     (err) => console.log("error in report add:", err);
   }
@@ -75,7 +76,7 @@ export const updateReport = async (id, updateReport) => {
 export const getRefNum = async (cinema) => {
   const q = query(reportsCollectionRef, where("cinema", "==", cinema));
   const snapshot = await getCountFromServer(q);
-  const res = await snapshot.data().count;
+  const res = snapshot.data().count;
   console.log("count: ", res);
   return res;
 };
