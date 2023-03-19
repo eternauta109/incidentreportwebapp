@@ -18,7 +18,7 @@ import ReactHTMLTableToExcel from "react-html-table-to-excel";
 import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import { cinemaList, categoryList } from "../config/structure";
-import exportToExcel from "./ExportToExcel";
+import ExportToExcel from "./ExportToExcel";
 
 import { useLoaderData, useLocation } from "react-router-dom";
 
@@ -295,15 +295,7 @@ export default function View() {
             </tbody>
           </Table>
           <Box sx={{ mt: 2 }}>
-            <Button>exp to excelas</Button>
-            <ReactHTMLTableToExcel
-              id="test-table-xls-button"
-              className="download-table-xls-button btn btn-success mb-3"
-              table="table-to-xls"
-              filename="tablexls"
-              sheet="tablexls"
-              buttonText="Export Data to Excel Sheet"
-            />
+            <ExportToExcel data={listToView} />
           </Box>
         </Container>
       )}
