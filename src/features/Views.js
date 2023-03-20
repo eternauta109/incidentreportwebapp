@@ -14,11 +14,14 @@ import {
 import LineTable from "./LineTable";
 import ReportsServices from "../services/reportsServices";
 import Table from "react-bootstrap/Table";
-import ReactHTMLTableToExcel from "react-html-table-to-excel";
+
 import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import { cinemaList, categoryList } from "../config/structure";
 import ExportToExcel from "./ExportToExcel";
+import dayjs from "dayjs";
+import "dayjs/locale/it";
+dayjs.locale("it");
 
 import { useLoaderData, useLocation } from "react-router-dom";
 
@@ -53,9 +56,34 @@ export default function View() {
       }
     }
 
-    setListToView(querySnapshot.docs.map((doc) => doc.data()));
+    setListToView(
+      querySnapshot.docs.map((doc) => ({
+        ...doc.data(),
+        workDays: workDaysCalculate(doc.data()),
+      }))
+    );
 
-    setListReport(querySnapshot.docs.map((doc) => doc.data()));
+    setListReport(
+      querySnapshot.docs.map((doc) => ({
+        ...doc.data(),
+        workDays: workDaysCalculate(doc.data()),
+      }))
+    );
+  };
+
+  const workDaysCalculate = (report) => {
+    let days;
+    console.log("doc", report);
+    if (report.resolved) {
+      days = dayjs(report.endDate, "DD/MM/YYYY").diff(
+        dayjs(report.startDate, "DD/MM/YYYY"),
+        "day"
+      );
+    } else {
+      days = dayjs().diff(dayjs(report.startDate, "DD/MM/YYYY"), "day");
+    }
+    console.log(days);
+    return days;
   };
 
   //FILTER
@@ -227,7 +255,7 @@ export default function View() {
         <Container sx={{ fontSize: "0.8rem" }}>
           <Table id="table-to-xls" striped bordered hover responsive>
             <thead>
-              <tr>
+              <tr sx={{ bgcolor: "grey" }}>
                 <th scope="col">
                   <Typography>report number </Typography>
                 </th>

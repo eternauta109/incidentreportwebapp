@@ -1,21 +1,17 @@
 import React from "react";
 import dayjs from "dayjs";
-import { useNavigate } from "react-router-dom";
 import "dayjs/locale/it";
 import { Typography } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 dayjs.locale("it");
 
 export const LineFound = ({ report }) => {
   const navigate = useNavigate();
-  console.log(report);
+  console.log("linet report", report);
   const manageClick = async (e) => {
     e.preventDefault();
     navigate("../reports", { state: { ...report } });
-    const dd = dayjs().diff(
-      dayjs(report.startDate).format("DD/MM/YYYY"),
-      "day"
-    );
   };
 
   return (
@@ -38,14 +34,7 @@ export const LineFound = ({ report }) => {
           <th scope="row">{report.issue}</th>
           <th scope="row">{report.note}</th>
           <th scope="row">{report.resolved ? "solved" : "in progress"}</th>
-          <th scope="row">
-            {report.resolved
-              ? dayjs(report.endDate, "DD/MM/YYYY").diff(
-                  dayjs(report.startDate, "DD/MM/YYYY"),
-                  "day"
-                )
-              : dayjs().diff(dayjs(report.startDate, "DD/MM/YYYY"), "day")}
-          </th>
+          <th scope="row">{report.workDays}</th>
         </tr>
       )}
     </>
