@@ -61,7 +61,8 @@ const IssueDescription = ({
           helperText="seats number of closed screen"
           name="screen_with_issue_capacity"
           label="Seats"
-          InputLabelProps={{ shrink: user.screen_number ? true : false }}
+          disabled={user.is_facility ? false : true}
+          InputLabelProps={{ shrink: true }}
           value={report.screen_with_issue_capacity}
           fullWidth
         />
