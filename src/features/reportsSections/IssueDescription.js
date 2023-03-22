@@ -23,10 +23,10 @@ const IssueDescription = ({
 
   setReport,
 }) => {
-  let screens = user.cinemaDet.screens_det;
-
   const onChangeScreensSelect = (e) => {
-    let seatsObj = screens.find((el) => el.screen === e.target.value);
+    let seatsObj = user.cinemaDet.screens_det.find(
+      (el) => el.screen === e.target.value
+    );
     console.log("obj", seatsObj);
     setReport({
       ...report,
@@ -47,7 +47,7 @@ const IssueDescription = ({
             label="Screen with issue"
             onChange={(e) => onChangeScreensSelect(e)}
           >
-            {screens.map((el, key) => (
+            {user.cinemaDet.screens_det.map((el, key) => (
               <MenuItem key={key} value={el.screen}>
                 {el.screen}
               </MenuItem>
@@ -57,7 +57,6 @@ const IssueDescription = ({
       </Grid>
       <Grid item xs={12} sm={6}>
         <TextField
-          disabled
           helperText="seats number of closed screen"
           name="screen_with_issue_capacity"
           label="Seats"
