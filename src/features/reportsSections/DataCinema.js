@@ -16,19 +16,30 @@ import {
 } from "@mui/material";
 
 const DataCinema = ({ report, reportChange, user }) => {
+  const onCinemaChange = (e) => {
+    reportChange(e);
+    console.log(e.target);
+  };
+
   return (
     <Grid container sx={{ mb: 2 }} rowSpacing={4} columnSpacing={1}>
       <Grid item xs={12} sm={8}>
-        <TextField
-          value={report.cinema}
-          InputLabelProps={{ shrink: true }}
-          helperText="Please enter cinema name"
-          name="cinema"
-          onChange={(e) => reportChange(e)}
-          disabled={user.is_facility ? false : true}
-          label="Cinema"
-          fullWidth
-        />
+        <FormControl fullWidth>
+          <InputLabel>cinema</InputLabel>
+          <Select
+            name="cinema"
+            disabled={user.is_facility ? false : true}
+            value={user.cinemaDet.name}
+            label="Screen with issue"
+            onChange={(e) => onCinemaChange(e)}
+          >
+            {user.cinema.map((el, key) => (
+              <MenuItem key={key} value={el}>
+                {el}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
       </Grid>
       <Grid item xs={6} sm={2}>
         <TextField
@@ -40,7 +51,7 @@ const DataCinema = ({ report, reportChange, user }) => {
           helperText="n° screens"
           name="screens_number"
           onChange={(e) => reportChange(e)}
-          disabled={user.is_facility ? false : true}
+          disabled
           label="Screens number"
         />
       </Grid>
@@ -54,7 +65,7 @@ const DataCinema = ({ report, reportChange, user }) => {
           helperText="tot seats"
           name="seats_number"
           onChange={(e) => reportChange(e)}
-          disabled={user.is_facility ? false : true}
+          disabled
           label="seats number"
         />
       </Grid>

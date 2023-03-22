@@ -39,10 +39,22 @@ export const getUser = createAsyncThunk(
         return r.data();
       })
       .catch((e) => alert("error in getDoc-getUser in userSlice:", e.message));
-
-    const cinemaDet = cinemaList.find((e) => e.name === res.cinema);
+    /* console.log("res cinema", res.cinema[0]); */
+    const cinemaDet = cinemaList.find((e) => e.name === res.cinema[0]);
 
     return { ...res, cinemaDet };
+  }
+);
+
+export const setNewCinema = createAsyncThunk(
+  "user/setNewCinema",
+  async ({ cinemaFind }, { dispatch, getState }) => {
+    /* console.log("state new cinema det", cinemaFind); */
+    const state = getState(); // <-- qui ottieni lo state
+    /*  console.log("state new cinema state", state); */
+    const res = await { ...state.user, cinemaDet: cinemaFind };
+    /* console.log("state new cinema res", res); */
+    return res;
   }
 );
 
@@ -56,6 +68,12 @@ export const userSlice = createSlice({
       // Note that this should be left intentionally empty.
       // Clearing redux state and localForage happens in rootReducer.ts.
     },
+    /* setNewCinema(state, newCinemaDet) {
+      console.log("state new cinema det", newCinemaDet);
+      return { ...state, cinemaDet: newCinemaDet.payload };
+      // Note that this should be left intentionally empty.
+      // Clearing redux state and localForage happens in rootReducer.ts.
+    }, */
   },
   extraReducers: (builder) => {
     builder
@@ -64,8 +82,15 @@ export const userSlice = createSlice({
       })
       .addCase(getUser.fulfilled, (state, action) => {
         state = action.payload;
-
         return state;
+      })
+      .addCase(setNewCinema.pending, (state, action) => {
+        /* console.log("loading"); */
+      })
+      .addCase(setNewCinema.fulfilled, (state, action) => {
+        state = action.payload;
+        return state;
+        /*  console.log("loading"); */
       });
   },
 });

@@ -23,13 +23,14 @@ import {
   FormControlLabel,
   Typography,
 } from "@mui/material";
-import { useSelector } from "react-redux";
-import { categoryList } from "../config/structure";
+import { categoryList, cinemaList } from "../config/structure";
 import DateSection from "./reportsSections/DateSections";
 import DataCinema from "./reportsSections/DataCinema";
 import IssueDescription from "./reportsSections/IssueDescription";
 import RefoundsDeal from "./reportsSections/RefoundsDeal";
 import CloseSection from "./reportsSections/CloseSection";
+import { setNewCinema } from "../store/slice/userSlice";
+import { useDispatch, useSelector } from "react-redux";
 
 import dayjs from "dayjs";
 
@@ -41,18 +42,15 @@ export default function Report() {
   const { state } = useLocation();
   const theme = useTheme();
   const user = useSelector((state) => state.user);
+  const dispatch = useDispatch();
 
   const initState = {
     startDate: dayjs().format("DD/MM/YYYY"),
     resolved: false,
     endDate: null,
-    cinema: user.is_facility ? "insert cinema" : user.cinema,
-    screens_number: user.is_facility
-      ? "insert screen number"
-      : user.cinemaDet.screens,
-    seats_number: user.is_facility
-      ? "insert total seats"
-      : user.cinemaDet.seats,
+    cinema: user.cinema[0],
+    screens_number: user.cinemaDet.screens,
+    seats_number: user.cinemaDet.seats,
     screen_with_issue:
       user.cinemaDet.screens_det[user.cinemaDet.screens_det.length - 1].screen,
     screen_with_issue_capacity:
@@ -106,9 +104,51 @@ export default function Report() {
     }
   };
 
+  /*  useMemo(() => {
+    let cinemaFind = cinemaList.find((el) => el.name === report.cinema);
+    dispatch(setNewCinema({ cinemaFind }));
+    console.log("user in memo", user);
+    setReport({
+      ...report,
+      screen_with_issue:
+        user.cinemaDet.screens_det[user.cinemaDet.screens_det.length - 1]
+          .screen,
+      screen_with_issue_capacity:
+        user.cinemaDet.screens_det[user.cinemaDet.screens_det.length - 1].seats,
+      screens_number: user.cinemaDet.screens,
+      seats_number: user.cinemaDet.seats,
+    });
+  }, [report.cinema]); */
+
+  useEffect(() => {
+    let cinemaFind = cinemaList.find((el) => el.name === report.cinema);
+    dispatch(setNewCinema({ cinemaFind }));
+  }, [report.cinema]);
+
   useMemo(() => {
     console.log("report in use memo", report);
   }, [report]);
+
+  useEffect(() => {
+    getRefNum(report.cinema).then((r) => {
+      setReport((prevReport) => ({
+        ...prevReport,
+        screen_with_issue: state
+          ? state.screen_with_issue
+          : user.cinemaDet.screens_det[user.cinemaDet.screens_det.length - 1]
+              .screen,
+        screen_with_issue_capacity: state
+          ? state.screen_with_issue_capacity
+          : user.cinemaDet.screens_det[user.cinemaDet.screens_det.length - 1]
+              .seats,
+        screens_number: state ? state.screens_number : user.cinemaDet.screens,
+        seats_number: state ? state.seats_number : user.cinemaDet.seats,
+        ref_num: state
+          ? state.ref_num
+          : `${r + 1}/${dayjs(report.startDate, "DD/MM/YYYY").format("YYYY")}`,
+      }));
+    });
+  }, [user]);
 
   useEffect(() => {
     if (state) {
