@@ -46,6 +46,7 @@ export default function Report() {
 
   const initState = {
     startDate: dayjs().format("DD/MM/YYYY"),
+    datePrediction: dayjs().format("DD/MM/YYYY"),
     resolved: false,
     endDate: null,
     cinema: user.cinema[0],
@@ -66,6 +67,7 @@ export default function Report() {
   };
   const [report, setReport] = useState(initState);
   const [stDate, setStDate] = useState();
+  const [datePred, setDatePred] = useState();
   const [endDate, setEndDate] = useState();
   const [update, setUpdate] = useState(false);
 
@@ -73,6 +75,13 @@ export default function Report() {
 
   const handleChangeStDate = (newDate) => {
     setReport({ ...report, startDate: dayjs(newDate).format("DD/MM/YYYY") });
+    setStDate(newDate);
+  };
+  const handleChangeDatePrediction = (newDate) => {
+    setReport({
+      ...report,
+      datePrediction: dayjs(newDate).format("DD/MM/YYYY"),
+    });
     setStDate(newDate);
   };
 
@@ -186,6 +195,7 @@ export default function Report() {
           update={update}
           report={report}
           user={user}
+          handleChangeDatePrediction={handleChangeDatePrediction}
           handleChangeStDate={handleChangeStDate}
           handleChangeEndDate={handleChangeEndDate}
           setReport={setReport}

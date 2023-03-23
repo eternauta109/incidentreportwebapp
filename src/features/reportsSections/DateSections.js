@@ -27,10 +27,11 @@ const DateSection = ({
   update,
   handleChangeStDate,
   handleChangeEndDate,
+  handleChangeDatePrediction,
   setReport,
 }) => {
   return (
-    <Grid container sx={{ mb: 2 }} columnSpacing={10} rowSpacing={2}>
+    <Grid container sx={{ mb: 2 }} columnSpacing={5} rowSpacing={2}>
       <LocalizationProvider dateAdapter={AdapterDayjs}>
         <Grid item xs={12} sm={4}>
           <MobileDatePicker
@@ -41,9 +42,31 @@ const DateSection = ({
             renderInput={(params) => <TextField {...params} />}
           />
         </Grid>
+        <Grid item xs={12} sm={4}>
+          <MobileDatePicker
+            label="res. prediction"
+            format="DD/MM/YYYY"
+            value={
+              report
+                ? dayjs(report.datePrediction, "DD/MM/YYYY")
+                : datePrediction
+            }
+            onChange={handleChangeDatePrediction}
+            renderInput={(params) => <TextField {...params} />}
+          />
+        </Grid>
+        <Grid item xs={12} sm={4}>
+          <TextField
+            value={report.ref_num}
+            name="ref_num"
+            disabled={user.is_facility ? false : true}
+            label="ref.number"
+            fullWidth
+          />
+        </Grid>
 
         {/* //RESOLVED */}
-        <Grid item xs={12} sm={4}>
+        <Grid item xs={12} sm={12}>
           <FormControlLabel
             label={report.resolved ? "Resolved" : "not resolved"}
             control={
@@ -67,15 +90,6 @@ const DateSection = ({
                 }}
               />
             }
-          />
-        </Grid>
-        <Grid item xs={12} sm={4}>
-          <TextField
-            value={report.ref_num}
-            name="ref_num"
-            disabled={user.is_facility ? false : true}
-            label="ref.number"
-            fullWidth
           />
         </Grid>
 

@@ -41,7 +41,7 @@ export default function View() {
 
   const loadReport = async () => {
     let querySnapshot;
-    console.log("qui");
+    console.log("user in viewser", user);
     if (user.is_facility) {
       try {
         querySnapshot = await ReportsServices.getAllReport().then();
@@ -50,7 +50,7 @@ export default function View() {
       }
     } else {
       try {
-        querySnapshot = await ReportsServices.getCinemaReport(user.cinema);
+        querySnapshot = await ReportsServices.getCinemaReport(user.cinema[0]);
       } catch (err) {
         console.log("get all reports for cinema errors", err);
       }
@@ -73,7 +73,7 @@ export default function View() {
 
   const workDaysCalculate = (report) => {
     let days;
-    console.log("doc", report);
+    /* console.log("doc", report); */
     if (report.resolved) {
       days = dayjs(report.endDate, "DD/MM/YYYY").diff(
         dayjs(report.startDate, "DD/MM/YYYY"),
@@ -82,7 +82,7 @@ export default function View() {
     } else {
       days = dayjs().diff(dayjs(report.startDate, "DD/MM/YYYY"), "day");
     }
-    console.log(days);
+    /* console.log(days); */
     return days;
   };
 
@@ -137,9 +137,9 @@ export default function View() {
           >
             ALL
           </MenuItem> */}
-          {cinemaList.map((el, key) => (
+          {user.cinema.map((el, key) => (
             <MenuItem key={key} value={el}>
-              {el.name}
+              {el}
             </MenuItem>
           ))}
         </Select>
@@ -190,23 +190,30 @@ export default function View() {
     );
   };
 
-  const findCinemaInReport = useMemo(() => {
+  useEffect(() => {
+    console.log("cinemaSelected", cinemaSelected, listReport);
     if (cinemaSelected.length < 1) {
       setListToView(listReport);
     } else {
-      cinemaSelected.forEach((el) => {
+      cinemaSelected.forEach(() => {
         const arrayCommun = listReport.filter((item) =>
-          cinemaSelected.some((item2) => item2.name === item.cinema)
+          cinemaSelected.some((item2) => item2 === item.cinema)
         );
-        console.log(cinemaSelected.length);
-        setListToView(arrayCommun);
+
+        setListToView([...arrayCommun]);
+        console.log("arrayCommun", arrayCommun);
+        console.log("listToView", listToView);
       });
     }
+  }, [cinemaSelected]);
+
+  useEffect(() => {
+    console.log("cinemaSelected", cinemaSelected, listReport);
 
     if (categorySelected.length < 1) {
       setListToView(listReport);
     } else {
-      categorySelected.forEach((el) => {
+      categorySelected.forEach(() => {
         const arrayCommun = listReport.filter((item) =>
           categorySelected.some((item2) => item2 === item.category)
         );
@@ -214,7 +221,7 @@ export default function View() {
         setListToView(arrayCommun);
       });
     }
-  }, [cinemaSelected, categorySelected]);
+  }, [categorySelected]);
 
   useMemo(() => {
     if (solvedState === "all") {
@@ -264,6 +271,9 @@ export default function View() {
                 </th>
                 <th scope="col">
                   <DataSorter val="endDate" />
+                </th>
+                <th scope="col">
+                  <DataSorter val="datePrediction" />
                 </th>
                 <th scope="col">
                   <SelectCinema />
