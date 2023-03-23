@@ -8,7 +8,7 @@ dayjs.locale("it");
 
 export const LineFound = ({ report }) => {
   const navigate = useNavigate();
-  console.log("linet report", report);
+  /* console.log("linet report", report); */
   const manageClick = async (e) => {
     e.preventDefault();
     navigate("../reports", { state: { ...report } });
@@ -21,6 +21,7 @@ export const LineFound = ({ report }) => {
           <th scope="row">{report.ref_num}</th>
           <th scope="row">{report.startDate}</th>
           <th scope="row">{report.endDate ? report.endDate : "run"}</th>
+          <th scope="row">{report.datePrediction}</th>
           <th scope="row">{report.cinema}</th>
           <th scope="row">{report.screens_number}</th>
           <th scope="row">{report.seats_number}</th>
