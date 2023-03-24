@@ -31,6 +31,7 @@ import RefoundsDeal from "./reportsSections/RefoundsDeal";
 import CloseSection from "./reportsSections/CloseSection";
 import { setNewCinema } from "../store/slice/userSlice";
 import { useDispatch, useSelector } from "react-redux";
+import { sendEmail } from "./SendMail";
 
 import dayjs from "dayjs";
 
@@ -104,6 +105,8 @@ export default function Report() {
 
   //registra o aggiorna il report
   const onSubmitReport = (e) => {
+    e.preventDefault();
+    sendEmail(update, report, user);
     e.preventDefault();
 
     if (state) {
