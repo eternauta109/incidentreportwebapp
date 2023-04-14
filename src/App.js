@@ -16,16 +16,15 @@ import Navbar from "./features/Navbar";
 import ProtectedRoute from "./services/ProtectedRoute";
 
 const theme = createTheme({
-  conatainerStyle: {
+  containerStyle: {
+    overflow: "auto",
     borderRadius: 5,
     width: "100%",
-
+    height: "100vh",
     backgroundSize: "cover",
     backgroundRepeat: "no-repeat",
     backgroundPosition: "center",
     backgroundImage: `url(${image})`,
-    minHeight: "1000px",
-    height: "auto",
   },
 
   formStyle: {
@@ -72,7 +71,7 @@ export default function App() {
 
   return (
     <ThemeProvider theme={theme}>
-      <Container style={theme.conatainerStyle} maxWidth={false} sx={{ p: 2 }}>
+      <Container style={theme.containerStyle} maxWidth={false} sx={{ p: 2 }}>
         <CssBaseline />
         {user && <Navbar />}
 

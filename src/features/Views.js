@@ -249,95 +249,100 @@ export default function View() {
   }, []);
 
   return (
-    <Container
-      sx={{
-        bgcolor: "#f9fbe7",
-        width: "100%",
-        borderRadius: "5px",
-        opacity: 0.9,
-        p: 1,
-      }}
-    >
-      {listToView && (
-        <Container sx={{ fontSize: "0.8rem" }}>
-          <Table id="table-to-xls" striped bordered hover responsive>
-            <thead>
-              <tr sx={{ bgcolor: "grey" }}>
-                <th scope="col">
-                  <Typography>report number </Typography>
-                </th>
-                <th scope="col">
-                  <DataSorter val="startDate" />
-                </th>
-                <th scope="col">
-                  <DataSorter val="endDate" />
-                </th>
-                <th scope="col">
-                  <DataSorter val="datePrediction" />
-                </th>
-                <th scope="col">
-                  <SelectCinema />
-                </th>
-                <th scope="col">
-                  <Typography>screens num </Typography>
-                </th>
-                <th scope="col">
-                  <Typography>total seats</Typography>
-                </th>
-                <th scope="col">
-                  <Typography>screen with issue</Typography>
-                </th>
-                <th scope="col">
-                  <Typography>seats screen number</Typography>{" "}
-                </th>
-                <th scope="col">
-                  <SelectCategory />
-                </th>
-                <th scope="col">
-                  <Typography>screen state</Typography>
-                </th>
-                <th scope="col">
-                  <Typography>show close</Typography>
-                </th>
-                <th scope="col">
-                  <Typography>refounds</Typography>
-                </th>
-                <th scope="col">
-                  <Typography>comps</Typography>
-                </th>
-                <th scope="col">
-                  <Typography>issues</Typography>
-                </th>
-                <th scope="col">
-                  <Typography>note</Typography>
-                </th>
-                <th scope="col">
-                  <SelectSolved />
-                </th>
-                <th scope="col">
-                  <Typography>work day</Typography>
-                </th>
-                {/*   <th scope="col">resolution day</th> */}
-              </tr>
-            </thead>
-            <tbody>
-              {listToView.length > 0 ? (
-                listToView.map((val, key) => (
-                  <LineTable key={key} report={val} />
-                ))
-              ) : (
-                <tr>
-                  <th>loading</th>
+    <>
+      <Container
+        sx={{
+          bgcolor: "#f9fbe7",
+          width: "100%",
+          maxHeight: "90vh",
+          borderRadius: "5px",
+          overflow: "auto",
+          opacity: 0.9,
+          p: 1,
+        }}
+      >
+        {listToView && (
+          <Container sx={{ fontSize: "0.8rem" }}>
+            <Table id="table-to-xls" sx={{ maxHeight: 300 }} striped bordered>
+              <thead>
+                <tr sx={{ bgcolor: "grey" }}>
+                  <th scope="col">
+                    <Typography>report number </Typography>
+                  </th>
+                  <th scope="col">
+                    <DataSorter val="startDate" />
+                  </th>
+                  <th scope="col">
+                    <DataSorter val="endDate" />
+                  </th>
+                  <th scope="col">
+                    <DataSorter val="datePrediction" />
+                  </th>
+                  <th scope="col">
+                    <SelectCinema />
+                  </th>
+                  <th scope="col">
+                    <Typography>screens num </Typography>
+                  </th>
+                  <th scope="col">
+                    <Typography>total seats</Typography>
+                  </th>
+                  <th scope="col">
+                    <Typography>screen with issue</Typography>
+                  </th>
+                  <th scope="col">
+                    <Typography>seats screen number</Typography>{" "}
+                  </th>
+                  <th scope="col">
+                    <SelectCategory />
+                  </th>
+                  <th scope="col">
+                    <Typography>screen state</Typography>
+                  </th>
+                  <th scope="col">
+                    <Typography>show close</Typography>
+                  </th>
+                  <th scope="col">
+                    <Typography>refounds</Typography>
+                  </th>
+                  <th scope="col">
+                    <Typography>comps</Typography>
+                  </th>
+                  <th scope="col">
+                    <Typography>issues</Typography>
+                  </th>
+                  <th scope="col">
+                    <Typography>note</Typography>
+                  </th>
+                  <th scope="col">
+                    <SelectSolved />
+                  </th>
+                  <th scope="col">
+                    <Typography>work day</Typography>
+                  </th>
+                  {/*   <th scope="col">resolution day</th> */}
                 </tr>
-              )}
-            </tbody>
-          </Table>
-          <Box sx={{ mt: 2 }}>
-            <ExportToExcel data={listToView} />
-          </Box>
-        </Container>
-      )}
-    </Container>
+              </thead>
+
+              <tbody sx={{ overflow: "auto", height: "300px" }}>
+                {listToView.length > 0 ? (
+                  listToView.map((val, key) => (
+                    <LineTable key={key} report={val} />
+                  ))
+                ) : (
+                  <tr>
+                    <th>loading</th>
+                  </tr>
+                )}
+              </tbody>
+            </Table>
+          </Container>
+        )}
+      </Container>
+      <Box sx={{ mt: 2 }}>
+        <ExportToExcel data={listToView} />
+      </Box>
+    </>
   );
 }
 
