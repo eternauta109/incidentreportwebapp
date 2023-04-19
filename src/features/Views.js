@@ -254,7 +254,7 @@ export default function View() {
         sx={{
           bgcolor: "#f9fbe7",
           width: "100%",
-          maxHeight: "90vh",
+          maxHeight: "80vh",
           borderRadius: "5px",
           overflow: "auto",
           opacity: 0.9,
@@ -339,7 +339,13 @@ export default function View() {
           </Container>
         )}
       </Container>
-      <Box sx={{ mt: 2 }}>
+
+      <Box
+        display="flex"
+        justifyContent="center"
+        alignItems="center"
+        sx={{ mt: 2 }}
+      >
         <ExportToExcel data={listToView} />
       </Box>
     </>
