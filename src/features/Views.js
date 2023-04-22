@@ -19,6 +19,7 @@ import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import { cinemaList, categoryList } from "../config/structure";
 import ExportToExcel from "./ExportToExcel";
+import ToExcel from "./ToExcel";
 import dayjs from "dayjs";
 import "dayjs/locale/it";
 dayjs.locale("it");
@@ -346,7 +347,7 @@ export default function View() {
         alignItems="center"
         sx={{ mt: 2 }}
       >
-        <ExportToExcel data={listToView} />
+        <ToExcel data={listToView} />
       </Box>
     </>
   );
