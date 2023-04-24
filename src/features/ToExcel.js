@@ -3,7 +3,7 @@ import { Button } from "@mui/material";
 const ExcelJS = require("exceljs");
 
 export const ToExcel = ({ data }) => {
-  console.log(data);
+  /*  console.log(data); */
   const onClickHandle = () => {
     const workbook = new ExcelJS.Workbook();
     workbook.creator = "incidentreport webapp";
@@ -47,8 +47,18 @@ export const ToExcel = ({ data }) => {
     //set columns
     worksheet.columns = [
       { header: "ref", key: "ref_num", width: 10 },
-      { header: "start", key: "startDate", width: 15 },
-      { header: "end", key: "endDate", width: 15 },
+      {
+        header: "start",
+        key: "startDate",
+        width: 15,
+        style: { numFmt: "dd/mm/yyyy" },
+      },
+      {
+        header: "end",
+        key: "endDate",
+        width: 15,
+        style: { numFmt: "dd/mm/yyyy" },
+      },
       { header: "cinema", key: "cinema", width: 10 },
       { header: "screens", key: "screens_number", width: 10 },
       { header: "seats", key: "seats_number", width: 15 },
@@ -61,7 +71,12 @@ export const ToExcel = ({ data }) => {
       { header: "category", key: "category", width: 20 },
       { header: "screen_state", key: "screen_state", width: 13 },
       { header: "show blocked", key: "show_stopped", width: 15 },
-      { header: "refounds", key: "refounds", width: 10 },
+      {
+        header: "refounds",
+        key: "refounds",
+        width: 10,
+        style: { numFmt: '"€"#,##0.00;[Red]-"€"#,##0.00' },
+      },
       { header: "comps", key: "comps", width: 10 },
       { header: "issue", key: "issue", width: 30 },
       { header: "note", key: "note", width: 30 },
@@ -88,7 +103,18 @@ export const ToExcel = ({ data }) => {
       "giorni lavorativi",
     ];
     //add data
+
     worksheet.addRows(data);
+
+    // set table style
+
+    ws.getCell("A1").font = {
+      name: "Comic Sans MS",
+      family: 4,
+      size: 16,
+      underline: true,
+      bold: true,
+    };
 
     //write excel file
     workbook.xlsx.writeBuffer().then((el) => {
