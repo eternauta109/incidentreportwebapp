@@ -97,16 +97,27 @@ export default function Report() {
   };
 
   const reportChange = (e) => {
-    setReport({
-      ...report,
-      [e.target.name]: e.target.value,
-    });
+    if (
+      e.target.name === "show_stopped" ||
+      e.target.name === "refounds" ||
+      e.target.name === "comps"
+    ) {
+      setReport({
+        ...report,
+        [e.target.name]: +e.target.value,
+      });
+    } else {
+      setReport({
+        ...report,
+        [e.target.name]: e.target.value,
+      });
+    }
   };
 
   //registra o aggiorna il report
   const onSubmitReport = (e) => {
     e.preventDefault();
-    sendEmail(update, report, user);
+    /* sendEmail(update, report, user); */
     e.preventDefault();
 
     if (state) {

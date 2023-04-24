@@ -1,4 +1,5 @@
 import React from "react";
+import { NumericFormat } from "react-number-format";
 
 import {
   Select,
@@ -15,6 +16,28 @@ import {
   Typography,
 } from "@mui/material";
 
+function NumberFormatCustom(props) {
+  const { inputRef, onChange, ...other } = props;
+
+  return (
+    <NumericFormat
+      {...other}
+      prefix="€ "
+      getInputRef={inputRef}
+      onValueChange={(values) => {
+        onChange({
+          target: {
+            name: props.name,
+            value: values.value,
+          },
+        });
+      }}
+      thousandSeparator
+      // isNumericString
+    />
+  );
+}
+
 const RefoundsDeal = ({ report, reportChange, user, setReport }) => {
   return (
     <>
@@ -22,6 +45,7 @@ const RefoundsDeal = ({ report, reportChange, user, setReport }) => {
         <Grid item xs={4} sm={4}>
           <TextField
             helperText="insert number show suppressed"
+            type="number"
             name="show_stopped"
             label="show suppressed"
             onFocus={(event) => {
@@ -34,11 +58,15 @@ const RefoundsDeal = ({ report, reportChange, user, setReport }) => {
         </Grid>
         <Grid item xs={4} sm={4}>
           <TextField
+            type="number"
             helperText="insert refounds cost"
             name="refounds"
             label="ref. cost"
-            onFocus={(event) => {
+            /* onFocus={(event) => {
               event.target.select();
+            }} */
+            InputProps={{
+              inputComponent: NumberFormatCustom,
             }}
             onChange={(e) => reportChange(e)}
             value={report ? report.refounds : ""}
@@ -47,6 +75,7 @@ const RefoundsDeal = ({ report, reportChange, user, setReport }) => {
         </Grid>
         <Grid item xs={4} sm={4}>
           <TextField
+            type="number"
             InputLabelProps={{ shrink: true }}
             helperText="insert complimentary"
             name="comps"
