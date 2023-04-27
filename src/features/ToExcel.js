@@ -22,6 +22,18 @@ export const ToExcel = ({ data }) => {
 
     //set header style
 
+    /*   const rowsNumber = worksheet.lastRow._number;
+    worksheet.getRows(2, rowsNumber).forEach((row) => {
+      row.height = 30;
+      for (let i = 1; i <= 18; i++) {
+        row.getCell(i).alignment = {
+          wrapText: true,
+          vertical: "middle",
+          horizontal: "center",
+        };
+      }
+    }); */
+
     let header = worksheet.getRow(1);
     header.height = 50;
     header.font = {
