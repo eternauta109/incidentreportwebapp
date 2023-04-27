@@ -10,15 +10,17 @@ import {
   Typography,
   Stack,
   IconButton,
+  Step,
+  StepLabel,
 } from "@mui/material";
 import LineTable from "./LineTable";
 import ReportsServices from "../services/reportsServices";
 import Table from "react-bootstrap/Table";
-
+import Chart from "./Chart";
 import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import { cinemaList, categoryList } from "../config/structure";
-import ExportToExcel from "./ExportToExcel";
+
 import ToExcel from "./ToExcel";
 import dayjs from "dayjs";
 import "dayjs/locale/it";
@@ -57,19 +59,14 @@ export default function View() {
       }
     }
 
-    setListToView(
-      querySnapshot.docs.map((doc) => ({
-        ...doc.data(),
-        workDays: workDaysCalculate(doc.data()),
-      }))
-    );
+    let reports = querySnapshot.docs.map((doc) => ({
+      ...doc.data(),
+      workDays: workDaysCalculate(doc.data()),
+    }));
 
-    setListReport(
-      querySnapshot.docs.map((doc) => ({
-        ...doc.data(),
-        workDays: workDaysCalculate(doc.data()),
-      }))
-    );
+    setListToView(reports);
+
+    setListReport(reports);
   };
 
   const workDaysCalculate = (report) => {
@@ -264,7 +261,7 @@ export default function View() {
       >
         {listToView && (
           <Container sx={{ fontSize: "0.8rem" }}>
-            <Table id="table-to-xls" sx={{ maxHeight: 300 }} striped bordered>
+            <Table id="table-to-xls" sx={{ maxHeight: 500 }} striped bordered>
               <thead>
                 <tr sx={{ bgcolor: "grey" }}>
                   <th scope="col">
@@ -345,10 +342,17 @@ export default function View() {
         display="flex"
         justifyContent="center"
         alignItems="center"
-        sx={{ mt: 2 }}
+        sx={{ m: 2 }}
       >
         <ToExcel data={listToView} />
+        {user.is_facility && (
+          <Button variant="contained" sx={{ ml: 1 }}>
+            Grandinetti view
+          </Button>
+        )}
       </Box>
+
+      {listReport.length > 1 && <Chart data={listReport} />}
     </>
   );
 }

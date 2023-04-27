@@ -58,7 +58,6 @@ const RefoundsDeal = ({ report, reportChange, user, setReport }) => {
         </Grid>
         <Grid item xs={4} sm={4}>
           <TextField
-            type="number"
             helperText="insert refounds cost"
             name="refounds"
             label="ref. cost"
@@ -67,6 +66,9 @@ const RefoundsDeal = ({ report, reportChange, user, setReport }) => {
             }} */
             InputProps={{
               inputComponent: NumberFormatCustom,
+            }}
+            onFocus={(event) => {
+              event.target.select();
             }}
             onChange={(e) => reportChange(e)}
             value={report ? report.refounds : ""}

@@ -17,10 +17,9 @@ import ProtectedRoute from "./services/ProtectedRoute";
 
 const theme = createTheme({
   containerStyle: {
-    overflow: "auto",
     borderRadius: 5,
     width: "100%",
-    height: "100vh",
+    height: "2000px",
     backgroundSize: "cover",
     backgroundRepeat: "no-repeat",
     backgroundPosition: "center",

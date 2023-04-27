@@ -2,6 +2,8 @@ import React from "react";
 import { Button } from "@mui/material";
 const ExcelJS = require("exceljs");
 
+const columnsNumber = 18;
+
 export const ToExcel = ({ data }) => {
   /*  console.log(data); */
   const onClickHandle = () => {
@@ -16,6 +18,7 @@ export const ToExcel = ({ data }) => {
 
     //set default height
     worksheet.properties.defaultRowHeight = 30;
+    worksheet.properties;
 
     //set header style
 
@@ -28,19 +31,25 @@ export const ToExcel = ({ data }) => {
 
       size: 10,
     };
+    for (let i = 1; i <= columnsNumber; i++) {
+      header.getCell(i).alignment = {
+        wrapText: true,
+        vertical: "middle",
+        horizontal: "center",
+      };
+      header.getCell(i).border = {
+        top: { style: "double", color: { argb: "00000000" } },
+        left: { style: "double", color: { argb: "00000000" } },
+        bottom: { style: "double", color: { argb: "00000000" } },
+        right: { style: "double", color: { argb: "00000000" } },
+      };
+      header.getCell(i).fill = {
+        type: "pattern",
+        pattern: "solid",
+        fgColor: { argb: "6E6E6E" },
+      };
+    }
 
-    header.alignment = { wrapText: true };
-    header.border = {
-      top: { style: "double", color: { argb: "00000000" } },
-      left: { style: "double", color: { argb: "00000000" } },
-      bottom: { style: "double", color: { argb: "00000000" } },
-      right: { style: "double", color: { argb: "00000000" } },
-    };
-    header.fill = {
-      type: "pattern",
-      pattern: "solid",
-      fgColor: { argb: "6E6E6E" },
-    };
     //set auto filter
     worksheet.autoFilter = "A1:Q1";
 
@@ -56,6 +65,12 @@ export const ToExcel = ({ data }) => {
       {
         header: "end",
         key: "endDate",
+        width: 15,
+        style: { numFmt: "dd/mm/yyyy" },
+      },
+      {
+        header: "prediction",
+        key: "datePrediction",
         width: 15,
         style: { numFmt: "dd/mm/yyyy" },
       },
@@ -83,38 +98,24 @@ export const ToExcel = ({ data }) => {
       { header: "resolved", key: "resolved", width: 15 },
       { header: "workDays", key: "workDays", width: 15 },
     ];
-    const columns = [
-      "ref num",
-      "inizio",
-      "fine",
-      "cienama",
-      "schermi tot",
-      "posti tot",
-      "schermo",
-      "posti schermo",
-      "categoria",
-      "stato dello schermo",
-      "show soppressi",
-      "rimborsi",
-      "omaggi emessi",
-      "descrizione del problema",
-      "note",
-      "risolto?",
-      "giorni lavorativi",
-    ];
+
     //add data
 
     worksheet.addRows(data);
 
     // set table style
 
-    ws.getCell("A1").font = {
-      name: "Comic Sans MS",
-      family: 4,
-      size: 16,
-      underline: true,
-      bold: true,
-    };
+    const rowsNumber = worksheet.lastRow._number;
+    worksheet.getRows(2, rowsNumber).forEach((row) => {
+      row.height = 30;
+      for (let i = 1; i <= columnsNumber; i++) {
+        row.getCell(i).alignment = {
+          wrapText: true,
+          vertical: "middle",
+          horizontal: "center",
+        };
+      }
+    });
 
     //write excel file
     workbook.xlsx.writeBuffer().then((el) => {
@@ -124,7 +125,7 @@ export const ToExcel = ({ data }) => {
       const url = window.URL.createObjectURL(blob);
       const anchor = document.createElement("a");
       anchor.href = url;
-      anchor.download = "incidentReprot.xlsx";
+      anchor.download = "incidentReport.xlsx";
       anchor.click();
       window.URL.revokeObjectURL(url);
     });
