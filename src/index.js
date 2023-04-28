@@ -10,9 +10,11 @@ const rootElement = document.getElementById("root");
 const root = createRoot(rootElement);
 
 root.render(
-  <Provider store={store}>
-    <Router>
-      <App />
-    </Router>
-  </Provider>
+  <StrictMode>
+    <Provider store={store}>
+      <Router>
+        <App />
+      </Router>
+    </Provider>
+  </StrictMode>
 );

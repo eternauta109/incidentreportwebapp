@@ -46,6 +46,7 @@ const RefoundsDeal = ({ report, reportChange, user, setReport }) => {
           <TextField
             helperText="insert number show suppressed"
             type="number"
+            InputLabelProps={{ shrink: true }}
             name="show_stopped"
             label="show suppressed"
             onFocus={(event) => {
@@ -64,6 +65,7 @@ const RefoundsDeal = ({ report, reportChange, user, setReport }) => {
             /* onFocus={(event) => {
               event.target.select();
             }} */
+            InputLabelProps={{ shrink: true }}
             InputProps={{
               inputComponent: NumberFormatCustom,
             }}

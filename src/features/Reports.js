@@ -119,7 +119,6 @@ export default function Report() {
   const onSubmitReport = (e) => {
     e.preventDefault();
     /* sendEmail(update, report, user); */
-    e.preventDefault();
 
     if (state) {
       updateReport(state.idDoc, report).then(navigate("../landing"));

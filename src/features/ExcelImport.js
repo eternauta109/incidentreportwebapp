@@ -9,6 +9,7 @@ function ExcelImport() {
     importExcel(file)
       .then((data) => {
         setData(data);
+        console.log(data);
       })
       .catch((error) => {
         console.error(error);
