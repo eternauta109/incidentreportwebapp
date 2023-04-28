@@ -30,7 +30,7 @@ const DataCinema = ({ report, reportChange, user }) => {
             name="cinema"
             disabled={user.is_facility ? false : true}
             value={user.cinemaDet.name}
-            label="Screen with issue"
+            label="cinema"
             onChange={(e) => onCinemaChange(e)}
           >
             {user.cinema.map((el, key) => (

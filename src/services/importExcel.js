@@ -1,4 +1,8 @@
 import ExcelJS from "exceljs";
+import dayjs from "dayjs";
+import { addReport } from "./reportsServices";
+import { cinemaList } from "../config/structure";
+import "dayjs/locale/it";
 
 function importExcel(file) {
   return new Promise((resolve, reject) => {
@@ -16,13 +20,36 @@ function importExcel(file) {
         }
         const rows = worksheet.getRows(2, 184);
 
+        const titleColumn = [];
+
+        worksheet.getRow(1).eachCell((cell) => {
+          titleColumn.push(cell.value);
+        });
+        console.log(titleColumn);
         const data = [];
         rows.forEach((row) => {
           const rowData = {};
           row.eachCell({ includeEmpty: true }, (cell, colNumber) => {
-            rowData[`col${colNumber}`] = cell.value;
+            if (colNumber === 1 || colNumber === 2) {
+              rowData[titleColumn[colNumber - 1]] = dayjs(cell.value).format(
+                "DD/MM/YYYY"
+              );
+            } else if (colNumber === 3) {
+              const cinemaDet = cinemaList.find((e) => e.name === cell.value);
+              rowData[titleColumn[colNumber - 1]] = cell.value;
+              rowData["seats_number"] = cinemaDet.seats;
+            } else {
+              rowData[titleColumn[colNumber - 1]] = cell.value;
+            }
           });
+          if (rowData.endDate === "Invalid Date") {
+            rowData["endDate"] = null;
+            rowData["resolved"] = false;
+          } else {
+            rowData["resolved"] = true;
+          }
 
+          addReport(rowData);
           data.push(rowData);
         });
 

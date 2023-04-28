@@ -16,7 +16,7 @@ import {
 import LineTable from "./LineTable";
 import ReportsServices from "../services/reportsServices";
 import Table from "react-bootstrap/Table";
-import Chart from "./Chart";
+/* import Chart from "./Chart"; */
 import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import { cinemaList, categoryList } from "../config/structure";
@@ -353,7 +353,7 @@ export default function View() {
         <ExcelImport />
       </Box>
 
-      {listReport.length > 1 && <Chart data={listReport} />}
+      {/* {listReport.length > 1 && <Chart data={listReport} />} */}
     </>
   );
 }
