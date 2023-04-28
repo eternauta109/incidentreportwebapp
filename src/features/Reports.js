@@ -44,6 +44,7 @@ export default function Report() {
   const theme = useTheme();
   const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
+  console.log(user);
 
   const initState = {
     startDate: dayjs().format("DD/MM/YYYY"),

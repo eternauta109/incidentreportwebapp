@@ -20,7 +20,7 @@ import Chart from "./Chart";
 import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import { cinemaList, categoryList } from "../config/structure";
-
+import ExcelImport from "./ExcelImport";
 import ToExcel from "./ToExcel";
 import dayjs from "dayjs";
 import "dayjs/locale/it";
@@ -346,10 +346,11 @@ export default function View() {
       >
         <ToExcel data={listToView} />
         {user.is_facility && (
-          <Button variant="contained" sx={{ ml: 1 }}>
+          <Button variant="contained" sx={{ ml: 1, mr: 1 }}>
             Grandinetti view
           </Button>
         )}
+        <ExcelImport />
       </Box>
 
       {listReport.length > 1 && <Chart data={listReport} />}
