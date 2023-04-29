@@ -21,7 +21,7 @@ import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import { categoryList } from "../config/structure";
 /* import ExcelImport from "./ExcelImport"; */
-/* import ToExcel from "./ToExcel";*/
+import ToExcel from "./ToExcel";
 import dayjs from "dayjs";
 import "dayjs/locale/it";
 dayjs.locale("it");
@@ -419,7 +419,7 @@ export default function View() {
         alignItems="center"
         sx={{ m: 2 }}
       >
-        {/* <ToExcel data={listToView} /> */}
+        <ToExcel data={listToView} />
         {user.is_facility && (
           <Button variant="contained" sx={{ ml: 1, mr: 1 }}>
             Grandinetti view
