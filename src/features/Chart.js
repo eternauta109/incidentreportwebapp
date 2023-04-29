@@ -12,7 +12,7 @@ const PlotlyRenderers = createPlotlyRenderers(Plotly);
 
 const Chart = ({ data }) => {
   const [pivottableState, setPivottableState] = useState({});
-  console.log(data);
+
   return (
     <Container sx={{ overflow: "auto", maxHeight: "1000px" }}>
       <PivotTableUI

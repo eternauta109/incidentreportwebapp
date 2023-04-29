@@ -11,8 +11,10 @@ import {
   Stack,
   IconButton,
 } from "@mui/material";
+import { getAllReports, getCinemaReports } from "../store/slice/reportsSlice";
+import { useDispatch, useSelector } from "react-redux";
 import LineTable from "./LineTable";
-import ReportsServices from "../services/reportsServices";
+
 import Table from "react-bootstrap/Table";
 import Chart from "./Chart";
 import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
@@ -30,58 +32,17 @@ const solvedStateInit = ["solved", "in progress", "all"];
 const screenStateInit = ["open", "closed", "all"];
 
 export default function View() {
+  const reports = useSelector((state) => state.reports);
   const [listReport, setListReport] = useState([]);
   const [listToView, setListToView] = useState([]);
-
   const [cinemaSelected, setCinemaSelected] = useState([]);
   const [categorySelected, setCategorySelected] = useState([]);
   const [solvedState, setSolvedState] = useState("all");
   const [screenState, setScreenState] = useState("all");
   const [sortDirection, setSortDirection] = useState(true);
+  const dispatch = useDispatch();
   const { state } = useLocation();
   const { user } = state;
-
-  const loadReport = async () => {
-    let querySnapshot;
-    console.log("user in viewser", user);
-    if (user.is_facility) {
-      try {
-        querySnapshot = await ReportsServices.getAllReport().then();
-      } catch (err) {
-        console.log("get all reports for facility errors", err);
-      }
-    } else {
-      try {
-        querySnapshot = await ReportsServices.getCinemaReport(user.cinema[0]);
-      } catch (err) {
-        console.log("get all reports for cinema errors", err);
-      }
-    }
-
-    let reports = querySnapshot.docs.map((doc) => ({
-      ...doc.data(),
-      workDays: workDaysCalculate(doc.data()),
-    }));
-
-    setListToView(reports);
-
-    setListReport(reports);
-  };
-
-  const workDaysCalculate = (report) => {
-    let days;
-    /* console.log("doc", report); */
-    if (report.resolved) {
-      days = dayjs(report.endDate, "DD/MM/YYYY").diff(
-        dayjs(report.startDate, "DD/MM/YYYY"),
-        "day"
-      );
-    } else {
-      days = dayjs().diff(dayjs(report.startDate, "DD/MM/YYYY"), "day");
-    }
-    /* console.log(days); */
-    return days;
-  };
 
   //FILTER
   //data filter
@@ -269,9 +230,38 @@ export default function View() {
     }
   }, [screenState]);
 
+  const loadReport = () => {
+    console.log("user in viewser", user);
+    if (user.is_facility) {
+      try {
+        dispatch(getAllReports()).then(
+          setListToView([...reports]),
+          setListReport([...reports])
+        );
+      } catch (err) {
+        console.log("get all reports for facility errors", err);
+      }
+    } else {
+      try {
+        let cinemaUser = user.cinema[0];
+        console.log(cinemaUser);
+        getCinemaReports({ cinemaUser }).then(
+          setListToView([...reports]),
+          setListReport([...reports])
+        );
+      } catch (err) {
+        console.log("get all reports for cinema errors", err);
+      }
+    }
+  };
+
+  useEffect(() => {
+    console.log("list report in use effect", listReport);
+  }, [listReport]);
+
   useEffect(() => {
     loadReport();
-    console.log("list report in use effect", listReport);
+
     return () => {
       console.log("Child unmounted");
       setListReport([]);
@@ -291,71 +281,70 @@ export default function View() {
           p: 1,
         }}
       >
-        {listToView && (
-          <Container sx={{ fontSize: "0.8rem" }}>
-            <Table id="table-to-xls" sx={{ maxHeight: 500 }} striped bordered>
-              <thead>
-                <tr sx={{ bgcolor: "grey" }}>
-                  <th scope="col">
-                    <Typography>report number </Typography>
-                  </th>
-                  <th scope="col">
-                    <DataSorter val="startDate" />
-                  </th>
-                  <th scope="col">
-                    <DataSorter val="endDate" />
-                  </th>
-                  <th scope="col">
-                    <DataSorter val="datePrediction" />
-                  </th>
-                  <th scope="col">
-                    <SelectCinema />
-                  </th>
-                  <th scope="col">
-                    <Typography>screens num </Typography>
-                  </th>
-                  <th scope="col">
-                    <Typography>total seats</Typography>
-                  </th>
-                  <th scope="col">
-                    <Typography>screen with issue</Typography>
-                  </th>
-                  <th scope="col">
-                    <Typography>seats screen number</Typography>{" "}
-                  </th>
-                  <th scope="col">
-                    <SelectCategory />
-                  </th>
-                  <th scope="col">
-                    <Typography>
-                      <SelectScreenState />
-                    </Typography>
-                  </th>
-                  <th scope="col">
-                    <Typography>show close</Typography>
-                  </th>
-                  <th scope="col">
-                    <Typography>refounds</Typography>
-                  </th>
-                  <th scope="col">
-                    <Typography>comps</Typography>
-                  </th>
-                  <th scope="col">
-                    <Typography>issues</Typography>
-                  </th>
-                  <th scope="col">
-                    <Typography>note</Typography>
-                  </th>
-                  <th scope="col">
-                    <SelectSolved />
-                  </th>
-                  <th scope="col">
-                    <Typography>work day</Typography>
-                  </th>
-                  {/*   <th scope="col">resolution day</th> */}
-                </tr>
-              </thead>
-
+        <Container sx={{ fontSize: "0.8rem" }}>
+          <Table id="table-to-xls" sx={{ maxHeight: 500 }} striped bordered>
+            <thead>
+              <tr sx={{ bgcolor: "grey" }}>
+                <th scope="col">
+                  <Typography>report number </Typography>
+                </th>
+                <th scope="col">
+                  <DataSorter val="startDate" />
+                </th>
+                <th scope="col">
+                  <DataSorter val="endDate" />
+                </th>
+                <th scope="col">
+                  <DataSorter val="datePrediction" />
+                </th>
+                <th scope="col">
+                  <SelectCinema />
+                </th>
+                <th scope="col">
+                  <Typography>screens num </Typography>
+                </th>
+                <th scope="col">
+                  <Typography>total seats</Typography>
+                </th>
+                <th scope="col">
+                  <Typography>screen with issue</Typography>
+                </th>
+                <th scope="col">
+                  <Typography>seats screen number</Typography>{" "}
+                </th>
+                <th scope="col">
+                  <SelectCategory />
+                </th>
+                <th scope="col">
+                  <Typography>
+                    <SelectScreenState />
+                  </Typography>
+                </th>
+                <th scope="col">
+                  <Typography>show close</Typography>
+                </th>
+                <th scope="col">
+                  <Typography>refounds</Typography>
+                </th>
+                <th scope="col">
+                  <Typography>comps</Typography>
+                </th>
+                <th scope="col">
+                  <Typography>issues</Typography>
+                </th>
+                <th scope="col">
+                  <Typography>note</Typography>
+                </th>
+                <th scope="col">
+                  <SelectSolved />
+                </th>
+                <th scope="col">
+                  <Typography>work day</Typography>
+                </th>
+                {/*   <th scope="col">resolution day</th> */}
+              </tr>
+            </thead>
+            {listToView && listToView.length > 0 && (
               <tbody sx={{ overflow: "auto", height: "300px" }}>
                 {listToView.length > 0 ? (
                   listToView.map((val, key) => (
@@ -363,13 +352,13 @@ export default function View() {
                   ))
                 ) : (
                   <tr>
-                    <th>loading</th>
+                    <th>not reports</th>
                   </tr>
                 )}
               </tbody>
-            </Table>
-          </Container>
-        )}
+            )}
+          </Table>
+        </Container>
       </Container>
 
       <Box
