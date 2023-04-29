@@ -2,6 +2,7 @@ export const cinemaList = [
   {
     name: "TSC Roma Parco de' Medici (RM)",
     screens: 18,
+    area: 4,
     seats: 4017,
     screens_det: [
       { screen: 1, seats: 259 },
@@ -28,6 +29,7 @@ export const cinemaList = [
   {
     name: "TSC Beinasco (TO)",
     screens: 9,
+    area: 1,
     seats: 2385,
     screens_det: [
       { screen: 1, seats: 397 },
@@ -45,6 +47,7 @@ export const cinemaList = [
   {
     name: "TSC Belpasso (CT)",
     screens: 12,
+    area: 4,
     seats: 2404,
     screens_det: [
       { screen: 1, seats: 169 },
@@ -66,6 +69,7 @@ export const cinemaList = [
   {
     name: "TSC Bologna (BO)",
     screens: 9,
+    area: 3,
     seats: 1757,
     screens_det: [
       { screen: 1, seats: 463 },
@@ -83,6 +87,7 @@ export const cinemaList = [
   {
     name: "TSC Casamassima (BA)",
     screens: 9,
+    area: 4,
     seats: 1989,
     screens_det: [
       { screen: 1, seats: 241 },
@@ -101,6 +106,7 @@ export const cinemaList = [
     name: "TSC Catanzaro (CZ)",
     screens: 7,
     seats: 1221,
+    area: 1,
     screens_det: [
       { screen: 1, seats: 145 },
       { screen: 2, seats: 263 },
@@ -116,6 +122,7 @@ export const cinemaList = [
     name: "TSC Cerro Maggiore (MI)",
     screens: 11,
     seats: 2390,
+    area: 1,
     screens_det: [
       { screen: 1, seats: 442 },
       { screen: 2, seats: 165 },
@@ -135,6 +142,7 @@ export const cinemaList = [
     name: "TSC Corciano (PG)",
     screens: 11,
     seats: 2404,
+    area: 3,
     screens_det: [
       { screen: 1, seats: 263 },
       { screen: 2, seats: 303 },
@@ -154,6 +162,7 @@ export const cinemaList = [
     name: "TSC Firenze (FI)",
     screens: 8,
     seats: 1885,
+    area: 3,
     screens_det: [
       { screen: 1, seats: 245 },
       { screen: 2, seats: 138 },
@@ -170,6 +179,7 @@ export const cinemaList = [
     name: "TSC Genova (GE)",
     screens: 12,
     seats: 1809,
+    area: 1,
     screens_det: [
       { screen: 1, seats: 279 },
       { screen: 2, seats: 119 },
@@ -188,6 +198,7 @@ export const cinemaList = [
     name: "TSC Grosseto (GR)",
     screens: 7,
     seats: 1210,
+    area: 3,
     screens_det: [
       { screen: 1, seats: 300 },
       { screen: 2, seats: 233 },
@@ -203,6 +214,7 @@ export const cinemaList = [
     name: "TSC Guidonia (RM)",
     screens: 10,
     seats: 2412,
+    area: 4,
     screens_det: [
       { screen: 1, seats: 134 },
       { screen: 2, seats: 134 },
@@ -221,6 +233,7 @@ export const cinemaList = [
     name: "TSC Lamezia Terme (CZ)",
     screens: 5,
     seats: 985,
+    area: 4,
     screens_det: [
       { screen: 1, seats: 324 },
       { screen: 2, seats: 344 },
@@ -234,6 +247,7 @@ export const cinemaList = [
     name: "TSC Limena (PD)",
     screens: 14,
     seats: 3098,
+    area: 2,
     screens_det: [
       { screen: 1, seats: 564 },
       { screen: 2, seats: 456 },
@@ -256,6 +270,7 @@ export const cinemaList = [
     name: "TSC Livorno (LI)",
     screens: 9,
     seats: 2175,
+    area: 3,
     screens_det: [
       { screen: 1, seats: 406 },
       { screen: 2, seats: 137 },
@@ -273,6 +288,7 @@ export const cinemaList = [
     name: "TSC Lugagnano (VR)",
     screens: 8,
     seats: 1117,
+    area: 2,
     screens_det: [
       { screen: 1, seats: 112 },
       { screen: 2, seats: 81 },
@@ -289,6 +305,7 @@ export const cinemaList = [
     name: "TSC Milano Odeon (MI)",
     screens: 10,
     seats: 2222,
+    area: 1,
     screens_det: [
       { screen: 1, seats: 888 },
       { screen: 2, seats: 425 },
@@ -307,6 +324,7 @@ export const cinemaList = [
     name: "TSC Montebello (PV)",
     screens: 9,
     seats: 1835,
+    area: 1,
     screens_det: [
       { screen: 1, seats: 377 },
       { screen: 2, seats: 122 },
@@ -324,6 +342,7 @@ export const cinemaList = [
     name: "TSC Montesilvano (PE)",
     screens: 11,
     seats: 2040,
+    area: 3,
     screens_det: [
       { screen: 1, seats: 180 },
       { screen: 2, seats: 137 },
@@ -343,6 +362,7 @@ export const cinemaList = [
     name: "TSC Napoli (NA)",
     screens: 11,
     seats: 2684,
+    area: 4,
     screens_det: [
       { screen: 1, seats: 698 },
       { screen: 2, seats: 106 },
@@ -362,6 +382,7 @@ export const cinemaList = [
     name: "TSC Nola (NA)",
     screens: 9,
     seats: 2049,
+    area: 4,
     screens_det: [
       { screen: 1, seats: 300 },
       { screen: 2, seats: 536 },
@@ -379,6 +400,7 @@ export const cinemaList = [
     name: "TSC Parma Campus (PR)",
     screens: 12,
     seats: 2451,
+    area: 3,
     screens_det: [
       { screen: 1, seats: 504 },
       { screen: 2, seats: 102 },
@@ -399,6 +421,7 @@ export const cinemaList = [
     name: "TSC Parma Centro (PR)",
     screens: 7,
     seats: 1405,
+    area: 3,
     screens_det: [
       { screen: 1, seats: 143 },
       { screen: 2, seats: 259 },
@@ -414,6 +437,7 @@ export const cinemaList = [
     name: "TSC Pradamano (UD)",
     screens: 12,
     seats: 2472,
+    area: 2,
     screens_det: [
       { screen: 1, seats: 464 },
       { screen: 2, seats: 104 },
@@ -434,6 +458,7 @@ export const cinemaList = [
     name: "TSC Quartucciu (CA)",
     screens: 13,
     seats: 1772,
+    area: 2,
     screens_det: [
       { screen: 1, seats: 147 },
       { screen: 2, seats: 222 },
@@ -455,6 +480,7 @@ export const cinemaList = [
     name: "TSC Roma Moderno (RM)",
     screens: 5,
     seats: 1112,
+    area: 4,
     screens_det: [
       { screen: 1, seats: 145 },
       { screen: 2, seats: 214 },
@@ -468,6 +494,7 @@ export const cinemaList = [
     name: "TSC Rozzano (MI)",
     screens: 13,
     seats: 2876,
+    area: 1,
     screens_det: [
       { screen: 1, seats: 293 },
       { screen: 2, seats: 249 },
@@ -489,6 +516,7 @@ export const cinemaList = [
     name: "TSC Salerno (SA)",
     screens: 11,
     seats: 2448,
+    area: 4,
     screens_det: [
       { screen: 1, seats: 408 },
       { screen: 2, seats: 252 },
@@ -508,6 +536,7 @@ export const cinemaList = [
     name: "TSC Sestu (CA)",
     screens: 12,
     seats: 1629,
+    area: 2,
     screens_det: [
       { screen: 1, seats: 84 },
       { screen: 2, seats: 90 },
@@ -528,6 +557,7 @@ export const cinemaList = [
     name: "TSC Silea (TV)",
     screens: 12,
     seats: 2682,
+    area: 2,
     screens_det: [
       { screen: 1, seats: 481 },
       { screen: 2, seats: 120 },
@@ -548,6 +578,7 @@ export const cinemaList = [
     name: "TSC Surbo (LE)",
     screens: 9,
     seats: 2410,
+    area: 4,
     screens_det: [
       { screen: 1, seats: 436 },
       { screen: 2, seats: 233 },
@@ -565,6 +596,7 @@ export const cinemaList = [
     name: "TSC Terni (TR)",
     screens: 9,
     seats: 2120,
+    area: 3,
     screens_det: [
       { screen: 1, seats: 253 },
       { screen: 2, seats: 252 },
@@ -582,6 +614,7 @@ export const cinemaList = [
     name: "TSC Torino (TO)",
     screens: 8,
     seats: 1247,
+    area: 1,
     screens_det: [
       { screen: 1, seats: 254 },
       { screen: 2, seats: 193 },
@@ -598,6 +631,7 @@ export const cinemaList = [
     name: "TSC Torri di Quartesolo (VI)",
     screens: 9,
     seats: 760,
+    area: 2,
     screens_det: [
       { screen: 1, seats: 81 },
       { screen: 2, seats: 48 },
@@ -615,6 +649,7 @@ export const cinemaList = [
     name: "TSC Trieste (TS)",
     screens: 7,
     seats: 1252,
+    area: 2,
     screens_det: [
       { screen: 1, seats: 259 },
       { screen: 2, seats: 209 },
@@ -630,6 +665,7 @@ export const cinemaList = [
     name: "TSC Vimercate (MB)",
     screens: 16,
     seats: 3897,
+    area: 1,
     screens_det: [
       { screen: 1, seats: 296 },
       { screen: 2, seats: 140 },

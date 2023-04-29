@@ -54,6 +54,7 @@ export default function Report() {
     cinema: user.cinema[0],
     screens_number: user.cinemaDet.screens,
     seats_number: user.cinemaDet.seats,
+    area: user.cinemaDet.area,
     screen_with_issue:
       user.cinemaDet.screens_det[user.cinemaDet.screens_det.length - 1].screen,
     screen_with_issue_capacity:
@@ -106,6 +107,16 @@ export default function Report() {
       setReport({
         ...report,
         [e.target.name]: +e.target.value,
+      });
+    } else if (e.target.name === "cinema") {
+      let cinemaAreaChange = cinemaList.find(
+        (el) => el.name === e.target.value
+      );
+
+      setReport({
+        ...report,
+        area: cinemaAreaChange.area,
+        [e.target.name]: e.target.value,
       });
     } else {
       setReport({
