@@ -18,12 +18,11 @@ import {
 const DataCinema = ({ report, reportChange, user }) => {
   const onCinemaChange = (e) => {
     reportChange(e);
-    console.log(e.target);
   };
 
   return (
     <Grid container sx={{ mb: 2 }} rowSpacing={4} columnSpacing={1}>
-      <Grid item xs={12} sm={8}>
+      <Grid item xs={12} sm={6}>
         <FormControl fullWidth>
           <InputLabel>cinema</InputLabel>
           <Select
@@ -41,7 +40,7 @@ const DataCinema = ({ report, reportChange, user }) => {
           </Select>
         </FormControl>
       </Grid>
-      <Grid item xs={6} sm={2}>
+      <Grid item xs={4} sm={2}>
         <TextField
           //SCREENS NUMBER
           InputLabelProps={{
@@ -55,7 +54,8 @@ const DataCinema = ({ report, reportChange, user }) => {
           label="Screens number"
         />
       </Grid>
-      <Grid item xs={6} sm={2}>
+
+      <Grid item xs={4} sm={2}>
         <TextField
           //SEATS NUMBER
           InputLabelProps={{
@@ -67,6 +67,21 @@ const DataCinema = ({ report, reportChange, user }) => {
           onChange={(e) => reportChange(e)}
           disabled
           label="seats number"
+        />
+      </Grid>
+
+      <Grid item xs={4} sm={2}>
+        <TextField
+          //SCREENS NUMBER
+          InputLabelProps={{
+            shrink: true,
+          }}
+          value={user.cinemaDet.area}
+          helperText="area"
+          name="area"
+          onChange={(e) => reportChange(e)}
+          disabled
+          label="area"
         />
       </Grid>
     </Grid>

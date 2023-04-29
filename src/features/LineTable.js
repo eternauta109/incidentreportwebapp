@@ -6,6 +6,11 @@ import { useNavigate } from "react-router-dom";
 
 dayjs.locale("it");
 
+const thStyle = {
+  textAlign: "center",
+  verticalAlign: "middle",
+};
+
 export const LineFound = ({ report }) => {
   const navigate = useNavigate();
   /* console.log("linet report", report); */
@@ -18,24 +23,63 @@ export const LineFound = ({ report }) => {
     <>
       {report && (
         <tr onClick={(e) => manageClick(e)}>
-          <th scope="row">{report.ref_num}</th>
-          <th scope="row">{report.startDate}</th>
-          <th scope="row">{report.endDate ? report.endDate : "run"}</th>
-          <th scope="row">{report.datePrediction}</th>
-          <th scope="row">{report.cinema}</th>
-          <th scope="row">{report.screens_number}</th>
-          <th scope="row">{report.seats_number}</th>
-          <th scope="row">{report.screen_with_issue}</th>
-          <th scope="row">{report.screen_with_issue_capacity}</th>
-          <th scope="row">{report.category}</th>
-          <th scope="row">{report.screen_state}</th>
-          <th scope="row">{report.show_stopped}</th>
-          <th scope="row">{report.refounds}</th>
-          <th scope="row">{report.comps}</th>
-          <th scope="row">{report.issue}</th>
-          <th scope="row">{report.note}</th>
-          <th scope="row">{report.resolved ? "solved" : "in progress"}</th>
-          <th scope="row">{report.workDays}</th>
+          <th style={thStyle} scope="row">
+            {report.ref_num}
+          </th>
+          <th style={thStyle} scope="row">
+            {report.startDate}
+          </th>
+          <th style={thStyle} scope="row">
+            {report.endDate ? report.endDate : "run"}
+          </th>
+          <th style={thStyle} scope="row">
+            {report.datePrediction}
+          </th>
+          <th style={thStyle} scope="row">
+            {report.cinema}
+          </th>
+          <th style={thStyle} scope="row">
+            {report.area}
+          </th>
+          <th style={thStyle} scope="row">
+            {report.screens_number}
+          </th>
+          <th style={thStyle} scope="row">
+            {report.seats_number}
+          </th>
+          <th style={thStyle} scope="row">
+            {report.screen_with_issue}
+          </th>
+          <th style={thStyle} scope="row">
+            {report.screen_with_issue_capacity}
+          </th>
+          <th style={thStyle} scope="row">
+            {report.category}
+          </th>
+          <th style={thStyle} scope="row">
+            {report.screen_state}
+          </th>
+          <th style={thStyle} scope="row">
+            {report.show_stopped}
+          </th>
+          <th style={thStyle} scope="row">
+            {report.refounds}
+          </th>
+          <th style={thStyle} scope="row">
+            {report.comps}
+          </th>
+          <th style={thStyle} scope="row">
+            {report.issue}
+          </th>
+          <th style={thStyle} scope="row">
+            {report.note}
+          </th>
+          <th style={thStyle} scope="row">
+            {report.resolved ? "solved" : "in progress"}
+          </th>
+          <th style={thStyle} scope="row">
+            {report.workDays}
+          </th>
         </tr>
       )}
     </>

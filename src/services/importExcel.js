@@ -48,7 +48,7 @@ function importExcel(file) {
           } else {
             rowData["resolved"] = true;
           }
-
+          console.log(rowData);
           addReport(rowData);
           data.push(rowData);
         });

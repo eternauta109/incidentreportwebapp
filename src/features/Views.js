@@ -21,7 +21,7 @@ import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import { categoryList } from "../config/structure";
 /* import ExcelImport from "./ExcelImport"; */
-import ToExcel from "./ToExcel";
+/* import ToExcel from "./ToExcel";*/
 import dayjs from "dayjs";
 import "dayjs/locale/it";
 dayjs.locale("it");
@@ -30,11 +30,13 @@ import { useLoaderData, useLocation } from "react-router-dom";
 
 const solvedStateInit = ["solved", "in progress", "all"];
 const screenStateInit = ["open", "closed", "all"];
+const areaStateInit = [1, 2, 3, 4, "all"];
 
 export default function View() {
   const reports = useSelector((state) => state.reports);
   const [listReport, setListReport] = useState([]);
   const [listToView, setListToView] = useState([]);
+  const [area, setArea] = useState("all");
   const [cinemaSelected, setCinemaSelected] = useState([]);
   const [categorySelected, setCategorySelected] = useState([]);
   const [solvedState, setSolvedState] = useState("all");
@@ -114,6 +116,7 @@ export default function View() {
       });
     }
   }, [cinemaSelected]);
+
   //category filters
   const SelectCategory = () => {
     return (
@@ -151,6 +154,36 @@ export default function View() {
       });
     }
   }, [categorySelected]);
+
+  // area filter
+  const AreaSelect = () => {
+    return (
+      <FormControl sx={{ width: "100px" }}>
+        <InputLabel id="demo-simple-select-label">
+          <Typography>area</Typography>
+        </InputLabel>
+        <Select
+          value={area}
+          label="area"
+          onChange={(e) => setArea(e.target.value)}
+        >
+          {areaStateInit.map((el, key) => (
+            <MenuItem key={key} value={el}>
+              {el}
+            </MenuItem>
+          ))}
+        </Select>
+      </FormControl>
+    );
+  };
+  useMemo(() => {
+    if (area === "all") {
+      return setListToView(listReport);
+    } else {
+      const arrayCommun = listReport.filter((item) => item.area === area);
+      return setListToView(arrayCommun);
+    }
+  }, [area]);
 
   // issuse state filter
   const SelectSolved = () => {
@@ -285,23 +318,40 @@ export default function View() {
           <Table id="table-to-xls" sx={{ maxHeight: 500 }} striped bordered>
             <thead>
               <tr sx={{ bgcolor: "grey" }}>
-                <th scope="col">
-                  <Typography>report number </Typography>
+                <th>
+                  <Typography style={{ width: "10px" }}>
+                    report number{" "}
+                  </Typography>
+                </th>
+                <th>
+                  <Typography style={{ width: "130px" }}>
+                    <DataSorter val="startDate" />
+                  </Typography>
+                </th>
+                <th>
+                  <Typography style={{ width: "130px" }}>
+                    <DataSorter val="endDate" />
+                  </Typography>
+                </th>
+                <th>
+                  <Typography style={{ width: "130px" }}>
+                    <DataSorter val="datePrediction" />
+                  </Typography>
+                </th>
+                <th>
+                  <Typography style={{ width: "150px" }}>
+                    <SelectCinema />
+                  </Typography>
                 </th>
                 <th scope="col">
-                  <DataSorter val="startDate" />
+                  <Typography style={{ width: "100px" }}>
+                    <AreaSelect />
+                  </Typography>
                 </th>
-                <th scope="col">
-                  <DataSorter val="endDate" />
-                </th>
-                <th scope="col">
-                  <DataSorter val="datePrediction" />
-                </th>
-                <th scope="col">
-                  <SelectCinema />
-                </th>
-                <th scope="col">
-                  <Typography>screens num </Typography>
+                <th>
+                  <Typography style={{ width: "45px" }}>
+                    screens num{" "}
+                  </Typography>
                 </th>
                 <th scope="col">
                   <Typography>total seats</Typography>
@@ -312,8 +362,10 @@ export default function View() {
                 <th scope="col">
                   <Typography>seats screen number</Typography>{" "}
                 </th>
-                <th scope="col">
-                  <SelectCategory />
+                <th>
+                  <Typography style={{ width: "200px" }}>
+                    <SelectCategory />
+                  </Typography>
                 </th>
                 <th scope="col">
                   <Typography>
@@ -329,8 +381,8 @@ export default function View() {
                 <th scope="col">
                   <Typography>comps</Typography>
                 </th>
-                <th scope="col">
-                  <Typography>issues</Typography>
+                <th>
+                  <Typography style={{ width: "200px" }}>issues</Typography>
                 </th>
                 <th scope="col">
                   <Typography>note</Typography>
@@ -345,7 +397,7 @@ export default function View() {
               </tr>
             </thead>
             {listToView && listToView.length > 0 && (
-              <tbody sx={{ overflow: "auto", height: "300px" }}>
+              <tbody sx={{ overflow: "auto", height: "400px" }}>
                 {listToView.length > 0 ? (
                   listToView.map((val, key) => (
                     <LineTable key={key} report={val} />
@@ -367,7 +419,7 @@ export default function View() {
         alignItems="center"
         sx={{ m: 2 }}
       >
-        <ToExcel data={listToView} />
+        {/* <ToExcel data={listToView} /> */}
         {user.is_facility && (
           <Button variant="contained" sx={{ ml: 1, mr: 1 }}>
             Grandinetti view

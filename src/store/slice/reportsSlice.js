@@ -1,19 +1,13 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 import {
-  getDoc,
-  doc,
-  setDoc,
   getDocs,
-  arrayUnion,
-  updateDoc,
   where,
-  arrayRemove,
   query,
   collection,
 } from "firebase/firestore";
 import { cinemaList } from "../../config/structure";
-import { auth, db } from "../../config/firebase.js";
+import { db } from "../../config/firebase.js";
 import dayjs from "dayjs";
 import "dayjs/locale/it";
 dayjs.locale("it");
