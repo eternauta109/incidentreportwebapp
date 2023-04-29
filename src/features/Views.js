@@ -10,8 +10,6 @@ import {
   Typography,
   Stack,
   IconButton,
-  Step,
-  StepLabel,
 } from "@mui/material";
 import LineTable from "./LineTable";
 import ReportsServices from "../services/reportsServices";
@@ -19,7 +17,7 @@ import Table from "react-bootstrap/Table";
 import Chart from "./Chart";
 import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
-import { cinemaList, categoryList } from "../config/structure";
+import { categoryList } from "../config/structure";
 /* import ExcelImport from "./ExcelImport"; */
 import ToExcel from "./ToExcel";
 import dayjs from "dayjs";
@@ -29,6 +27,7 @@ dayjs.locale("it");
 import { useLoaderData, useLocation } from "react-router-dom";
 
 const solvedStateInit = ["solved", "in progress", "all"];
+const screenStateInit = ["open", "closed", "all"];
 
 export default function View() {
   const [listReport, setListReport] = useState([]);
@@ -37,7 +36,7 @@ export default function View() {
   const [cinemaSelected, setCinemaSelected] = useState([]);
   const [categorySelected, setCategorySelected] = useState([]);
   const [solvedState, setSolvedState] = useState("all");
-
+  const [screenState, setScreenState] = useState("all");
   const [sortDirection, setSortDirection] = useState(true);
   const { state } = useLocation();
   const { user } = state;
@@ -85,6 +84,7 @@ export default function View() {
   };
 
   //FILTER
+  //data filter
   const DataSorter = ({ val }) => {
     return (
       <Stack direction="row" spacing={0}>
@@ -117,7 +117,7 @@ export default function View() {
       </Stack>
     );
   };
-
+  //cinema select filter
   const SelectCinema = () => {
     return (
       <FormControl sx={{ width: "100px" }}>
@@ -128,13 +128,6 @@ export default function View() {
           label="Cinema"
           onChange={(e) => setCinemaSelected(e.target.value)}
         >
-          {/* <MenuItem
-            onClick={() => {
-              setCinemaSelected([]);
-            }}
-          >
-            ALL
-          </MenuItem> */}
           {user.cinema.map((el, key) => (
             <MenuItem key={key} value={el}>
               {el}
@@ -144,7 +137,23 @@ export default function View() {
       </FormControl>
     );
   };
+  useEffect(() => {
+    console.log("cinemaSelected", cinemaSelected, listReport);
+    if (cinemaSelected.length < 1) {
+      setListToView(listReport);
+    } else {
+      cinemaSelected.forEach(() => {
+        const arrayCommun = listReport.filter((item) =>
+          cinemaSelected.some((item2) => item2 === item.cinema)
+        );
 
+        setListToView([...arrayCommun]);
+        console.log("arrayCommun", arrayCommun);
+        console.log("listToView", listToView);
+      });
+    }
+  }, [cinemaSelected]);
+  //category filters
   const SelectCategory = () => {
     return (
       <FormControl sx={{ width: "110px" }}>
@@ -166,7 +175,23 @@ export default function View() {
       </FormControl>
     );
   };
+  useEffect(() => {
+    console.log("cinemaSelected", cinemaSelected, listReport);
 
+    if (categorySelected.length < 1) {
+      setListToView(listReport);
+    } else {
+      categorySelected.forEach(() => {
+        const arrayCommun = listReport.filter((item) =>
+          categorySelected.some((item2) => item2 === item.category)
+        );
+
+        setListToView(arrayCommun);
+      });
+    }
+  }, [categorySelected]);
+
+  // issuse state filter
   const SelectSolved = () => {
     return (
       <FormControl sx={{ width: "110px" }}>
@@ -187,40 +212,6 @@ export default function View() {
       </FormControl>
     );
   };
-
-  useEffect(() => {
-    console.log("cinemaSelected", cinemaSelected, listReport);
-    if (cinemaSelected.length < 1) {
-      setListToView(listReport);
-    } else {
-      cinemaSelected.forEach(() => {
-        const arrayCommun = listReport.filter((item) =>
-          cinemaSelected.some((item2) => item2 === item.cinema)
-        );
-
-        setListToView([...arrayCommun]);
-        console.log("arrayCommun", arrayCommun);
-        console.log("listToView", listToView);
-      });
-    }
-  }, [cinemaSelected]);
-
-  useEffect(() => {
-    console.log("cinemaSelected", cinemaSelected, listReport);
-
-    if (categorySelected.length < 1) {
-      setListToView(listReport);
-    } else {
-      categorySelected.forEach(() => {
-        const arrayCommun = listReport.filter((item) =>
-          categorySelected.some((item2) => item2 === item.category)
-        );
-
-        setListToView(arrayCommun);
-      });
-    }
-  }, [categorySelected]);
-
   useMemo(() => {
     if (solvedState === "all") {
       return setListToView(listReport);
@@ -236,6 +227,47 @@ export default function View() {
       setListToView(arrayCommun);
     }
   }, [solvedState]);
+
+  // screen state filter
+  const SelectScreenState = () => {
+    return (
+      <FormControl sx={{ width: "110px" }}>
+        <InputLabel id="demo-simple-select-label">
+          <Typography>screen state</Typography>
+        </InputLabel>
+        <Select
+          value={screenState}
+          label="screenState"
+          onChange={(e) => setScreenState(e.target.value)}
+        >
+          {screenStateInit.map((el, key) => (
+            <MenuItem key={key} value={el}>
+              {el}
+            </MenuItem>
+          ))}
+        </Select>
+      </FormControl>
+    );
+  };
+  useMemo(() => {
+    if (screenState === "all") {
+      return setListToView(listReport);
+    }
+
+    if (screenState === "open") {
+      const arrayCommun = listReport.filter(
+        (item) => item.screen_state === "open"
+      );
+      setListToView(arrayCommun);
+    }
+
+    if (screenState === "closed") {
+      const arrayCommun = listReport.filter(
+        (item) => item.screen_state === "closed"
+      );
+      setListToView(arrayCommun);
+    }
+  }, [screenState]);
 
   useEffect(() => {
     loadReport();
@@ -295,7 +327,9 @@ export default function View() {
                     <SelectCategory />
                   </th>
                   <th scope="col">
-                    <Typography>screen state</Typography>
+                    <Typography>
+                      <SelectScreenState />
+                    </Typography>
                   </th>
                   <th scope="col">
                     <Typography>show close</Typography>

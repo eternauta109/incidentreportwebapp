@@ -14,7 +14,7 @@ const Chart = ({ data }) => {
   const [pivottableState, setPivottableState] = useState({});
   console.log(data);
   return (
-    <Container sx={{ overflow: "revert-layer" }}>
+    <Container sx={{ overflow: "auto", maxHeight: "1000px" }}>
       <PivotTableUI
         data={data}
         onChange={(s) => setPivottableState(s)}
