@@ -36,6 +36,7 @@ export default function View() {
   const reports = useSelector((state) => state.reports);
   const [listReport, setListReport] = useState([]);
   const [listToView, setListToView] = useState([]);
+  const [loadingReport, setLoadingReport] = useState(true);
   const [area, setArea] = useState("all");
   const [cinemaSelected, setCinemaSelected] = useState([]);
   const [categorySelected, setCategorySelected] = useState([]);
@@ -267,23 +268,38 @@ export default function View() {
     console.log("user in viewser", user);
     if (user.is_facility) {
       try {
-        dispatch(getAllReports()).then(
-          setListToView([...reports]),
-          setListReport([...reports])
-        );
+        dispatch(getAllReports())
+          .then((report) => {
+            setListToView(report);
+            setListReport(report);
+            setLoadingReport(false);
+          })
+          .catch((error) => {
+            console.log("get all reports for facility errors", error);
+            setLoadingReport(false);
+          });
       } catch (err) {
         console.log("get all reports for facility errors", err);
+        setLoadingReport(false); // impostiamo isLoading a false anche in caso di errori
       }
     } else {
       try {
         let cinemaUser = user.cinema[0];
         console.log(cinemaUser);
-        getCinemaReports({ cinemaUser }).then(
-          setListToView([...reports]),
-          setListReport([...reports])
-        );
+        getCinemaReports({ cinemaUser })
+          .then((report) => {
+            console.log("get all reports for", report);
+            setListToView(report);
+            setListReport(report);
+            setLoadingReport(false);
+          })
+          .catch((error) => {
+            console.log("get all reports for cinema errors", error);
+            setIsLoading(false);
+          });
       } catch (err) {
         console.log("get all reports for cinema errors", err);
+        setLoadingReport(false);
       }
     }
   };
@@ -293,7 +309,14 @@ export default function View() {
   }, [listReport]);
 
   useEffect(() => {
-    loadReport();
+    console.log("reports", reports);
+    if (reports.length > 0) {
+      setListToView([...reports]);
+      setListReport([...reports]);
+      setLoadingReport(false);
+    } else {
+      loadReport();
+    }
 
     return () => {
       console.log("Child unmounted");
@@ -396,17 +419,25 @@ export default function View() {
                 {/*   <th scope="col">resolution day</th> */}
               </tr>
             </thead>
-            {listToView && listToView.length > 0 && (
+            {!loadingReport && listToView && listToView.length > 0 && (
               <tbody sx={{ overflow: "auto", height: "400px" }}>
-                {listToView.length > 0 ? (
-                  listToView.map((val, key) => (
-                    <LineTable key={key} report={val} />
-                  ))
-                ) : (
-                  <tr>
-                    <th>not reports</th>
-                  </tr>
-                )}
+                {listToView.map((val, key) => (
+                  <LineTable key={key} report={val} />
+                ))}
+              </tbody>
+            )}
+            {!loadingReport && listToView.length === 0 && (
+              <tbody>
+                <tr>
+                  <th>no reports</th>
+                </tr>
+              </tbody>
+            )}
+            {loadingReport && (
+              <tbody>
+                <tr>
+                  <th>Loading...</th>
+                </tr>
               </tbody>
             )}
           </Table>
