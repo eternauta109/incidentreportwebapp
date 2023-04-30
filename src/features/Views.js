@@ -270,8 +270,8 @@ export default function View() {
       try {
         dispatch(getAllReports())
           .then((report) => {
-            setListToView(report);
-            setListReport(report);
+            setListToView(report.payload);
+            setListReport(report.payload);
             setLoadingReport(false);
           })
           .catch((error) => {
@@ -289,8 +289,8 @@ export default function View() {
         getCinemaReports({ cinemaUser })
           .then((report) => {
             console.log("get all reports for", report);
-            setListToView(report);
-            setListReport(report);
+            setListToView(report.payload);
+            setListReport(report.payload);
             setLoadingReport(false);
           })
           .catch((error) => {
