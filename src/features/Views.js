@@ -52,7 +52,7 @@ export default function View() {
       try {
         dispatch(getAllReports())
           .then((report) => {
-            console.log("get all reports for", report.payload);
+
             setListToView(report.payload);
             setListReport(report.payload);
             setLoadingReport(false);
