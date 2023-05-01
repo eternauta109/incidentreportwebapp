@@ -6,9 +6,7 @@
 table {
   font-family: Tahoma, Geneva, sans-serif;
 }
-table td {
-  padding: 10px;
-}
+
 table thead td {
   background-color: #54585d;
   color: #ffffff;

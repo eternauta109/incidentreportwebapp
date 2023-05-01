@@ -3,10 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 import {
   Stack,
-  ListItem,
-  List,
   Container,
-  Divider,
   styled,
   Box,
   Typography,

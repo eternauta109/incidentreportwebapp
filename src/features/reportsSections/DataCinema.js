@@ -4,15 +4,9 @@ import {
   Select,
   TextField,
   FormControl,
-  Button,
-  Checkbox,
   MenuItem,
   InputLabel,
   Grid,
-  Box,
-  Container,
-  FormControlLabel,
-  Typography,
 } from "@mui/material";
 
 const DataCinema = ({ report, reportChange, user }) => {

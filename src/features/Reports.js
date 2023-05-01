@@ -9,21 +9,8 @@ import {
   updateReport,
   getRefNum,
 } from "../services/reportsServices";
-import {
-  Select,
-  TextField,
-  FormControl,
-  Button,
-  Checkbox,
-  MenuItem,
-  InputLabel,
-  Grid,
-  Box,
-  Container,
-  FormControlLabel,
-  Typography,
-} from "@mui/material";
-import { categoryList, cinemaList } from "../config/structure";
+import { Button, Grid, Box, Container, Typography } from "@mui/material";
+import { cinemaList } from "../config/structure";
 import DateSection from "./reportsSections/DateSections";
 import DataCinema from "./reportsSections/DataCinema";
 import IssueDescription from "./reportsSections/IssueDescription";
@@ -137,22 +124,6 @@ export default function Report() {
       addReport(report).then(navigate("../landing"));
     }
   };
-
-  /*  useMemo(() => {
-    let cinemaFind = cinemaList.find((el) => el.name === report.cinema);
-    dispatch(setNewCinema({ cinemaFind }));
-    console.log("user in memo", user);
-    setReport({
-      ...report,
-      screen_with_issue:
-        user.cinemaDet.screens_det[user.cinemaDet.screens_det.length - 1]
-          .screen,
-      screen_with_issue_capacity:
-        user.cinemaDet.screens_det[user.cinemaDet.screens_det.length - 1].seats,
-      screens_number: user.cinemaDet.screens,
-      seats_number: user.cinemaDet.seats,
-    });
-  }, [report.cinema]); */
 
   useEffect(() => {
     let cinemaFind = cinemaList.find((el) => el.name === report.cinema);

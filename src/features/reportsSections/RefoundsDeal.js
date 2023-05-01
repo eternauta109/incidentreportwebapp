@@ -1,20 +1,7 @@
 import React from "react";
 import { NumericFormat } from "react-number-format";
 
-import {
-  Select,
-  TextField,
-  FormControl,
-  Button,
-  Checkbox,
-  MenuItem,
-  InputLabel,
-  Grid,
-  Box,
-  Container,
-  FormControlLabel,
-  Typography,
-} from "@mui/material";
+import { TextField, Grid } from "@mui/material";
 
 function NumberFormatCustom(props) {
   const { inputRef, onChange, ...other } = props;

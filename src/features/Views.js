@@ -1,26 +1,11 @@
 import { useState, useEffect, useMemo } from "react";
-import {
-  Container,
-  Box,
-  InputLabel,
-  Select,
-  MenuItem,
-  Button,
-  FormControl,
-  Typography,
-  Stack,
-  IconButton,
-} from "@mui/material";
+import { Container, Box, Button, Typography } from "@mui/material";
 import { getAllReports, getCinemaReports } from "../store/slice/reportsSlice";
 import { useDispatch, useSelector } from "react-redux";
 import LineTable from "./LineTable";
-
 import Table from "react-bootstrap/Table";
 import Chart from "./Chart";
-import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
-import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
-
-import ExcelImport from "./ExcelImport";
+/* import ExcelImport from "./ExcelImport"; */
 import ToExcel from "./ToExcel";
 import dayjs from "dayjs";
 import "dayjs/locale/it";
@@ -35,7 +20,7 @@ import {
 
 dayjs.locale("it");
 
-import { useLoaderData, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 export default function View() {
   const reports = useSelector((state) => state.reports);
@@ -52,7 +37,6 @@ export default function View() {
       try {
         dispatch(getAllReports())
           .then((report) => {
-
             setListToView(report.payload);
             setListReport(report.payload);
             setLoadingReport(false);
@@ -114,7 +98,7 @@ export default function View() {
           borderRadius: "5px",
           overflow: "auto",
           opacity: 0.9,
-          p: 1,
+          p: 3,
         }}
       >
         <Container sx={{ fontSize: "0.8rem" }}>
@@ -140,7 +124,7 @@ export default function View() {
                 <th>
                   <Typography style={{ width: "130px" }}>
                     <DataSorter
-                      val="startDate"
+                      val="endDate"
                       sortDirection={sortDirection}
                       setSortDirection={setSortDirection}
                       listReport={listReport}
@@ -151,7 +135,7 @@ export default function View() {
                 <th>
                   <Typography style={{ width: "130px" }}>
                     <DataSorter
-                      val="startDate"
+                      val="datePrediction"
                       sortDirection={sortDirection}
                       setSortDirection={setSortDirection}
                       listReport={listReport}
@@ -271,7 +255,7 @@ export default function View() {
             Grandinetti view
           </Button>
         )}
-        <ExcelImport />
+        {/* <ExcelImport /> */}
       </Box>
 
       {listReport.length > 1 && <Chart data={listReport} />}

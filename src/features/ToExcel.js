@@ -51,7 +51,7 @@ export const ToExcel = ({ data }) => {
     }
 
     //set auto filter
-    worksheet.autoFilter = "A1:Q1";
+    worksheet.autoFilter = "A1:R1";
 
     //set columns
     worksheet.columns = [

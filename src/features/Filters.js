@@ -64,9 +64,29 @@ export const DataSorter = ({
   }, [sortDirection]);
 
   function sortAscendateDate(a, b) {
+    let dataA = new Date();
+    let dataB = new Date();
+
+    switch (val) {
+      case "startDate":
+        dataA = new Date(a.startDate.split("/").reverse().join("-")); // converte la data nel formato "YYYY-MM-DD"
+        dataB = new Date(b.startDate.split("/").reverse().join("-")); // converte la data nel formato "YYYY-MM-DD"
+        break;
+      case "endDate":
+        dataA = new Date(a.endDate.split("/").reverse().join("-")); // converte la data nel formato "YYYY-MM-DD"
+        dataB = new Date(b.endDate.split("/").reverse().join("-")); // converte la data nel formato "YYYY-MM-DD"
+        break;
+      case "datePrediction":
+        dataA = new Date(a.datePrediction.split("/").reverse().join("-")); // converte la data nel formato "YYYY-MM-DD"
+        dataB = new Date(b.datePrediction.split("/").reverse().join("-")); // converte la data nel formato "YYYY-MM-DD"
+
+        break;
+
+      default:
+        break;
+    }
+
     console.log("asc");
-    const dataA = new Date(a.startDate.split("/").reverse().join("-")); // converte la data nel formato "YYYY-MM-DD"
-    const dataB = new Date(b.startDate.split("/").reverse().join("-")); // converte la data nel formato "YYYY-MM-DD"
 
     if (dataA < dataB) {
       return -1;
