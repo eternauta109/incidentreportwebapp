@@ -43,9 +43,9 @@ export default function Login() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const user = useSelector((state) => state.user);
-  const [showPassword, setShowPassword] = useState(false);
+  /*   const [showPassword, setShowPassword] = useState(false);
   const handleClickShowPassword = () => setShowPassword(!showPassword);
-  const handleMouseDownPassword = () => setShowPassword(!showPassword);
+  const handleMouseDownPassword = () => setShowPassword(!showPassword); */
   const theme = useTheme();
 
   const handleSubmit = (event) => {
@@ -100,7 +100,7 @@ export default function Login() {
             inputRef={passwordValue}
             name="password"
             label="Password"
-            type={showPassword ? "text" : "password"}
+            type="password" /* {showPassword ? "text" : "password"} */
             id="password"
             autoComplete="current-password"
           />

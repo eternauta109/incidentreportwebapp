@@ -1,11 +1,8 @@
 import { useState, useEffect, useMemo } from "react";
 import {
-  Container,
-  Box,
   InputLabel,
   Select,
   MenuItem,
-  Button,
   FormControl,
   Typography,
   Stack,
@@ -14,11 +11,10 @@ import {
 import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import { categoryList } from "../config/structure";
-const areaStateInit = [1, 2, 3, 4, "all"];
 
 export const AreaSelect = ({ listReport, setListToView }) => {
   const [area, setArea] = useState("all");
-
+  const areaStateInit = [1, 2, 3, 4, "all"];
   useMemo(() => {
     console.log("ciaoo");
     if (area === "all") {
@@ -99,8 +95,24 @@ export const DataSorter = ({
 
   function sortDescendentDate(a, b) {
     console.log("desc");
-    const dataA = new Date(a.startDate.split("/").reverse().join("-")); // converte la data nel formato "YYYY-MM-DD"
-    const dataB = new Date(b.startDate.split("/").reverse().join("-")); // converte la data nel formato "YYYY-MM-DD"
+    switch (val) {
+      case "startDate":
+        dataA = new Date(a.startDate.split("/").reverse().join("-")); // converte la data nel formato "YYYY-MM-DD"
+        dataB = new Date(b.startDate.split("/").reverse().join("-")); // converte la data nel formato "YYYY-MM-DD"
+        break;
+      case "endDate":
+        dataA = new Date(a.endDate.split("/").reverse().join("-")); // converte la data nel formato "YYYY-MM-DD"
+        dataB = new Date(b.endDate.split("/").reverse().join("-")); // converte la data nel formato "YYYY-MM-DD"
+        break;
+      case "datePrediction":
+        dataA = new Date(a.datePrediction.split("/").reverse().join("-")); // converte la data nel formato "YYYY-MM-DD"
+        dataB = new Date(b.datePrediction.split("/").reverse().join("-")); // converte la data nel formato "YYYY-MM-DD"
+
+        break;
+
+      default:
+        break;
+    }
 
     if (dataA > dataB) {
       return -1;

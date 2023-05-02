@@ -694,7 +694,7 @@ export const categoryList = [
   "Elettrici",
   "Infiltrazioni",
   "Proiezione",
-  "Aria condizionata, ventilazione (HVAC)",
+  "Riscaldamento, ventilazione e aria condizionata (HVAC).",
   "Ristrutturazione",
   "Scale mobili",
   "UPS e gruppi elettrogeni",

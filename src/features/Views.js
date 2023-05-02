@@ -37,6 +37,7 @@ export default function View() {
       try {
         dispatch(getAllReports())
           .then((report) => {
+            console.log("report lett da firebase: " + report);
             setListToView(report.payload);
             setListReport(report.payload);
             setLoadingReport(false);
@@ -112,13 +113,15 @@ export default function View() {
                 </th>
                 <th>
                   <Typography style={{ width: "130px" }}>
-                    <DataSorter
-                      val="startDate"
-                      sortDirection={sortDirection}
-                      setSortDirection={setSortDirection}
-                      listReport={listReport}
-                      setListToView={setListToView}
-                    />
+                    {!loadingReport && (
+                      <DataSorter
+                        val="startDate"
+                        sortDirection={sortDirection}
+                        setSortDirection={setSortDirection}
+                        listReport={listReport}
+                        setListToView={setListToView}
+                      />
+                    )}
                   </Typography>
                 </th>
                 <th>
@@ -155,10 +158,12 @@ export default function View() {
                 </th>
                 <th scope="col">
                   <Typography style={{ width: "100px" }}>
-                    <AreaSelect
-                      listReport={listReport}
-                      setListToView={setListToView}
-                    />
+                    {!loadingReport && (
+                      <AreaSelect
+                        listReport={listReport}
+                        setListToView={setListToView}
+                      />
+                    )}
                   </Typography>
                 </th>
                 <th>
@@ -185,10 +190,12 @@ export default function View() {
                 </th>
                 <th scope="col">
                   <Typography>
-                    <SelectScreenState
-                      listReport={listReport}
-                      setListToView={setListToView}
-                    />
+                    {!loadingReport && (
+                      <SelectScreenState
+                        listReport={listReport}
+                        setListToView={setListToView}
+                      />
+                    )}
                   </Typography>
                 </th>
                 <th scope="col">
@@ -207,10 +214,12 @@ export default function View() {
                   <Typography>note</Typography>
                 </th>
                 <th scope="col">
-                  <SelectSolved
-                    listReport={listReport}
-                    setListToView={setListToView}
-                  />
+                  {!loadReport && (
+                    <SelectSolved
+                      listReport={listReport}
+                      setListToView={setListToView}
+                    />
+                  )}
                 </th>
                 <th scope="col">
                   <Typography>work day</Typography>
