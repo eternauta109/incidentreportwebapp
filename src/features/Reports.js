@@ -19,6 +19,7 @@ import CloseSection from "./reportsSections/CloseSection";
 import { setNewCinema } from "../store/slice/userSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { sendEmail } from "./SendMail";
+import { addReportRedux } from "../store/slice/reportsSlice";
 
 import dayjs from "dayjs";
 
@@ -122,6 +123,7 @@ export default function Report() {
       updateReport(state.idDoc, report).then(navigate("../landing"));
     } else {
       addReport(report).then(navigate("../landing"));
+      /* dispatch(addReportRedux({ report })); */
     }
   };
 

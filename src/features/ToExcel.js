@@ -114,6 +114,12 @@ export const ToExcel = ({ data }) => {
           vertical: "middle",
           horizontal: "center",
         };
+        row.getCell(i).border = {
+          top: { style: "thin", color: { argb: "00000000" } },
+          left: { style: "thin", color: { argb: "00000000" } },
+          bottom: { style: "thin", color: { argb: "00000000" } },
+          right: { style: "thin", color: { argb: "00000000" } },
+        };
       }
     });
 
