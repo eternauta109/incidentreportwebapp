@@ -13,6 +13,7 @@ import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import { categoryList } from "../config/structure";
 
 export const AreaSelect = ({ listReport, setListToView }) => {
+  console.log("AreaSelect");
   const [area, setArea] = useState("all");
   const areaStateInit = [1, 2, 3, 4, "all"];
   useMemo(() => {
@@ -54,11 +55,7 @@ export const DataSorter = ({
   setSortDirection,
 }) => {
   //Functio to use
-
-  useMemo(() => {
-    console.log(sortDirection);
-  }, [sortDirection]);
-
+  console.log("datasorter");
   function sortAscendateDate(a, b) {
     let dataA = new Date();
     let dataB = new Date();
@@ -161,6 +158,7 @@ export const SelectCinema = ({
   setListToView,
   listToView,
 }) => {
+  console.log("selectCinema");
   const [cinemaSelected, setCinemaSelected] = useState([]);
 
   useEffect(() => {
@@ -201,7 +199,7 @@ export const SelectCinema = ({
 //category filters
 export const SelectCategory = ({ listReport, setListToView }) => {
   const [categorySelected, setCategorySelected] = useState([]);
-
+  console.log("categoryfilter");
   useEffect(() => {
     if (categorySelected.length < 1) {
       setListToView(listReport);
