@@ -1,11 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
-import {
-  getDocs,
-  where,
-  query,
-  collection,
-} from "firebase/firestore";
+import { getDocs, where, query, collection } from "firebase/firestore";
 import { cinemaList } from "../../config/structure";
 import { db } from "../../config/firebase.js";
 import dayjs from "dayjs";
@@ -55,6 +50,15 @@ export const getCinemaReports = createAsyncThunk(
   }
 );
 
+export const addReportRedux = createAsyncThunk(
+  "reports/addreport",
+  async ({ report }, { getState }) => {
+    console.log(report);
+    console.log(getState.reducer);
+    let reports = [];
+  }
+);
+
 export const reportsSlice = createSlice({
   name: "reports",
   initialState: [],
@@ -72,6 +76,14 @@ export const reportsSlice = createSlice({
         /*  console.log("loading"); */
       })
       .addCase(getCinemaReports.fulfilled, (state, action) => {
+        state = action.payload;
+        return state;
+      })
+      .addCase(addReportRedux.pending, (state, action) => {
+        /*  console.log("loading"); */
+      })
+      .addCase(addReportRedux.fulfilled, (state, action) => {
+        console.log(state);
         state = action.payload;
         return state;
       });
