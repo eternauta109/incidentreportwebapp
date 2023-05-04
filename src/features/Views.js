@@ -156,16 +156,16 @@ export default function View() {
                     />
                   </Typography>
                 </th>
-                <th scope="col">
-                  <Typography style={{ width: "100px" }}>
-                    {!loadingReport && (
+                {!loadingReport && (
+                  <th scope="col">
+                    <Typography style={{ width: "100px" }}>
                       <AreaSelect
                         listReport={listReport}
                         setListToView={setListToView}
                       />
-                    )}
-                  </Typography>
-                </th>
+                    </Typography>
+                  </th>
+                )}
                 <th>
                   <Typography style={{ width: "45px" }}>
                     screens num{" "}
@@ -190,12 +190,10 @@ export default function View() {
                 </th>
                 <th scope="col">
                   <Typography>
-                    {!loadingReport && (
-                      <SelectScreenState
-                        listReport={listReport}
-                        setListToView={setListToView}
-                      />
-                    )}
+                    <SelectScreenState
+                      listReport={listReport}
+                      setListToView={setListToView}
+                    />
                   </Typography>
                 </th>
                 <th scope="col">
