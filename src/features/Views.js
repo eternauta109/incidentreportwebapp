@@ -4,7 +4,7 @@ import { getAllReports, getCinemaReports } from "../store/slice/reportsSlice";
 import { useDispatch, useSelector } from "react-redux";
 import LineTable from "./LineTable";
 import Table from "react-bootstrap/Table";
-/* import Chart from "./Chart"; */
+import Chart from "./Chart"; 
 /* import ExcelImport from "./ExcelImport"; */
 import ToExcel from "./ToExcel";
 import SecondView from "./SecondView";
@@ -262,7 +262,7 @@ export default function View() {
         {/* <ExcelImport /> */}
       </Box>
 
-      {/* {listReport.length > 1 && <Chart data={listReport} />} */}
+      {listReport.length > 1 && <Chart data={listReport} />}
     </>
   );
 }
