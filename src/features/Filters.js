@@ -13,11 +13,11 @@ import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import { categoryList } from "../config/structure";
 
 export const AreaSelect = ({ listReport, setListToView }) => {
-  console.log("AreaSelect");
+  /* console.log("AreaSelect"); */
   const [area, setArea] = useState("all");
   const areaStateInit = [1, 2, 3, 4, "all"];
   useMemo(() => {
-    console.log("ciaoo");
+    /* console.log("ciaoo"); */
     if (area === "all") {
       return setListToView(listReport);
     } else {
@@ -55,7 +55,7 @@ export const DataSorter = ({
   setSortDirection,
 }) => {
   //Functio to use
-  console.log("datasorter");
+  /* console.log("datasorter"); */
   function sortAscendateDate(a, b) {
     let dataA = new Date();
     let dataB = new Date();
@@ -158,7 +158,7 @@ export const SelectCinema = ({
   setListToView,
   listToView,
 }) => {
-  console.log("selectCinema");
+  /* console.log("selectCinema"); */
   const [cinemaSelected, setCinemaSelected] = useState([]);
 
   useEffect(() => {
@@ -171,8 +171,8 @@ export const SelectCinema = ({
         );
 
         setListToView([...arrayCommun]);
-        console.log("arrayCommun", arrayCommun);
-        console.log("listToView", listToView);
+        /* console.log("arrayCommun", arrayCommun);
+        console.log("listToView", listToView); */
       });
     }
   }, [cinemaSelected]);
@@ -199,7 +199,7 @@ export const SelectCinema = ({
 //category filters
 export const SelectCategory = ({ listReport, setListToView }) => {
   const [categorySelected, setCategorySelected] = useState([]);
-  console.log("categoryfilter");
+  /* console.log("categoryfilter"); */
   useEffect(() => {
     if (categorySelected.length < 1) {
       setListToView(listReport);
