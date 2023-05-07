@@ -53,9 +53,26 @@ export const getCinemaReports = createAsyncThunk(
 export const addReportRedux = createAsyncThunk(
   "reports/addreport",
   async ({ report }, { getState }) => {
-    console.log(report);
-    console.log(getState.reducer);
-    let reports = [];
+    const currentReportsState = getState().reports;
+    return [...currentReportsState, report];
+  }
+);
+
+export const updateReportRedux = createAsyncThunk(
+  "reports/updatereport",
+  async ({ reportId, updates }, { getState, dispatch }) => {
+    console.log("reportId", reportId);
+    console.log("updates", updates);
+    const state = getState();
+    const reports = state.reports;
+    // Cerca il report con l'ID corrispondente e aggiornalo con i nuovi valori
+    const updatedReports = reports.map((report) => {
+      if (report.idDoc === reportId) {
+        return { ...report, ...updates };
+      }
+      return report;
+    });
+    return updatedReports;
   }
 );
 
@@ -83,7 +100,13 @@ export const reportsSlice = createSlice({
         /*  console.log("loading"); */
       })
       .addCase(addReportRedux.fulfilled, (state, action) => {
-        console.log(state);
+        state = action.payload;
+        return state;
+      })
+      .addCase(updateReportRedux.pending, (state, action) => {
+        /*  console.log("loading"); */
+      })
+      .addCase(updateReportRedux.fulfilled, (state, action) => {
         state = action.payload;
         return state;
       });

@@ -19,7 +19,7 @@ import CloseSection from "./reportsSections/CloseSection";
 import { setNewCinema } from "../store/slice/userSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { sendEmail } from "./SendMail";
-import { addReportRedux } from "../store/slice/reportsSlice";
+import { addReportRedux, updateReportRedux } from "../store/slice/reportsSlice";
 
 import dayjs from "dayjs";
 
@@ -31,6 +31,7 @@ export default function Report() {
   const { state } = useLocation();
   const theme = useTheme();
   const user = useSelector((state) => state.user);
+  const reports = useSelector((state) => state.reports);
   const dispatch = useDispatch();
   console.log(user);
 
@@ -120,10 +121,17 @@ export default function Report() {
     /* sendEmail(update, report, user); */
 
     if (state) {
-      updateReport(state.idDoc, report).then(navigate("../landing"));
+      if (reports.length > 0) {
+        dispatch(
+          updateReportRedux({ reportId: report.idCoc, updates: report })
+        );
+      }
+      /* updateReport(state.idDoc, report).then(navigate("../landing")); */
     } else {
-      addReport(report).then(navigate("../landing"));
-      /* dispatch(addReportRedux({ report })); */
+      if (reports.length > 0) {
+        dispatch(addReportRedux({ report }));
+      }
+      /* addReport(report).then(navigate("../landing")); */
     }
   };
 
