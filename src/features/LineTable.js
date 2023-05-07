@@ -1,5 +1,6 @@
 import React from "react";
 import dayjs from "dayjs";
+import { Box, Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import "dayjs/locale/it";
 
@@ -13,15 +14,15 @@ const thStyle = {
 export const LineFound = ({ report }) => {
   const navigate = useNavigate();
   /* console.log("linet report", report); */
-  const manageClick = async (e) => {
+  const manageUpdateClick = async (e) => {
     e.preventDefault();
-    navigate("../reports", { state: { ...report } });
+    await navigate("../reports", { state: { ...report } });
   };
 
   return (
     <>
       {report && (
-        <tr onClick={(e) => manageClick(e)}>
+        <tr>
           <th style={thStyle} scope="row">
             {report.ref_num}
           </th>
@@ -78,6 +79,20 @@ export const LineFound = ({ report }) => {
           </th>
           <th style={thStyle} scope="row">
             {report.workDays}
+          </th>
+          <th style={thStyle} scope="row">
+            <Box>
+              <Button
+                onClick={(e) => manageUpdateClick(e)}
+                variant="contained"
+                color="primary"
+              >
+                Update
+              </Button>
+              {/*   <Button variant="contained" color="error">
+                Delete
+              </Button> */}
+            </Box>
           </th>
         </tr>
       )}

@@ -33,7 +33,7 @@ export default function Report() {
   const user = useSelector((state) => state.user);
   const reports = useSelector((state) => state.reports);
   const dispatch = useDispatch();
-  console.log(user);
+  /* console.log(user); */
 
   const initState = {
     startDate: dayjs().format("DD/MM/YYYY"),
@@ -126,12 +126,12 @@ export default function Report() {
           updateReportRedux({ reportId: report.idCoc, updates: report })
         );
       }
-      /* updateReport(state.idDoc, report).then(navigate("../landing")); */
+      updateReport(state.idDoc, report).then(navigate("../landing"));
     } else {
       if (reports.length > 0) {
         dispatch(addReportRedux({ report }));
       }
-      /* addReport(report).then(navigate("../landing")); */
+      addReport(report).then(navigate("../landing"));
     }
   };
 
@@ -168,8 +168,8 @@ export default function Report() {
   useEffect(() => {
     if (state) {
       setUpdate(true);
-      console.log(update);
-      console.log("state", state);
+      /*  console.log(update);
+      console.log("state", state); */
       setReport({
         ...state,
       });
@@ -188,9 +188,11 @@ export default function Report() {
 
   return (
     <Container sx={theme.formStyle}>
-      <Typography variant="h3" color="primary" sx={{ mb: "50px" }}>
-        incident report
-      </Typography>
+      <Box sx={{ bgcolor: "#f4a261", m: 2, p: 1, borderRadius: 5 }}>
+        <Typography variant="h3" color="#264653">
+          incident report
+        </Typography>
+      </Box>
 
       <Box component="form" onSubmit={onSubmitReport}>
         {/* FRIST SECTION*/}
@@ -249,10 +251,14 @@ export default function Report() {
           setReport={setReport}
         />
         {/* END FOURTH SECTION*/}
-
-        <Grid item xs={12} sm={12}>
-          <Button type="submit" variant="contained" sx={{ mt: 4, mb: 2 }}>
-            {state ? "UpDate" : "Register"}
+        <Grid container justifyContent="center">
+          <Button
+            type="submit"
+            color="primary"
+            variant="contained"
+            sx={{ width: "300px", mt: 4, mb: 2 }}
+          >
+            {state ? "UpDate" : "Save"}
           </Button>
         </Grid>
       </Box>

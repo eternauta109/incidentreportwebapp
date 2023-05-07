@@ -20,31 +20,27 @@ const theme = createTheme({
     borderRadius: 5,
     width: "100%",
     height: "2000px",
-    backgroundSize: "cover",
-    backgroundRepeat: "no-repeat",
-    backgroundPosition: "center",
-    backgroundImage: `url(${image})`,
+
+    backgroundColor: "#264653",
   },
 
   formStyle: {
     width: "100%",
-    bgcolor: "rgba(249,251,231,0.8)",
+    bgcolor: "#ccd5ae",
     margin: "0 auto",
     mt: "80px",
     borderRadius: "5px",
-
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
   },
-
   paperContainer: {},
   palette: {
     primary: {
-      main: "#ff8f00",
+      main: "#83764F",
     },
     secondary: {
-      main: "#7cb342",
+      main: "#A2A378",
     },
   },
   typography: {

@@ -73,11 +73,12 @@ export const updateReport = async (id, updateReport) => {
   }
 };
 
+//prendo il numero di ref
 export const getRefNum = async (cinema) => {
   const q = query(reportsCollectionRef, where("cinema", "==", cinema));
   const snapshot = await getCountFromServer(q);
   const res = snapshot.data().count;
-  console.log("count: ", res);
+  /* console.log("count: ", res); */
   return res;
 };
 
