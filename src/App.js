@@ -11,7 +11,7 @@ import { useSelector } from "react-redux";
 import { auth } from "./config/firebase.js";
 import CssBaseline from "@mui/material/CssBaseline";
 import "bootstrap/dist/css/bootstrap.min.css";
-import image from "./assets/cinema_image2.webp";
+import image from "./assets/verde.jpeg";
 import Navbar from "./features/Navbar";
 import ProtectedRoute from "./services/ProtectedRoute";
 
@@ -20,15 +20,20 @@ const theme = createTheme({
     borderRadius: 5,
     width: "100%",
     height: "2000px",
-
-    backgroundColor: "#264653",
+    backgroundSize: "cover",
+    backgroundRepeat: "no-repeat",
+    backgroundPosition: "center",
+    backgroundImage: `url(${image})`,
+    /* opacity: 0.5, */
+    /*  backgroundColor: "#264653", */
   },
 
   formStyle: {
     width: "100%",
-    bgcolor: "#ccd5ae",
+    backgroundColor: "#ccd5ae",
     margin: "0 auto",
     mt: "80px",
+    opacity: 0.8,
     borderRadius: "5px",
     display: "flex",
     flexDirection: "column",

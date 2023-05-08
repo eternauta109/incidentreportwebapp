@@ -46,7 +46,7 @@ const DateSection = ({
           <TextField
             value={report.ref_num}
             name="ref_num"
-            disabled={user.is_facility ? false : true}
+            disabled
             label="ref.number"
             fullWidth
           />

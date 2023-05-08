@@ -188,10 +188,16 @@ export default function Report() {
 
   return (
     <Container sx={theme.formStyle}>
-      <Box sx={{ bgcolor: "#f4a261", m: 2, p: 1, borderRadius: 5 }}>
-        <Typography variant="h3" color="#264653">
-          incident report
-        </Typography>
+      <Box
+        sx={{
+          border: 2,
+          borderColor: "green",
+          m: 2,
+          p: 1,
+          borderRadius: 5,
+        }}
+      >
+        <Typography variant="h3">incident report</Typography>
       </Box>
 
       <Box component="form" onSubmit={onSubmitReport}>
