@@ -52,6 +52,18 @@ const CloseSection = ({ report, reportChange, user, setReport }) => {
             fullWidth
           />
         </Grid>
+        <Grid item xs={12} sm={12}>
+          <TextField
+            helperText="your name"
+            id="redattore"
+            name="redattore"
+            label="enter your name"
+            onChange={(e) => reportChange(e)}
+            value={report ? report.redattore : ""}
+            multiline
+            fullWidth
+          />
+        </Grid>
       </Grid>
     </>
   );

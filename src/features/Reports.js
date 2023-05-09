@@ -56,6 +56,7 @@ export default function Report() {
     ref_num: "",
     issue: "",
     note: "",
+    redattore:"",
   };
   const [report, setReport] = useState(initState);
   const [stDate, setStDate] = useState();
