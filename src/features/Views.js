@@ -8,6 +8,8 @@ import Chart from "./Chart";
 /* import ExcelImport from "./ExcelImport"; */
 import ToExcel from "./ToExcel";
 import SecondView from "./SecondView";
+import Tabs from "@mui/material/Tabs";
+import Tab from "@mui/material/Tab";
 import dayjs from "dayjs";
 import "dayjs/locale/it";
 import {
@@ -23,8 +25,36 @@ dayjs.locale("it");
 
 import { useLocation } from "react-router-dom";
 
+function TabPanel(props) {
+  const { children, value, index, ...other } = props;
+
+  return (
+    <div
+      role="tabpanel"
+      hidden={value !== index}
+      id={`simple-tabpanel-${index}`}
+      aria-labelledby={`simple-tab-${index}`}
+      {...other}
+    >
+      {value === index && (
+        <Box sx={{ p: 3 }}>
+          <Typography>{children}</Typography>
+        </Box>
+      )}
+    </div>
+  );
+}
+
+function a11yProps(index) {
+  return {
+    id: `simple-tab-${index}`,
+    "aria-controls": `simple-tabpanel-${index}`,
+  };
+}
+
 export default function View() {
   const reports = useSelector((state) => state.reports);
+  const [value, setValue] = useState(0);
   const [listReport, setListReport] = useState([]);
   const [listToView, setListToView] = useState([]);
   const [loadingReport, setLoadingReport] = useState(true);
@@ -73,6 +103,11 @@ export default function View() {
     }
   };
 
+  //gestione tabs
+  const handleChangeTabs = (event, newValue) => {
+    setValue(newValue);
+  };
+
   useEffect(() => {
     if (reports.length > 0) {
       console.log("leggo reports da redux");
@@ -92,6 +127,25 @@ export default function View() {
 
   return (
     <>
+      <Box
+        sx={{
+          borderBottom: 1,
+          borderColor: "divider",
+          bgcolor: "#f9fbe7",
+          opacity: 0.9,
+          borderRadius: "5px",
+        }}
+      >
+        <Tabs
+          value={value}
+          onChange={handleChangeTabs}
+          textColor="secondary"
+          aria-label="basic tabs example"
+        >
+          <Tab label="list" {...a11yProps(0)} />
+          <Tab label="chart analisys" {...a11yProps(1)} />
+        </Tabs>
+      </Box>
       <Container
         sx={{
           bgcolor: "#f9fbe7",
@@ -103,152 +157,159 @@ export default function View() {
           p: 3,
         }}
       >
-        <Container sx={{ fontSize: "0.8rem" }}>
-          <Table id="table-to-xls" sx={{ maxHeight: 500 }} striped bordered>
-            <thead>
-              <tr sx={{ bgcolor: "grey" }}>
-                <th>
-                  <Typography style={{ width: "10px" }}>
-                    report number{" "}
-                  </Typography>
-                </th>
-                <th>
-                  <Typography style={{ width: "130px" }}>
+        <Box sx={{ width: "100%" }}>
+          <TabPanel value={value} index={0}>
+            <Box sx={{ fontSize: "0.8rem", width: "100%" }}>
+              <Table id="table-to-xls" sx={{ maxHeight: 500 }} striped bordered>
+                <thead>
+                  <tr sx={{ bgcolor: "grey" }}>
+                    <th>
+                      <Typography style={{ width: "10px" }}>
+                        report number{" "}
+                      </Typography>
+                    </th>
+                    <th>
+                      <Typography style={{ width: "130px" }}>
+                        {!loadingReport && (
+                          <DataSorter
+                            val="startDate"
+                            sortDirection={sortDirection}
+                            setSortDirection={setSortDirection}
+                            listReport={listReport}
+                            setListToView={setListToView}
+                          />
+                        )}
+                      </Typography>
+                    </th>
+                    <th>
+                      <Typography style={{ width: "130px" }}>
+                        <DataSorter
+                          val="endDate"
+                          sortDirection={sortDirection}
+                          setSortDirection={setSortDirection}
+                          listReport={listReport}
+                          setListToView={setListToView}
+                        />
+                      </Typography>
+                    </th>
+                    <th>
+                      <Typography style={{ width: "130px" }}>
+                        <DataSorter
+                          val="datePrediction"
+                          sortDirection={sortDirection}
+                          setSortDirection={setSortDirection}
+                          listReport={listReport}
+                          setListToView={setListToView}
+                        />
+                      </Typography>
+                    </th>
+                    <th>
+                      <Typography style={{ width: "150px" }}>
+                        <SelectCinema
+                          user={user}
+                          listReport={listReport}
+                          listToView={listToView}
+                          setListToView={setListToView}
+                        />
+                      </Typography>
+                    </th>
                     {!loadingReport && (
-                      <DataSorter
-                        val="startDate"
-                        sortDirection={sortDirection}
-                        setSortDirection={setSortDirection}
-                        listReport={listReport}
-                        setListToView={setListToView}
-                      />
+                      <th scope="col">
+                        <Typography style={{ width: "100px" }}>
+                          <AreaSelect
+                            listReport={listReport}
+                            setListToView={setListToView}
+                          />
+                        </Typography>
+                      </th>
                     )}
-                  </Typography>
-                </th>
-                <th>
-                  <Typography style={{ width: "130px" }}>
-                    <DataSorter
-                      val="endDate"
-                      sortDirection={sortDirection}
-                      setSortDirection={setSortDirection}
-                      listReport={listReport}
-                      setListToView={setListToView}
-                    />
-                  </Typography>
-                </th>
-                <th>
-                  <Typography style={{ width: "130px" }}>
-                    <DataSorter
-                      val="datePrediction"
-                      sortDirection={sortDirection}
-                      setSortDirection={setSortDirection}
-                      listReport={listReport}
-                      setListToView={setListToView}
-                    />
-                  </Typography>
-                </th>
-                <th>
-                  <Typography style={{ width: "150px" }}>
-                    <SelectCinema
-                      user={user}
-                      listReport={listReport}
-                      listToView={listToView}
-                      setListToView={setListToView}
-                    />
-                  </Typography>
-                </th>
-                {!loadingReport && (
-                  <th scope="col">
-                    <Typography style={{ width: "100px" }}>
-                      <AreaSelect
-                        listReport={listReport}
-                        setListToView={setListToView}
-                      />
-                    </Typography>
-                  </th>
+                    <th>
+                      <Typography style={{ width: "45px" }}>
+                        screens num{" "}
+                      </Typography>
+                    </th>
+                    <th scope="col">
+                      <Typography>total seats</Typography>
+                    </th>
+                    <th scope="col">
+                      <Typography>screen with issue</Typography>
+                    </th>
+                    <th scope="col">
+                      <Typography>seats screen number</Typography>{" "}
+                    </th>
+                    <th>
+                      <Typography style={{ width: "200px" }}>
+                        <SelectCategory
+                          listReport={listReport}
+                          setListToView={setListToView}
+                        />
+                      </Typography>
+                    </th>
+                    <th scope="col">
+                      <Typography>
+                        <SelectScreenState
+                          listReport={listReport}
+                          setListToView={setListToView}
+                        />
+                      </Typography>
+                    </th>
+                    <th scope="col">
+                      <Typography>show close</Typography>
+                    </th>
+                    <th scope="col">
+                      <Typography>refounds</Typography>
+                    </th>
+                    <th scope="col">
+                      <Typography>comps</Typography>
+                    </th>
+                    <th>
+                      <Typography style={{ width: "200px" }}>issues</Typography>
+                    </th>
+                    <th scope="col">
+                      <Typography>note</Typography>
+                    </th>
+                    <th scope="col">
+                      {!loadReport && (
+                        <SelectSolved
+                          listReport={listReport}
+                          setListToView={setListToView}
+                        />
+                      )}
+                    </th>
+                    <th scope="col">
+                      <Typography>work day</Typography>
+                    </th>
+                    <th scope="col">action</th>
+                  </tr>
+                </thead>
+                {!loadingReport && listToView && listToView.length > 0 && (
+                  <tbody sx={{ overflow: "auto", height: "400px" }}>
+                    {listToView.map((val, key) => (
+                      <LineTable key={key} report={val} />
+                    ))}
+                  </tbody>
                 )}
-                <th>
-                  <Typography style={{ width: "45px" }}>
-                    screens num{" "}
-                  </Typography>
-                </th>
-                <th scope="col">
-                  <Typography>total seats</Typography>
-                </th>
-                <th scope="col">
-                  <Typography>screen with issue</Typography>
-                </th>
-                <th scope="col">
-                  <Typography>seats screen number</Typography>{" "}
-                </th>
-                <th>
-                  <Typography style={{ width: "200px" }}>
-                    <SelectCategory
-                      listReport={listReport}
-                      setListToView={setListToView}
-                    />
-                  </Typography>
-                </th>
-                <th scope="col">
-                  <Typography>
-                    <SelectScreenState
-                      listReport={listReport}
-                      setListToView={setListToView}
-                    />
-                  </Typography>
-                </th>
-                <th scope="col">
-                  <Typography>show close</Typography>
-                </th>
-                <th scope="col">
-                  <Typography>refounds</Typography>
-                </th>
-                <th scope="col">
-                  <Typography>comps</Typography>
-                </th>
-                <th>
-                  <Typography style={{ width: "200px" }}>issues</Typography>
-                </th>
-                <th scope="col">
-                  <Typography>note</Typography>
-                </th>
-                <th scope="col">
-                  {!loadReport && (
-                    <SelectSolved
-                      listReport={listReport}
-                      setListToView={setListToView}
-                    />
-                  )}
-                </th>
-                <th scope="col">
-                  <Typography>work day</Typography>
-                </th>
-                <th scope="col">action</th>
-              </tr>
-            </thead>
-            {!loadingReport && listToView && listToView.length > 0 && (
-              <tbody sx={{ overflow: "auto", height: "400px" }}>
-                {listToView.map((val, key) => (
-                  <LineTable key={key} report={val} />
-                ))}
-              </tbody>
-            )}
-            {!loadingReport && listToView.length === 0 && (
-              <tbody>
-                <tr>
-                  <th>no reports</th>
-                </tr>
-              </tbody>
-            )}
-            {loadingReport && (
-              <tbody>
-                <tr>
-                  <th>Loading...</th>
-                </tr>
-              </tbody>
-            )}
-          </Table>
-        </Container>
+                {!loadingReport && listToView.length === 0 && (
+                  <tbody>
+                    <tr>
+                      <th>no reports</th>
+                    </tr>
+                  </tbody>
+                )}
+                {loadingReport && (
+                  <tbody>
+                    <tr>
+                      <th>Loading...</th>
+                    </tr>
+                  </tbody>
+                )}
+              </Table>
+            </Box>
+          </TabPanel>
+          <TabPanel value={value} index={1}>
+            {listReport.length > 1 && <Chart data={listReport} />}
+          </TabPanel>
+        </Box>
       </Container>
 
       <Box
@@ -261,8 +322,6 @@ export default function View() {
         {user.is_facility && <SecondView data={listToView} />}
         {/* <ExcelImport /> */}
       </Box>
-
-      {listReport.length > 1 && <Chart data={listReport} />} 
     </>
   );
 }

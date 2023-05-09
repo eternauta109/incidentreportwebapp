@@ -11,7 +11,7 @@ import { useSelector } from "react-redux";
 import { auth } from "./config/firebase.js";
 import CssBaseline from "@mui/material/CssBaseline";
 import "bootstrap/dist/css/bootstrap.min.css";
-import image from "./assets/verde.jpeg";
+import image from "./assets/diagonalihd.jpeg";
 import Navbar from "./features/Navbar";
 import ProtectedRoute from "./services/ProtectedRoute";
 
