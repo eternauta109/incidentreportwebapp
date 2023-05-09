@@ -12,6 +12,7 @@ import Button from "@mui/material/Button";
 import { useDispatch, useSelector } from "react-redux";
 import ReportsServices from "../services/reportsServices";
 import { userLogOut } from "../store/slice/userSlice";
+import { reportsLogOut } from "../store/slice/reportsSlice";
 
 const drawerWidth = 240;
 
@@ -24,6 +25,7 @@ export default function Navbar(props) {
 
   const logOutEventClick = async () => {
     dispatch(userLogOut());
+    dispatch(reportsLogOut());
     await ReportsServices.logOut();
     navigate("/");
   };

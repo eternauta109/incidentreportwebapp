@@ -39,6 +39,7 @@ export const getAllReports = createAsyncThunk(
 export const getCinemaReports = createAsyncThunk(
   "reports/getCinemaReports",
   async ({ cinema }) => {
+    console.log("cinema in store", cinema);
     let reports = [];
     const q = query(reportsCollectionRef, where("cinema", "==", cinema));
     const reportsSnap = await getDocs(q);
@@ -79,6 +80,12 @@ export const updateReportRedux = createAsyncThunk(
 export const reportsSlice = createSlice({
   name: "reports",
   initialState: [],
+  reducers: {
+    reportsLogOut(state) {
+      state = [];
+      return state;
+    },
+  },
 
   extraReducers: (builder) => {
     builder
@@ -114,5 +121,5 @@ export const reportsSlice = createSlice({
 });
 
 const { actions, reducer } = reportsSlice;
-
+export const { reportsLogOut } = reportsSlice.actions;
 export default reducer;
