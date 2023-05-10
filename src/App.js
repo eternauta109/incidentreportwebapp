@@ -16,38 +16,44 @@ import Navbar from "./features/Navbar";
 import ProtectedRoute from "./services/ProtectedRoute";
 
 const theme = createTheme({
+  palette: {
+    mode: "light",
+    primary: {
+      main: "#1976d2",
+    },
+    secondary: {
+      main: "rgba(159, 39, 176)",
+    },
+    formColor: {
+      main: "rgba(255, 152, 0,0.3)",
+    },
+  },
   containerStyle: {
     borderRadius: 5,
     width: "100%",
-    height: "2000px",
+    minHeight: "100vh",
     backgroundSize: "cover",
-    backgroundRepeat: "no-repeat",
+    /* backgroundRepeat: "no-repeat",
     backgroundPosition: "center",
-    backgroundImage: `url(${image})`,
+    backgroundImage: `url(${image})`, */
     /* opacity: 0.5, */
-    /*  backgroundColor: "#264653", */
+    backgroundColor: "rgba(236, 236, 236, 0.8)",
   },
 
   formStyle: {
     width: "100%",
-    backgroundColor: "#ccd5ae",
     margin: "0 auto",
     mt: "80px",
+    backgroundColor: "rgba(255, 152, 0,0.3)", //rgba(249, 251, 231, 0.8)
     opacity: 0.8,
     borderRadius: "5px",
+    minHeight: "300px",
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
   },
   paperContainer: {},
-  palette: {
-    primary: {
-      main: "#83764F",
-    },
-    secondary: {
-      main: "#A2A378",
-    },
-  },
+
   typography: {
     fontFamily: [
       "-apple-system",

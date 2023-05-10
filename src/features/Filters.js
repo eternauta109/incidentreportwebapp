@@ -12,6 +12,7 @@ import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import { categoryList } from "../config/structure";
 
+// area filter
 export const AreaSelect = ({ listReport, setListToView }) => {
   /* console.log("AreaSelect"); */
   const [area, setArea] = useState("all");
@@ -28,9 +29,7 @@ export const AreaSelect = ({ listReport, setListToView }) => {
 
   return (
     <FormControl sx={{ width: "100px" }}>
-      <InputLabel id="demo-simple-select-label">
-        <Typography>area</Typography>
-      </InputLabel>
+      <InputLabel sx={{ color: "white", fontWeight: "bold" }}>area</InputLabel>
       <Select
         value={area}
         label="area"
@@ -66,8 +65,12 @@ export const DataSorter = ({
         dataB = new Date(b.startDate.split("/").reverse().join("-")); // converte la data nel formato "YYYY-MM-DD"
         break;
       case "endDate":
-        dataA = new Date(a.endDate.split("/").reverse().join("-")); // converte la data nel formato "YYYY-MM-DD"
-        dataB = new Date(b.endDate.split("/").reverse().join("-")); // converte la data nel formato "YYYY-MM-DD"
+        if (a.endDate === "run" || b.endDate === "run") {
+          return;
+        } else {
+          dataA = new Date(a.endDate.split("/").reverse().join("-")); // converte la data nel formato "YYYY-MM-DD"
+          dataB = new Date(b.endDate.split("/").reverse().join("-")); // converte la data nel formato "YYYY-MM-DD"
+        }
         break;
       case "datePrediction":
         dataA = new Date(a.datePrediction.split("/").reverse().join("-")); // converte la data nel formato "YYYY-MM-DD"
@@ -80,22 +83,29 @@ export const DataSorter = ({
     }
 
     console.log("asc");
+    if (dataA || dataB) {
+      if (dataA < dataB) {
+        return -1;
+      }
+      if (dataA > dataB) {
+        return 1;
+      }
+    }
 
-    if (dataA < dataB) {
-      return -1;
-    }
-    if (dataA > dataB) {
-      return 1;
-    }
     return 0;
   }
 
   function sortDescendentDate(a, b) {
-    console.log("desc");
+    let dataA = new Date();
+    let dataB = new Date();
     switch (val) {
       case "startDate":
-        dataA = new Date(a.startDate.split("/").reverse().join("-")); // converte la data nel formato "YYYY-MM-DD"
+        dataA = new Date(
+          a.startDate.split("/").reverse().join("-") + "T00:00:00"
+        ); // converte la data nel formato "YYYY-MM-DD"
+
         dataB = new Date(b.startDate.split("/").reverse().join("-")); // converte la data nel formato "YYYY-MM-DD"
+
         break;
       case "endDate":
         dataA = new Date(a.endDate.split("/").reverse().join("-")); // converte la data nel formato "YYYY-MM-DD"
@@ -121,10 +131,9 @@ export const DataSorter = ({
   }
   return (
     <Stack direction="row" spacing={0}>
-      <Typography>{val}</Typography>
       {sortDirection ? (
         <IconButton
-          color="primary"
+          color="secondary"
           aria-label="upload picture"
           component="span"
           onClick={() => {
@@ -136,7 +145,7 @@ export const DataSorter = ({
         </IconButton>
       ) : (
         <IconButton
-          color="primary"
+          color="secondary"
           aria-label="upload picture"
           component="span"
           onClick={() => {
@@ -179,7 +188,9 @@ export const SelectCinema = ({
 
   return (
     <FormControl sx={{ width: "100px" }}>
-      <InputLabel id="demo-simple-select-label">Cinema</InputLabel>
+      <InputLabel sx={{ color: "white", fontWeight: "bold" }}>
+        Cinema
+      </InputLabel>
       <Select
         multiple
         value={cinemaSelected}
@@ -216,8 +227,8 @@ export const SelectCategory = ({ listReport, setListToView }) => {
 
   return (
     <FormControl sx={{ width: "110px" }}>
-      <InputLabel id="demo-simple-select-label">
-        <Typography>Category</Typography>
+      <InputLabel sx={{ color: "white", fontWeight: "bold" }}>
+        Category
       </InputLabel>
       <Select
         multiple
@@ -257,8 +268,8 @@ export const SelectSolved = ({ listReport, setListToView }) => {
 
   return (
     <FormControl sx={{ width: "110px" }}>
-      <InputLabel id="demo-simple-select-label">
-        <Typography>issue state</Typography>
+      <InputLabel sx={{ color: "white", fontWeight: "bold" }}>
+        issue state
       </InputLabel>
       <Select
         value={solvedState}
@@ -300,8 +311,8 @@ export const SelectScreenState = ({ listReport, setListToView }) => {
   }, [screenState]);
   return (
     <FormControl sx={{ width: "110px" }}>
-      <InputLabel id="demo-simple-select-label">
-        <Typography>screen state</Typography>
+      <InputLabel sx={{ color: "white", fontWeight: "bold" }}>
+        screen state
       </InputLabel>
       <Select
         value={screenState}

@@ -1,14 +1,18 @@
 import * as React from "react";
 import Box from "@mui/material/Box";
-import { Link, useNavigate } from "react-router-dom";
-import Stack from "@mui/material/Stack";
-import Divider from "@mui/material/Divider";
-import Drawer from "@mui/material/Drawer";
-import IconButton from "@mui/material/IconButton";
-import Container from "@mui/material/Container";
+import { useNavigate } from "react-router-dom";
+import {
+  Stack,
+  Divider,
+  Drawer,
+  IconButton,
+  Container,
+  Button,
+  Typography,
+} from "@mui/material";
+import { useTheme } from "@mui/material/styles";
 import MenuIcon from "@mui/icons-material/Menu";
-import Typography from "@mui/material/Typography";
-import Button from "@mui/material/Button";
+
 import { useDispatch, useSelector } from "react-redux";
 import ReportsServices from "../services/reportsServices";
 import { userLogOut } from "../store/slice/userSlice";
@@ -18,6 +22,7 @@ const drawerWidth = 240;
 
 export default function Navbar(props) {
   const { window } = props;
+  const theme = useTheme();
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [mobileOpen, setMobileOpen] = React.useState(false);
@@ -42,7 +47,7 @@ export default function Navbar(props) {
       <Divider />
       <Stack>
         <Button
-          color="secondary"
+          color="primary"
           variant="contained"
           sx={{ color: "#fff", mb: "4px" }}
           onClick={() => {
@@ -105,7 +110,11 @@ export default function Navbar(props) {
         aria-label="open drawer"
         edge="start"
         onClick={handleDrawerToggle}
-        sx={{ bgcolor: "yellow", margin: " 0 auto " }}
+        sx={{
+          bgcolor: (theme) => theme.palette.secondary.main,
+          margin: " 0 auto ",
+          color: "white",
+        }}
       >
         <MenuIcon />
       </IconButton>

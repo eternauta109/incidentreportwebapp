@@ -56,7 +56,7 @@ export default function Report() {
     ref_num: "",
     issue: "",
     note: "",
-    redattore:"",
+    redattore: "",
   };
   const [report, setReport] = useState(initState);
   const [stDate, setStDate] = useState();
@@ -192,13 +192,20 @@ export default function Report() {
       <Box
         sx={{
           border: 2,
-          borderColor: "green",
+          borderColor: (theme) => theme.palette.primary.main,
           m: 2,
           p: 1,
           borderRadius: 5,
         }}
       >
-        <Typography variant="h3">incident report</Typography>
+        <Typography
+          component="h1"
+          variant="h3"
+          color="primary"
+          fontWeight="bold"
+        >
+          incident report
+        </Typography>
       </Box>
 
       <Box component="form" onSubmit={onSubmitReport}>

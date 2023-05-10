@@ -1,52 +1,39 @@
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { Container, Box, Stack, Typography, Button } from "@mui/material";
 
-import {
-  Stack,
-  Container,
-  styled,
-  Box,
-  Typography,
-  Button,
-} from "@mui/material";
-
-const ButtonPlus = styled(Button)(({ theme }) => ({
-  ...theme.typography.body2,
-  textAlign: "center",
-  width: 250,
-  backgroundColor: "green",
-  color: "white",
-  opacity: 0.9,
-  height: 60,
-  lineHeight: "20px",
-}));
+import { useTheme } from "@mui/material/styles";
 
 export default function Landing() {
+  const theme = useTheme();
   const user = useSelector((state) => state.user);
   const navigate = useNavigate();
   window.scrollTo(0, 0);
 
   return (
-    <Container maxWidth="xs" sx={{}}>
-      <Box sx={{ backgroundColor: "orange", opacity: 1, p: 1, mb: 2 }}>
-        <Typography align="center">Welocome {user.name}</Typography>
+    <Container maxWidth="xs" sx={theme.formStyle}>
+      <Box sx={{ p: 1, m: 2 }}>
+        <Typography align="center" fontWeight="bold">
+          Wellcome {user.name}
+        </Typography>
       </Box>
       <Stack
-        direction={{ xs: "column", sm: "row" }}
+        sx={{ mt: 8 }}
+        direction={{ xs: "column", sm: "column" }}
         spacing={{ xs: 1, sm: 2, md: 4 }}
         justifyContent="center"
         alignItems="center"
       >
-        <ButtonPlus variant="contained" onClick={() => navigate("/reports")}>
+        <Button variant="contained" onClick={() => navigate("/reports")}>
           Add Report
-        </ButtonPlus>
+        </Button>
 
-        <ButtonPlus
+        <Button
           variant="contained"
           onClick={() => navigate("/views", { state: { user: { ...user } } })}
         >
           View/Modify Report
-        </ButtonPlus>
+        </Button>
 
         {/*  <Item elevation={9}>Charts analisys</Item> */}
       </Stack>
