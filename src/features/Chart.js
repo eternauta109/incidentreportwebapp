@@ -14,14 +14,12 @@ const Chart = ({ data }) => {
   const [pivottableState, setPivottableState] = useState({});
 
   return (
-    <Container sx={{ overflow: "auto", maxHeight: "1000px" }}>
-      <PivotTableUI
-        data={data}
-        onChange={(s) => setPivottableState(s)}
-        renderers={{ ...TableRenderers, ...PlotlyRenderers }}
-        {...pivottableState}
-      />
-    </Container>
+    <PivotTableUI
+      data={data}
+      onChange={(s) => setPivottableState(s)}
+      renderers={{ ...TableRenderers, ...PlotlyRenderers }}
+      {...pivottableState}
+    />
   );
 };
 export default Chart;

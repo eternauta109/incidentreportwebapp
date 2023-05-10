@@ -159,8 +159,7 @@ export default function View() {
           maxHeight: "80vh",
           borderRadius: "5px",
           overflow: "auto",
-
-          p: 3,
+          p: 1,
         }}
       >
         <TabPanel value={value} index={0}>
@@ -188,15 +187,13 @@ export default function View() {
                   <th>
                     <Typography style={{ width: "130px", ...headerStyle }}>
                       Start Date
-                      {!loadingReport && (
-                        <DataSorter
-                          val="startDate"
-                          sortDirection={sortDirection}
-                          setSortDirection={setSortDirection}
-                          listReport={listReport}
-                          setListToView={setListToView}
-                        />
-                      )}
+                      <DataSorter
+                        val="startDate"
+                        sortDirection={sortDirection}
+                        setSortDirection={setSortDirection}
+                        listReport={listReport}
+                        setListToView={setListToView}
+                      />
                     </Typography>
                   </th>
                   <th>
@@ -233,16 +230,16 @@ export default function View() {
                       />
                     </Typography>
                   </th>
-                  {!loadingReport && (
-                    <th scope="col">
-                      <Typography style={{ width: "100px" }}>
-                        <AreaSelect
-                          listReport={listReport}
-                          setListToView={setListToView}
-                        />
-                      </Typography>
-                    </th>
-                  )}
+
+                  <th scope="col">
+                    <Typography style={{ width: "100px" }}>
+                      <AreaSelect
+                        listReport={listReport}
+                        setListToView={setListToView}
+                      />
+                    </Typography>
+                  </th>
+
                   <th>
                     <Typography style={{ width: "50px", ...headerStyle }}>
                       screens num{" "}
@@ -299,13 +296,10 @@ export default function View() {
                     <Typography sx={{ ...headerStyle }}>note</Typography>
                   </th>
                   <th scope="col">
-                    <Typography sx={{ ...headerStyle }}>issue state</Typography>
-                    {!loadReport && (
-                      <SelectSolved
-                        listReport={listReport}
-                        setListToView={setListToView}
-                      />
-                    )}
+                    <SelectSolved
+                      listReport={listReport}
+                      setListToView={setListToView}
+                    />
                   </th>
                   <th scope="col">
                     <Typography sx={{ ...headerStyle }}>work day</Typography>

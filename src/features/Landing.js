@@ -24,11 +24,16 @@ export default function Landing() {
         justifyContent="center"
         alignItems="center"
       >
-        <Button variant="contained" onClick={() => navigate("/reports")}>
-          Add Report
+        <Button
+          sx={{ width: "300px" }}
+          variant="contained"
+          onClick={() => navigate("/reports")}
+        >
+          Add new Report
         </Button>
 
         <Button
+          sx={{ width: "300px" }}
           variant="contained"
           onClick={() => navigate("/views", { state: { user: { ...user } } })}
         >
