@@ -191,8 +191,8 @@ export default function Report() {
     <Container sx={theme.formStyle}>
       <Box
         sx={{
-          border: 2,
-          borderColor: (theme) => theme.palette.primary.main,
+          border: 4,
+          borderColor: (theme) => theme.palette.secondary.main,
           m: 2,
           p: 1,
           borderRadius: 5,

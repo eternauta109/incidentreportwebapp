@@ -25,7 +25,7 @@ const theme = createTheme({
       main: "rgba(159, 39, 176)",
     },
     formColor: {
-      main: "rgba(255, 152, 0,0.3)",
+      main: "rgba(255, 152, 0,0.2)",
     },
   },
   containerStyle: {
@@ -37,14 +37,14 @@ const theme = createTheme({
     backgroundPosition: "center",
     backgroundImage: `url(${image})`, */
     /* opacity: 0.5, */
-    backgroundColor: "rgba(236, 236, 236, 0.8)",
+    backgroundColor: "rgb(230, 230, 230,0.3)",
   },
 
   formStyle: {
     width: "100%",
     margin: "0 auto",
     mt: "80px",
-    backgroundColor: "rgba(255, 152, 0,0.3)", //rgba(249, 251, 231, 0.8)
+    backgroundColor: "rgba(255, 152, 0,0.2)", //rgba(249, 251, 231, 0.8)
     opacity: 0.8,
     borderRadius: "5px",
     minHeight: "300px",

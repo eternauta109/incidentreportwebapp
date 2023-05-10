@@ -1,29 +1,22 @@
 import { useState, useEffect, useMemo } from "react";
-import { Container, Box, Button, Typography } from "@mui/material";
+import { Grid, Box, Button, Typography } from "@mui/material";
 import { getAllReports, getCinemaReports } from "../store/slice/reportsSlice";
 import { useDispatch, useSelector } from "react-redux";
-import LineTable from "./LineTable";
-import Table from "react-bootstrap/Table";
+
 import Chart from "./Chart";
+
 /* import ExcelImport from "./ExcelImport"; */
 import ToExcel from "./ToExcel";
 import SecondView from "./SecondView";
-import Tabs from "@mui/material/Tabs";
-import Tab from "@mui/material/Tab";
+import { Tabs, Tab } from "@mui/material";
+
 import dayjs from "dayjs";
 import "dayjs/locale/it";
-import {
-  AreaSelect,
-  DataSorter,
-  SelectCinema,
-  SelectCategory,
-  SelectSolved,
-  SelectScreenState,
-} from "./Filters";
 
 dayjs.locale("it");
 
 import { useLocation } from "react-router-dom";
+import TableStructure from "./tableComponent/TableStructure";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -58,7 +51,7 @@ export default function View() {
   const [listReport, setListReport] = useState([]);
   const [listToView, setListToView] = useState([]);
   const [loadingReport, setLoadingReport] = useState(true);
-  const [sortDirection, setSortDirection] = useState(true);
+
   const dispatch = useDispatch();
   const { state } = useLocation();
   const { user } = state;
@@ -108,11 +101,7 @@ export default function View() {
     setValue(newValue);
   };
 
-  //setting colore header table
-  const headerStyle = {
-    color: "white",
-    fontWeight: "bold",
-  };
+  const handleResetFilter = () => {};
 
   useEffect(() => {
     if (reports.length > 0) {
@@ -142,6 +131,17 @@ export default function View() {
           borderRadius: "5px",
         }}
       >
+        <Grid container justifyContent="flex-end">
+          <Button
+            onClick={handleResetFilter}
+            color="primary"
+            variant="contained"
+            sx={{ mt: 2, mr: 2 }}
+          >
+            filter reset
+          </Button>
+        </Grid>
+
         <Tabs
           value={value}
           onChange={handleChangeTabs}
@@ -163,175 +163,21 @@ export default function View() {
         }}
       >
         <TabPanel value={value} index={0}>
-          <Box
-            sx={{
-              fontSize: "0.8rem",
-              width: "2200px",
+          {!loadingReport && listToView.length === 0 && (
+            <Typography>no reports found</Typography>
+          )}
+          {loadingReport && <Typography>loading</Typography>}
 
-              bgcolor: "grey",
-            }}
-          >
-            <Table id="table-to-xls" striped bordered>
-              <thead>
-                <tr sx={{ bgcolor: "grey" }}>
-                  <th>
-                    <Typography
-                      style={{
-                        width: "10px",
-                        ...headerStyle,
-                      }}
-                    >
-                      report number{" "}
-                    </Typography>
-                  </th>
-                  <th>
-                    <Typography style={{ width: "130px", ...headerStyle }}>
-                      Start Date
-                      <DataSorter
-                        val="startDate"
-                        sortDirection={sortDirection}
-                        setSortDirection={setSortDirection}
-                        listReport={listReport}
-                        setListToView={setListToView}
-                      />
-                    </Typography>
-                  </th>
-                  <th>
-                    <Typography style={{ width: "130px", ...headerStyle }}>
-                      End Date
-                      <DataSorter
-                        val="endDate"
-                        sortDirection={sortDirection}
-                        setSortDirection={setSortDirection}
-                        listReport={listReport}
-                        setListToView={setListToView}
-                      />
-                    </Typography>
-                  </th>
-                  <th>
-                    <Typography style={{ width: "130px", ...headerStyle }}>
-                      res. pred. date
-                      <DataSorter
-                        val="datePrediction"
-                        sortDirection={sortDirection}
-                        setSortDirection={setSortDirection}
-                        listReport={listReport}
-                        setListToView={setListToView}
-                      />
-                    </Typography>
-                  </th>
-                  <th>
-                    <Typography style={{ width: "150px", ...headerStyle }}>
-                      <SelectCinema
-                        user={user}
-                        listReport={listReport}
-                        listToView={listToView}
-                        setListToView={setListToView}
-                      />
-                    </Typography>
-                  </th>
-
-                  <th scope="col">
-                    <Typography style={{ width: "100px" }}>
-                      <AreaSelect
-                        listReport={listReport}
-                        setListToView={setListToView}
-                      />
-                    </Typography>
-                  </th>
-
-                  <th>
-                    <Typography style={{ width: "50px", ...headerStyle }}>
-                      screens num{" "}
-                    </Typography>
-                  </th>
-                  <th scope="col">
-                    <Typography style={{ ...headerStyle }}>
-                      total seats
-                    </Typography>
-                  </th>
-                  <th scope="col">
-                    <Typography style={{ ...headerStyle }}>
-                      screen with issue
-                    </Typography>
-                  </th>
-                  <th scope="col">
-                    <Typography style={{ ...headerStyle }}>
-                      seats screen number
-                    </Typography>{" "}
-                  </th>
-                  <th>
-                    <Typography style={{ width: "200px", ...headerStyle }}>
-                      <SelectCategory
-                        listReport={listReport}
-                        setListToView={setListToView}
-                      />
-                    </Typography>
-                  </th>
-                  <th scope="col">
-                    <Typography>
-                      <SelectScreenState
-                        listReport={listReport}
-                        setListToView={setListToView}
-                      />
-                    </Typography>
-                  </th>
-                  <th scope="col">
-                    <Typography style={{ ...headerStyle }}>
-                      show close
-                    </Typography>
-                  </th>
-                  <th scope="col">
-                    <Typography style={{ ...headerStyle }}>refounds</Typography>
-                  </th>
-                  <th scope="col">
-                    <Typography style={{ ...headerStyle }}>comps</Typography>
-                  </th>
-                  <th>
-                    <Typography style={{ width: "200px", ...headerStyle }}>
-                      issues
-                    </Typography>
-                  </th>
-                  <th scope="col">
-                    <Typography sx={{ ...headerStyle }}>note</Typography>
-                  </th>
-                  <th scope="col">
-                    <SelectSolved
-                      listReport={listReport}
-                      setListToView={setListToView}
-                    />
-                  </th>
-                  <th scope="col">
-                    <Typography sx={{ ...headerStyle }}>work day</Typography>
-                  </th>
-                  <th scope="col">
-                    <Typography sx={{ ...headerStyle }}>action</Typography>
-                  </th>
-                </tr>
-              </thead>
-              {!loadingReport && listToView && listToView.length > 0 && (
-                <tbody sx={{ overflow: "auto", height: "400px" }}>
-                  {listToView.map((val, key) => (
-                    <LineTable key={key} report={val} />
-                  ))}
-                </tbody>
-              )}
-              {!loadingReport && listToView.length === 0 && (
-                <tbody>
-                  <tr>
-                    <th>no reports</th>
-                  </tr>
-                </tbody>
-              )}
-              {loadingReport && (
-                <tbody>
-                  <tr>
-                    <th>Loading...</th>
-                  </tr>
-                </tbody>
-              )}
-            </Table>
-          </Box>
+          {!loadingReport && listToView.length > 0 && (
+            <TableStructure
+              listReport={listReport}
+              listToView={listToView}
+              setListReport={setListToView}
+              setListToView={setListToView}
+              user={user}
+              loadingReport={loadingReport}
+            />
+          )}
         </TabPanel>
         <TabPanel value={value} index={1}>
           {listReport.length > 1 && <Chart data={listReport} />}
