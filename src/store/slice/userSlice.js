@@ -1,17 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
-import {
-  getDoc,
-  doc,
-  setDoc,
-  getDocs,
-  arrayUnion,
-  updateDoc,
-  where,
-  arrayRemove,
-  query,
-  collection,
-} from "firebase/firestore";
+import { getDoc, doc } from "firebase/firestore";
 import { cinemaList } from "../../config/structure";
 import { auth, db } from "../../config/firebase.js";
 
@@ -51,7 +40,7 @@ export const setNewCinema = createAsyncThunk(
   async ({ cinemaFind }, { dispatch, getState }) => {
     /* console.log("state new cinema det", cinemaFind); */
     const state = getState(); // <-- qui ottieni lo state
-    /*  console.log("state new cinema state", state); */
+    console.log("state new cinema state", state, cinemaFind);
     const res = await { ...state.user, cinemaDet: cinemaFind };
     /* console.log("state new cinema res", res); */
     return res;

@@ -1,7 +1,12 @@
 import React from "react";
 import { NumericFormat } from "react-number-format";
-
+import { useDispatch } from "react-redux";
 import { TextField, Grid } from "@mui/material";
+import {
+  setComps,
+  setRefounds,
+  setShow_stopped,
+} from "../../store/slice/reportSlice";
 
 function NumberFormatCustom(props) {
   const { inputRef, onChange, ...other } = props;
@@ -25,7 +30,9 @@ function NumberFormatCustom(props) {
   );
 }
 
-const RefoundsDeal = ({ report, reportChange, user, setReport }) => {
+const RefoundsDeal = ({ report }) => {
+  const dispatch = useDispatch();
+
   return (
     <>
       <Grid container sx={{ mb: 2 }} rowSpacing={4} columnSpacing={1}>
@@ -33,51 +40,46 @@ const RefoundsDeal = ({ report, reportChange, user, setReport }) => {
           <TextField
             helperText="insert number show suppressed"
             type="number"
-            InputLabelProps={{ shrink: true }}
             name="show_stopped"
             label="show suppressed"
             onFocus={(event) => {
               event.target.select();
             }}
-            onChange={(e) => reportChange(e)}
-            value={report ? report.show_stopped : ""}
+            onChange={(e) => dispatch(setShow_stopped(+e.target.value))}
+            value={report ? report.show_stopped : 0}
             fullWidth
           />
         </Grid>
+
         <Grid item xs={4} sm={4}>
           <TextField
             helperText="insert refounds cost"
             name="refounds"
             label="ref. cost"
-            /* onFocus={(event) => {
-              event.target.select();
-            }} */
-            InputLabelProps={{ shrink: true }}
             InputProps={{
               inputComponent: NumberFormatCustom,
             }}
             onFocus={(event) => {
               event.target.select();
             }}
-            onChange={(e) => reportChange(e)}
-            value={report ? report.refounds : ""}
+            onChange={(e) => dispatch(setRefounds(+e.target.value))}
+            value={report ? report.refounds : 0}
             fullWidth
-          />{" "}
+          />
         </Grid>
         <Grid item xs={4} sm={4}>
           <TextField
             type="number"
-            InputLabelProps={{ shrink: true }}
             helperText="insert complimentary"
             name="comps"
             label="comps"
             onFocus={(event) => {
               event.target.select();
             }}
-            onChange={(e) => reportChange(e)}
-            value={report ? report.comps : ""}
+            onChange={(e) => dispatch(setComps(+e.target.value))}
+            value={report ? report.comps : 0}
             fullWidth
-          />{" "}
+          />
         </Grid>
       </Grid>
     </>

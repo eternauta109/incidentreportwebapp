@@ -1,5 +1,11 @@
-import React, { useState } from "react";
-
+import { useDispatch } from "react-redux";
+import {
+  setScreen_with_issue,
+  setScreen_with_issue_capacity,
+  setCategory,
+  setScreen_state,
+  setIssue,
+} from "../../store/slice/reportSlice";
 import {
   Select,
   TextField,
@@ -10,23 +16,17 @@ import {
 } from "@mui/material";
 import { categoryList } from "../../config/structure";
 
-const IssueDescription = ({
-  report,
-  reportChange,
-  user,
+const IssueDescription = ({ report, user }) => {
+  const dispatch = useDispatch();
 
-  setReport,
-}) => {
   const onChangeScreensSelect = (e) => {
+    console.log("qui");
     let seatsObj = user.cinemaDet.screens_det.find(
       (el) => el.screen === e.target.value
     );
     console.log("obj", seatsObj);
-    setReport({
-      ...report,
-      screen_with_issue: e.target.value,
-      screen_with_issue_capacity: seatsObj.seats,
-    });
+    dispatch(setScreen_with_issue(e.target.value));
+    dispatch(setScreen_with_issue_capacity(seatsObj.seats));
   };
   return (
     <Grid container sx={{ mb: 2 }} rowSpacing={2} columnSpacing={10}>
@@ -37,7 +37,7 @@ const IssueDescription = ({
           </InputLabel>
           <Select
             name="screen_with_issue"
-            value={report.screen_with_issue}
+            value={report.screen_with_issue ? report.screen_with_issue : ""}
             label="Screen with issue"
             onChange={(e) => onChangeScreensSelect(e)}
           >
@@ -55,8 +55,11 @@ const IssueDescription = ({
           name="screen_with_issue_capacity"
           label="Seats"
           disabled
-          InputLabelProps={{ shrink: true }}
-          value={report.screen_with_issue_capacity}
+          value={
+            report.screen_with_issue_capacity
+              ? report.screen_with_issue_capacity
+              : ""
+          }
           fullWidth
         />
       </Grid>
@@ -69,7 +72,7 @@ const IssueDescription = ({
             name="category"
             value={report.category}
             label="Category"
-            onChange={(e) => reportChange(e)}
+            onChange={(e) => dispatch(setCategory(e.target.value))}
           >
             {categoryList.map((el, key) => (
               <MenuItem key={key} value={el}>
@@ -86,10 +89,10 @@ const IssueDescription = ({
             name="screen_state"
             value={report.screen_state}
             label="Screen State"
-            onChange={(e) => reportChange(e)}
+            onChange={(e) => dispatch(setScreen_state(e.target.value))}
           >
             <MenuItem value={"open"}>open</MenuItem>
-            <MenuItem value={"close"}>close</MenuItem>
+            <MenuItem value={"closed"}>closed</MenuItem>
           </Select>
         </FormControl>
       </Grid>
@@ -99,8 +102,8 @@ const IssueDescription = ({
           id="issue"
           name="issue"
           label="Issue"
-          onChange={(e) => reportChange(e)}
-          value={report ? report.issue : ""}
+          onChange={(e) => dispatch(setIssue(e.target.value))}
+          value={report.issue ? report.issue : ""}
           multiline
           fullWidth
         />

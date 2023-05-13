@@ -12,27 +12,35 @@ import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import { categoryList } from "../../config/structure";
 
 // area filter
-export const AreaSelect = ({ listReport, setListToView }) => {
-  /* console.log("AreaSelect"); */
-  const [area, setArea] = useState("all");
+export const AreaSelect = ({
+  listReport,
+  setListToView,
+  filter,
+  setFilter,
+  listToView,
+}) => {
   const areaStateInit = [1, 2, 3, 4, "all"];
+
   useEffect(() => {
-    /* console.log("ciaoo"); */
-    if (area === "all") {
+    if (filter.areaSelect === "all") {
       return setListToView(listReport);
     } else {
-      const arrayCommun = listReport.filter((item) => item.area === area);
+      const arrayCommun = listToView.filter(
+        (item) => item.area === filter.areaSelect
+      );
       return setListToView(arrayCommun);
     }
-  }, [area]);
+  }, [filter.areaSelect]);
 
   return (
     <FormControl sx={{ width: "100px" }}>
       <InputLabel sx={{ color: "white", fontWeight: "bold" }}>area</InputLabel>
       <Select
-        value={area}
+        value={filter.areaSelect}
         label="area"
-        onChange={(e) => setArea(e.target.value)}
+        onChange={(e) =>
+          setFilter((prev) => ({ ...prev, areaSelect: e.target.value }))
+        }
       >
         {areaStateInit.map((el, key) => (
           <MenuItem key={key} value={el}>
@@ -48,16 +56,16 @@ export const AreaSelect = ({ listReport, setListToView }) => {
 export const DataSorter = ({
   val,
   listReport,
+  listToView,
   setListToView,
   sortDirection,
   setSortDirection,
 }) => {
-  //Functio to use
-  /* console.log("datasorter"); */
   function sortAscendateDate(a, b) {
+    /* console.log("startdate a e b ", a.startDate, b.startDate); */
     let dataA = new Date();
     let dataB = new Date();
-
+    /* console.log("startdate a e b ", dataA, dataB); */
     switch (val) {
       case "startDate":
         dataA = new Date(a.startDate.split("/").reverse().join("-")); // converte la data nel formato "YYYY-MM-DD"
@@ -88,12 +96,11 @@ export const DataSorter = ({
         break;
     }
 
-    console.log("asc");
     if (dataA || dataB) {
-      if (dataA < dataB) {
+      if (dataA <= dataB) {
         return -1;
       }
-      if (dataA > dataB) {
+      if (dataA >= dataB) {
         return 1;
       }
     }
@@ -151,10 +158,13 @@ export const DataSorter = ({
       {sortDirection ? (
         <IconButton
           color="secondary"
-          aria-label="upload picture"
           component="span"
           onClick={() => {
-            setListToView(listReport.sort(sortAscendateDate));
+            /*   console.log(listToView);
+            const newArray = [...listToView];
+            console.log("new", newArray);
+            setListToView(newArray.sort(sortAscendateDate)); */
+            setListToView((prev) => [...prev.sort(sortAscendateDate)]);
             setSortDirection(() => !sortDirection);
           }}
         >
@@ -163,10 +173,11 @@ export const DataSorter = ({
       ) : (
         <IconButton
           color="secondary"
-          aria-label="upload picture"
           component="span"
           onClick={() => {
-            setListToView(listReport.sort(sortDescendentDate));
+            /* const newArray = listToView.sort(sortDescendentDate);
+            setListToView(newArray); */
+            setListToView((prev) => [...prev.sort(sortDescendentDate)]);
             setSortDirection(() => !sortDirection);
           }}
         >
@@ -179,29 +190,26 @@ export const DataSorter = ({
 
 //cinema select filter
 export const SelectCinema = ({
+  filter,
+  setFilter,
   user,
   listReport,
   setListToView,
   listToView,
 }) => {
-  /* console.log("selectCinema"); */
-  const [cinemaSelected, setCinemaSelected] = useState([]);
-
   useEffect(() => {
-    if (cinemaSelected.length < 1) {
+    if (filter.cinemaSelected.length < 1) {
       setListToView(listReport);
     } else {
-      cinemaSelected.forEach(() => {
+      filter.cinemaSelected.forEach(() => {
         const arrayCommun = listReport.filter((item) =>
-          cinemaSelected.some((item2) => item2 === item.cinema)
+          filter.cinemaSelected.some((item2) => item2 === item.cinema)
         );
 
         setListToView([...arrayCommun]);
-        /* console.log("arrayCommun", arrayCommun);
-        console.log("listToView", listToView); */
       });
     }
-  }, [cinemaSelected]);
+  }, [filter.cinemaSelected]);
 
   return (
     <FormControl sx={{ width: "100px" }}>
@@ -210,9 +218,11 @@ export const SelectCinema = ({
       </InputLabel>
       <Select
         multiple
-        value={cinemaSelected}
+        value={filter.cinemaSelected}
         label="Cinema"
-        onChange={(e) => setCinemaSelected(e.target.value)}
+        onChange={(e) =>
+          setFilter((prev) => ({ ...prev, cinemaSelected: e.target.value }))
+        }
       >
         {user.cinema.map((el, key) => (
           <MenuItem key={key} value={el}>
@@ -225,22 +235,26 @@ export const SelectCinema = ({
 };
 
 //category filters
-export const SelectCategory = ({ listReport, setListToView }) => {
-  const [categorySelected, setCategorySelected] = useState([]);
-  /* console.log("categoryfilter"); */
+export const SelectCategory = ({
+  listReport,
+  setListToView,
+  filter,
+  setFilter,
+  listToView,
+}) => {
   useEffect(() => {
-    if (categorySelected.length < 1) {
+    if (filter.categorySelected.length < 1) {
       setListToView(listReport);
     } else {
-      categorySelected.forEach(() => {
-        const arrayCommun = listReport.filter((item) =>
-          categorySelected.some((item2) => item2 === item.category)
+      filter.categorySelected.forEach(() => {
+        const arrayCommun = listToView.filter((item) =>
+          filter.categorySelected.some((item2) => item2 === item.category)
         );
 
         setListToView(arrayCommun);
       });
     }
-  }, [categorySelected]);
+  }, [filter.categorySelected]);
 
   return (
     <FormControl sx={{ width: "110px" }}>
@@ -249,9 +263,11 @@ export const SelectCategory = ({ listReport, setListToView }) => {
       </InputLabel>
       <Select
         multiple
-        value={categorySelected}
+        value={filter.categorySelected}
         label="Category"
-        onChange={(e) => setCategorySelected(e.target.value)}
+        onChange={(e) =>
+          setFilter((prev) => ({ ...prev, categorySelected: e.target.value }))
+        }
       >
         {categoryList.map((el, key) => (
           <MenuItem key={key} value={el}>
@@ -264,24 +280,30 @@ export const SelectCategory = ({ listReport, setListToView }) => {
 };
 
 // issuse state filter
-export const SelectSolved = ({ listReport, setListToView }) => {
-  const [solvedState, setSolvedState] = useState("");
+export const SelectSolved = ({
+  listReport,
+  setListToView,
+  filter,
+  setFilter,
+  listToView,
+}) => {
   const solvedStateInit = ["solved", "in progress", "all"];
+
   useMemo(() => {
-    if (solvedState === "all") {
+    if (filter.solvedState === "all") {
       return setListToView(listReport);
     }
 
-    if (solvedState === "in progress") {
-      const arrayCommun = listReport.filter((item) => item.resolved === false);
+    if (filter.solvedState === "in progress") {
+      const arrayCommun = listToView.filter((item) => item.resolved === false);
       setListToView(arrayCommun);
     }
 
-    if (solvedState === "solved") {
-      const arrayCommun = listReport.filter((item) => item.resolved === true);
+    if (filter.solvedState === "solved") {
+      const arrayCommun = listToView.filter((item) => item.resolved === true);
       setListToView(arrayCommun);
     }
-  }, [solvedState]);
+  }, [filter.solvedState]);
 
   return (
     <FormControl sx={{ width: "110px" }}>
@@ -289,9 +311,11 @@ export const SelectSolved = ({ listReport, setListToView }) => {
         issue state
       </InputLabel>
       <Select
-        value={solvedState}
+        value={filter.solvedState}
         label="issueState"
-        onChange={(e) => setSolvedState(e.target.value)}
+        onChange={(e) =>
+          setFilter((prev) => ({ ...prev, solvedState: e.target.value }))
+        }
       >
         {solvedStateInit.map((el, key) => (
           <MenuItem key={key} value={el}>
@@ -304,37 +328,44 @@ export const SelectSolved = ({ listReport, setListToView }) => {
 };
 
 // screen state filter
-export const SelectScreenState = ({ listReport, setListToView }) => {
-  const [screenState, setScreenState] = useState("all");
+export const SelectScreenState = ({
+  listReport,
+  setListToView,
+  filter,
+  setFilter,
+  listToView,
+}) => {
   const screenStateInit = ["open", "closed", "all"];
   useMemo(() => {
-    if (screenState === "all") {
+    if (filter.screenState === "all") {
       return setListToView(listReport);
     }
 
-    if (screenState === "open") {
-      const arrayCommun = listReport.filter(
+    if (filter.screenState === "open") {
+      const arrayCommun = listToView.filter(
         (item) => item.screen_state === "open"
       );
       setListToView(arrayCommun);
     }
 
-    if (screenState === "closed") {
-      const arrayCommun = listReport.filter(
+    if (filter.screenState === "closed") {
+      const arrayCommun = listToView.filter(
         (item) => item.screen_state === "closed"
       );
       setListToView(arrayCommun);
     }
-  }, [screenState]);
+  }, [filter.screenState]);
   return (
     <FormControl sx={{ width: "110px" }}>
       <InputLabel sx={{ color: "white", fontWeight: "bold" }}>
         screen state
       </InputLabel>
       <Select
-        value={screenState}
+        value={filter.screenState}
         label="screenState"
-        onChange={(e) => setScreenState(e.target.value)}
+        onChange={(e) =>
+          setFilter((prev) => ({ ...prev, screenState: e.target.value }))
+        }
       >
         {screenStateInit.map((el, key) => (
           <MenuItem key={key} value={el}>

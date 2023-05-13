@@ -1,4 +1,18 @@
-import React from "react";
+import {
+  setCinema,
+  setScreens_number,
+  setSeats_number,
+  setArea,
+  setRef_num,
+  setScreen_with_issue,
+  setScreen_with_issue_capacity,
+} from "../../store/slice/reportSlice";
+import { useDispatch } from "react-redux";
+import { setNewCinema } from "../../store/slice/userSlice";
+import { getRefNum } from "../../services/reportsServices";
+import dayjs from "dayjs";
+import "dayjs/locale/it";
+dayjs.locale("it");
 
 import {
   Select,
@@ -9,9 +23,34 @@ import {
   Grid,
 } from "@mui/material";
 
-const DataCinema = ({ report, reportChange, user }) => {
+const DataCinema = ({ report, cinemaList, user }) => {
+  const dispatch = useDispatch();
+
   const onCinemaChange = (e) => {
-    reportChange(e);
+    const cinemaFind = cinemaList.find((el) => el.name === e.target.value);
+    console.log("cinemaFind", cinemaFind);
+    dispatch(setNewCinema({ cinemaFind }));
+    dispatch(setCinema(e.target.value));
+    dispatch(setScreens_number(cinemaFind.screens));
+    dispatch(setSeats_number(cinemaFind.seats));
+    dispatch(setArea(cinemaFind.area));
+    dispatch(
+      setScreen_with_issue(
+        cinemaFind.screens_det[cinemaFind.screens_det.length - 1].screen
+      )
+    );
+
+    dispatch(
+      setScreen_with_issue_capacity(
+        cinemaFind.screens_det[cinemaFind.screens_det.length - 1].seats
+      )
+    );
+
+    getRefNum(cinemaFind.name).then((r) => {
+      let appo = `${r + 1}/${dayjs().format("YYYY")}`;
+      console.log("appo", appo);
+      dispatch(setRef_num(`${r + 1}/${dayjs().format("YYYY")}`));
+    });
   };
 
   return (
@@ -22,7 +61,7 @@ const DataCinema = ({ report, reportChange, user }) => {
           <Select
             name="cinema"
             disabled={user.is_facility ? false : true}
-            value={user.cinemaDet.name}
+            value={report?.cinema ? report.cinema : ""}
             label="cinema"
             onChange={(e) => onCinemaChange(e)}
           >
@@ -37,13 +76,10 @@ const DataCinema = ({ report, reportChange, user }) => {
       <Grid item xs={4} sm={2}>
         <TextField
           //SCREENS NUMBER
-          InputLabelProps={{
-            shrink: true,
-          }}
-          value={report.screens_number}
+
+          value={report?.screens_number ? report.screens_number : ""}
           helperText="n° screens"
           name="screens_number"
-          onChange={(e) => reportChange(e)}
           disabled
           label="Screens number"
         />
@@ -52,13 +88,10 @@ const DataCinema = ({ report, reportChange, user }) => {
       <Grid item xs={4} sm={2}>
         <TextField
           //SEATS NUMBER
-          InputLabelProps={{
-            shrink: true,
-          }}
-          value={report.seats_number}
+
+          value={report.seats_number ? report.seats_number : ""}
           helperText="tot seats"
           name="seats_number"
-          onChange={(e) => reportChange(e)}
           disabled
           label="seats number"
         />
@@ -67,13 +100,10 @@ const DataCinema = ({ report, reportChange, user }) => {
       <Grid item xs={4} sm={2}>
         <TextField
           //SCREENS NUMBER
-          InputLabelProps={{
-            shrink: true,
-          }}
-          value={user.cinemaDet.area}
+
           helperText="area"
           name="area"
-          onChange={(e) => reportChange(e)}
+          value={report?.area ? report.area : ""}
           disabled
           label="area"
         />

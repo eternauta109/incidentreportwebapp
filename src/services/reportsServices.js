@@ -9,14 +9,9 @@ import {
   where,
   getDoc,
   getCountFromServer,
-  onSnapshot,
   addDoc,
   doc,
-  ref,
-  set,
-  setDoc,
   updateDoc,
-  increment,
 } from "firebase/firestore";
 
 const reportsCollectionRef = collection(db, "reports");

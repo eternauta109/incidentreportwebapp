@@ -1,12 +1,24 @@
 import React from "react";
-
+import { useDispatch } from "react-redux";
 import { TextField, Grid } from "@mui/material";
 
 import dayjs from "dayjs";
 import "dayjs/locale/it";
+import {
+  setNote,
+  setRedattore,
+  setWorkDays,
+} from "../../store/slice/reportSlice";
+import { useEffect } from "react";
 dayjs.locale("it");
 
-const CloseSection = ({ report, reportChange, user, setReport }) => {
+const CloseSection = ({ report }) => {
+  const dispatch = useDispatch();
+
+  /*  useEffect(() => {
+    const 
+  }, [report.startDate, report.endDate]); */
+
   return (
     <>
       <Grid container sx={{ mb: 2 }} rowSpacing={4} columnSpacing={1}>
@@ -16,12 +28,10 @@ const CloseSection = ({ report, reportChange, user, setReport }) => {
             id="days_work"
             label=""
             disabled
+            onChange={(e) => dispatch(setWorkDays(e.target.value))}
             value={
-              report.endDate
-                ? dayjs(report.endDate, "DD/MM/YYYY").diff(
-                    dayjs(report.startDate, "DD/MM/YYYY"),
-                    "day"
-                  )
+              report.workDays
+                ? report.workDays
                 : dayjs().diff(dayjs(report.startDate, "DD/MM/YYYY"), "day")
             }
             fullWidth
@@ -44,10 +54,8 @@ const CloseSection = ({ report, reportChange, user, setReport }) => {
             id="note"
             name="note"
             label="Note"
-            onChange={(e) => {
-              reportChange(e);
-            }}
-            value={report ? report.note : ""}
+            onChange={(e) => dispatch(setNote(e.target.value))}
+            value={report.note ? report.note : ""}
             multiline
             fullWidth
           />
@@ -58,8 +66,8 @@ const CloseSection = ({ report, reportChange, user, setReport }) => {
             id="redattore"
             name="redattore"
             label="enter your name"
-            onChange={(e) => reportChange(e)}
-            value={report ? report.redattore : ""}
+            onChange={(e) => dispatch(setRedattore(e.target.value))}
+            value={report.redattore ? report.redattore : ""}
             multiline
             fullWidth
           />

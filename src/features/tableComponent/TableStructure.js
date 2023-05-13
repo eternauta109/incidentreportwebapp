@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { Box, Typography } from "@mui/material";
 import LineTable from "./LineTable";
 import Table from "react-bootstrap/Table";
@@ -18,13 +18,16 @@ const headerStyle = {
 };
 
 const TableStructure = ({
+  filter,
+  setFilter,
   listReport,
   listToView,
-
+  loadingReport,
   setListToView,
   user,
 }) => {
   const [sortDirection, setSortDirection] = useState(true);
+
   return (
     <Box
       sx={{
@@ -52,9 +55,12 @@ const TableStructure = ({
                 Start Date
                 <DataSorter
                   val="startDate"
+                  filter={filter}
+                  setFilter={setFilter}
                   sortDirection={sortDirection}
                   setSortDirection={setSortDirection}
                   listReport={listReport}
+                  listToView={listToView}
                   setListToView={setListToView}
                 />
               </Typography>
@@ -64,6 +70,9 @@ const TableStructure = ({
                 End Date
                 <DataSorter
                   val="endDate"
+                  filter={filter}
+                  listToView={listToView}
+                  setFilter={setFilter}
                   sortDirection={sortDirection}
                   setSortDirection={setSortDirection}
                   listReport={listReport}
@@ -76,6 +85,9 @@ const TableStructure = ({
                 res. pred. date
                 <DataSorter
                   val="datePrediction"
+                  filter={filter}
+                  listToView={listToView}
+                  setFilter={setFilter}
                   sortDirection={sortDirection}
                   setSortDirection={setSortDirection}
                   listReport={listReport}
@@ -87,6 +99,8 @@ const TableStructure = ({
               <Typography style={{ width: "150px", ...headerStyle }}>
                 <SelectCinema
                   user={user}
+                  filter={filter}
+                  setFilter={setFilter}
                   listReport={listReport}
                   listToView={listToView}
                   setListToView={setListToView}
@@ -97,7 +111,10 @@ const TableStructure = ({
             <th scope="col">
               <Typography style={{ width: "100px" }}>
                 <AreaSelect
+                  filter={filter}
+                  setFilter={setFilter}
                   listReport={listReport}
+                  listToView={listToView}
                   setListToView={setListToView}
                 />
               </Typography>
@@ -124,7 +141,10 @@ const TableStructure = ({
             <th>
               <Typography style={{ width: "200px", ...headerStyle }}>
                 <SelectCategory
+                  filter={filter}
+                  setFilter={setFilter}
                   listReport={listReport}
+                  listToView={listToView}
                   setListToView={setListToView}
                 />
               </Typography>
@@ -132,6 +152,9 @@ const TableStructure = ({
             <th scope="col">
               <Typography>
                 <SelectScreenState
+                  filter={filter}
+                  listToView={listToView}
+                  setFilter={setFilter}
                   listReport={listReport}
                   setListToView={setListToView}
                 />
@@ -156,6 +179,9 @@ const TableStructure = ({
             </th>
             <th scope="col">
               <SelectSolved
+                filter={filter}
+                listToView={listToView}
+                setFilter={setFilter}
                 listReport={listReport}
                 setListToView={setListToView}
               />
@@ -168,12 +194,29 @@ const TableStructure = ({
             </th>
           </tr>
         </thead>
+        {loadingReport && (
+          <tbody>
+            <tr>
+              <th>loading</th>
+            </tr>
+          </tbody>
+        )}
 
-        <tbody sx={{ overflow: "auto", height: "400px" }}>
-          {listToView.map((val, key) => (
-            <LineTable key={key} report={val} />
-          ))}
-        </tbody>
+        {!loadingReport && listToView.length === 0 && (
+          <tbody>
+            <tr>
+              <th>no match found</th>
+            </tr>
+          </tbody>
+        )}
+
+        {!loadingReport && listToView.length > 0 && (
+          <tbody sx={{ overflow: "auto", height: "400px" }}>
+            {listToView.map((val, key) => (
+              <LineTable key={key} report={val} />
+            ))}
+          </tbody>
+        )}
       </Table>
     </Box>
   );
