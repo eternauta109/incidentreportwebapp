@@ -165,16 +165,6 @@ export default function View() {
               loadingReport={loadingReport}
             />
           )}
-          <TableStructure
-            filter={filter}
-            setFilter={setFilter}
-            listReport={listReport}
-            listToView={listToView}
-            setListReport={setListToView}
-            setListToView={setListToView}
-            user={user}
-            loadingReport={loadingReport}
-          />
         </TabPanel>
         <TabPanel value={valueTab} index={1}>
           {listReport.length > 1 && <Chart data={listReport} />}
