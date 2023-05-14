@@ -7,6 +7,7 @@ dayjs.locale("it");
 
 const INITIAL_STATE = {
   startDate: dayjs().format("DD/MM/YYYY"),
+  idDoc: null,
   datePrediction: dayjs().format("DD/MM/YYYY"),
   resolved: false,
   endDate: null,
@@ -21,6 +22,7 @@ const INITIAL_STATE = {
   screen_state: "open",
   refounds: 0,
   show_stopped: 0,
+  idDoc: null,
   ref_num: null,
   issue: "",
   note: "",
@@ -51,6 +53,10 @@ const reportSlice = createSlice({
     setCinema: (state, action) => {
       state.cinema = action.payload;
     },
+    setIdDoc: (state, action) => {
+      console.log(action.payload);
+      state.idDoc = action.payload;
+    },
     setScreens_number: (state, action) => {
       state.screens_number = action.payload;
     },
@@ -65,6 +71,9 @@ const reportSlice = createSlice({
     },
     setScreen_with_issue_capacity: (state, action) => {
       state.screen_with_issue_capacity = action.payload;
+    },
+    setComps: (state, action) => {
+      state.comps = action.payload;
     },
     setComps: (state, action) => {
       state.comps = action.payload;
@@ -106,6 +115,7 @@ const reportSlice = createSlice({
 
 export const {
   setAllReport,
+  setIdDoc,
   setStartDate,
   setDatePrediction,
   setResolved,

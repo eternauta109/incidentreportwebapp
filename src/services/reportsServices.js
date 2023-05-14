@@ -49,13 +49,29 @@ class ReportsServices {
 }
 
 export const addReport = async (newReport) => {
-  try {
-    await addDoc(reportsCollectionRef, newReport).then((docRef) => {
-      return updateDoc(docRef, { idDoc: docRef.id });
-    });
-  } catch {
-    (err) => console.log("error in report add:", err);
-  }
+  console.log("addReport", newReport);
+
+  return new Promise(async (resolve, reject) => {
+    try {
+      const docRef = await addDoc(reportsCollectionRef, newReport);
+      await updateDoc(docRef, { idDoc: docRef.id });
+
+      resolve(docRef.id);
+      /* const reportDoc = doc(db, "reports", docRef.id);
+      const snapshot = await getDoc(reportDoc);
+      const updatedReport = { ...newReport, idDoc: docRef.id };
+      console.log("new report", updatedReport); */
+
+      /* await addDoc(reportsCollectionRef, newReport).then((docRef) => {
+      updateDoc(docRef, { idDoc: docRef.id });
+      const reportDoc = doc(db, "reports", docRef.id);
+      console.log("new report", reportDoc);
+      return getDoc(reportDoc); */
+    } catch {
+      (err) => console.log("error in report add:", err);
+      reject(err);
+    }
+  });
 };
 
 export const updateReport = async (id, updateReport) => {
@@ -65,6 +81,17 @@ export const updateReport = async (id, updateReport) => {
     return await updateDoc(userRef, { ...updateReport });
   } catch {
     (err) => console.log("error in report add:", err);
+  }
+};
+
+export const deleteReport = async (id) => {
+  console.log("delete", id);
+  const reportRef = doc(db, "reports", id);
+  try {
+    console.log("eliminato");
+    return await deleteDoc(reportRef);
+  } catch (err) {
+    console.log("error in report delete:", err);
   }
 };
 

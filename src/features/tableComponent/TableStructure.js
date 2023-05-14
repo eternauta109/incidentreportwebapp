@@ -213,7 +213,7 @@ const TableStructure = ({
         {!loadingReport && listToView.length > 0 && (
           <tbody sx={{ overflow: "auto", height: "400px" }}>
             {listToView.map((val, key) => (
-              <LineTable key={key} report={val} />
+              <LineTable key={key} report={val} setListToView={setListToView} />
             ))}
           </tbody>
         )}

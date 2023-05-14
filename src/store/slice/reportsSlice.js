@@ -77,6 +77,20 @@ export const updateReportRedux = createAsyncThunk(
   }
 );
 
+export const deleteReportRedux = createAsyncThunk(
+  "reports/deletereport",
+  async (reportId, { getState, dispatch }) => {
+    console.log("reportId", reportId);
+    const state = getState();
+    const reports = state.reports;
+    // Filtra i report, escludendo il report con l'ID corrispondente
+    const updatedReports = reports.filter(
+      (report) => report.idDoc !== reportId
+    );
+    return updatedReports;
+  }
+);
+
 export const reportsSlice = createSlice({
   name: "reports",
   initialState: [],
@@ -114,6 +128,13 @@ export const reportsSlice = createSlice({
         /*  console.log("loading"); */
       })
       .addCase(updateReportRedux.fulfilled, (state, action) => {
+        state = action.payload;
+        return state;
+      })
+      .addCase(deleteReportRedux.pending, (state, action) => {
+        /*  console.log("loading"); */
+      })
+      .addCase(deleteReportRedux.fulfilled, (state, action) => {
         state = action.payload;
         return state;
       });

@@ -27,6 +27,7 @@ import {
   setScreen_with_issue_capacity,
   setRef_num,
   resetReport,
+  setIdDoc,
 } from "../store/slice/reportSlice";
 import dayjs from "dayjs";
 import "dayjs/locale/it";
@@ -63,7 +64,12 @@ export default function Report() {
       if (reports.length > 0) {
         dispatch(addReportRedux({ report }));
       }
-      addReport(report).then(navigate("../landing"));
+      addReport(report)
+        .then((res) => {
+          console.log("res", res);
+          dispatch(setIdDoc(res));
+        })
+        .then(navigate("../landing"));
     }
   };
 

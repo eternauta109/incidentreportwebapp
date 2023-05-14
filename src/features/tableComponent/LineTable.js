@@ -3,6 +3,9 @@ import dayjs from "dayjs";
 import { Box, Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import "dayjs/locale/it";
+import { deleteReport } from "../../services/reportsServices";
+import { useDispatch } from "react-redux";
+import { deleteReportRedux } from "./../../store/slice/reportsSlice";
 
 dayjs.locale("it");
 
@@ -11,12 +14,20 @@ const thStyle = {
   verticalAlign: "middle",
 };
 
-export const LineFound = ({ report }) => {
+export const LineFound = ({ report, setListToView }) => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   /* console.log("linet report", report); */
   const manageUpdateClick = async (e) => {
     e.preventDefault();
     await navigate("../reports", { state: { ...report } });
+  };
+
+  const manageDeleteClick = async (id) => {
+    console.log(id);
+    deleteReport(id);
+    dispatch(deleteReportRedux(id));
+    /*  await navigate("../reports", { state: { ...report } }); */
   };
 
   return (
@@ -81,7 +92,7 @@ export const LineFound = ({ report }) => {
             {report.workDays}
           </th>
           <th style={thStyle} scope="row">
-            <Box>
+            <Box display="flex" flexDirection="column" gap={2}>
               <Button
                 onClick={(e) => manageUpdateClick(e)}
                 variant="contained"
@@ -89,9 +100,13 @@ export const LineFound = ({ report }) => {
               >
                 Update
               </Button>
-              {/*   <Button variant="contained" color="error">
+              <Button
+                onClick={() => manageDeleteClick(report.idDoc)}
+                variant="contained"
+                color="secondary"
+              >
                 Delete
-              </Button> */}
+              </Button>
             </Box>
           </th>
         </tr>
