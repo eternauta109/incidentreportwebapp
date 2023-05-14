@@ -67,11 +67,14 @@ export default function Report() {
       addReport(report)
         .then((res) => {
           console.log("res", res);
-          return dispatch(setIdDoc(res));
+          const updatedReport = { ...report, idDoc: res }; // Aggiungi l'ID al nuovo report
+          if (reports.length > 0) {
+            dispatch(addReportRedux({ report: updatedReport })); // Aggiungi il nuovo report con l'ID alla slice reports
+          }
+
+          dispatch(setIdDoc(res)); // Aggiorna l'ID nella slice report
         })
-        .then(() => {
-          navigate("../landing");
-        })
+        .then(() => navigate("../landing"))
         .catch((error) => {
           console.log("error", error);
         });
