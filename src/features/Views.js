@@ -153,7 +153,7 @@ export default function View() {
         }}
       >
         <TabPanel value={valueTab} index={0}>
-          {listToView.length > 0 && (
+       
             <TableStructure
               filter={filter}
               setFilter={setFilter}
@@ -164,7 +164,7 @@ export default function View() {
               user={user}
               loadingReport={loadingReport}
             />
-          )}
+    
         </TabPanel>
         <TabPanel value={valueTab} index={1}>
           {listReport.length > 1 && <Chart data={listReport} />}
