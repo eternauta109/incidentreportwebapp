@@ -67,9 +67,14 @@ export default function Report() {
       addReport(report)
         .then((res) => {
           console.log("res", res);
-          dispatch(setIdDoc(res));
+          return dispatch(setIdDoc(res));
         })
-        .then(navigate("../landing"));
+        .then(() => {
+          navigate("../landing");
+        })
+        .catch((error) => {
+          console.log("error", error);
+        });
     }
   };
 

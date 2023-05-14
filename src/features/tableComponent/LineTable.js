@@ -26,7 +26,9 @@ export const LineFound = ({ report, setListToView }) => {
   const manageDeleteClick = async (id) => {
     console.log(id);
     deleteReport(id);
-    dispatch(deleteReportRedux(id));
+    dispatch(deleteReportRedux(id)).then(
+      setListToView((prev) => prev.filter((el) => el.idDoc !== id))
+    );
     /*  await navigate("../reports", { state: { ...report } }); */
   };
 
