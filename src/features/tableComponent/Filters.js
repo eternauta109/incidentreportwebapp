@@ -25,7 +25,7 @@ export const AreaSelect = ({
     if (filter.areaSelect === "all") {
       return setListToView(listReport);
     } else {
-      const arrayCommun = listToView.filter(
+      const arrayCommun = listReport.filter(
         (item) => item.area === filter.areaSelect
       );
       return setListToView(arrayCommun);
@@ -247,7 +247,7 @@ export const SelectCategory = ({
       setListToView(listReport);
     } else {
       filter.categorySelected.forEach(() => {
-        const arrayCommun = listToView.filter((item) =>
+        const arrayCommun = listReport.filter((item) =>
           filter.categorySelected.some((item2) => item2 === item.category)
         );
 
@@ -295,12 +295,12 @@ export const SelectSolved = ({
     }
 
     if (filter.solvedState === "in progress") {
-      const arrayCommun = listToView.filter((item) => item.resolved === false);
+      const arrayCommun = listReport.filter((item) => item.resolved === false);
       setListToView(arrayCommun);
     }
 
     if (filter.solvedState === "solved") {
-      const arrayCommun = listToView.filter((item) => item.resolved === true);
+      const arrayCommun = listReport.filter((item) => item.resolved === true);
       setListToView(arrayCommun);
     }
   }, [filter.solvedState]);
@@ -342,7 +342,7 @@ export const SelectScreenState = ({
     }
 
     if (filter.screenState === "open") {
-      const arrayCommun = listToView.filter(
+      const arrayCommun = listReport.filter(
         (item) => item.screen_state === "open"
       );
       setListToView(arrayCommun);
@@ -376,3 +376,4 @@ export const SelectScreenState = ({
     </FormControl>
   );
 };
+
