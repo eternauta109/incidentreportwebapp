@@ -29,7 +29,7 @@ export const LineFound = ({ report, setListToView }) => {
     dispatch(deleteReportRedux(id)).then(
       setListToView((prev) => prev.filter((el) => el.idDoc !== id))
     );
-    await navigate("../reports", { state: { ...report } });
+ 
   };
 
   return (
