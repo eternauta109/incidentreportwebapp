@@ -2,7 +2,7 @@ import { useState, useEffect, useMemo } from "react";
 import { Grid, Box, Button, Typography } from "@mui/material";
 import { getAllReports, getCinemaReports } from "../store/slice/reportsSlice";
 import { useDispatch, useSelector } from "react-redux";
-/* import Chart from "./Chart"; */
+import Chart from "./Chart"; 
 /* import ExcelImport from "./ExcelImport"; */
 import ToExcel from "./ToExcel";
 import SecondView from "./SecondView";
@@ -211,7 +211,7 @@ export default function View() {
           />
         </TabPanel>
         <TabPanel value={valueTab} index={1}>
-          {/* {listReport.length > 1 && <Chart data={listReport} />} */}
+          {listReport.length > 1 && <Chart data={listReport} />} 
         </TabPanel>
       </Box>
 
