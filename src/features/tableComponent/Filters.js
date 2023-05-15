@@ -21,17 +21,6 @@ export const AreaSelect = ({
 }) => {
   const areaStateInit = [1, 2, 3, 4, "all"];
 
-  useEffect(() => {
-    if (filter.areaSelect === "all") {
-      return setListToView(listReport);
-    } else {
-      const arrayCommun = listToView.filter(
-        (item) => item.area === filter.areaSelect
-      );
-      return setListToView(arrayCommun);
-    }
-  }, [filter.areaSelect]);
-
   return (
     <FormControl sx={{ width: "100px" }}>
       <InputLabel sx={{ color: "white", fontWeight: "bold" }}>area</InputLabel>
@@ -189,27 +178,8 @@ export const DataSorter = ({
 };
 
 //cinema select filter
-export const SelectCinema = ({
-  filter,
-  setFilter,
-  user,
-  listReport,
-  setListToView,
-  listToView,
-}) => {
-  useEffect(() => {
-    if (filter.cinemaSelected.length < 1) {
-      setListToView(listReport);
-    } else {
-      filter.cinemaSelected.forEach(() => {
-        const arrayCommun = listReport.filter((item) =>
-          filter.cinemaSelected.some((item2) => item2 === item.cinema)
-        );
-
-        setListToView([...arrayCommun]);
-      });
-    }
-  }, [filter.cinemaSelected]);
+export const SelectCinema = ({ filter, setFilter, user }) => {
+  useEffect(() => {}, [filter.cinemaSelected]);
 
   return (
     <FormControl sx={{ width: "100px" }}>
@@ -235,27 +205,7 @@ export const SelectCinema = ({
 };
 
 //category filters
-export const SelectCategory = ({
-  listReport,
-  setListToView,
-  filter,
-  setFilter,
-  listToView,
-}) => {
-  useEffect(() => {
-    if (filter.categorySelected.length < 1) {
-      setListToView(listReport);
-    } else {
-      filter.categorySelected.forEach(() => {
-        const arrayCommun = listToView.filter((item) =>
-          filter.categorySelected.some((item2) => item2 === item.category)
-        );
-
-        setListToView(arrayCommun);
-      });
-    }
-  }, [filter.categorySelected]);
-
+export const SelectCategory = ({ filter, setFilter }) => {
   return (
     <FormControl sx={{ width: "110px" }}>
       <InputLabel sx={{ color: "white", fontWeight: "bold" }}>
@@ -281,29 +231,12 @@ export const SelectCategory = ({
 
 // issuse state filter
 export const SelectSolved = ({
-  listReport,
-  setListToView,
+ 
   filter,
   setFilter,
-  listToView,
+
 }) => {
   const solvedStateInit = ["solved", "in progress", "all"];
-
-  useMemo(() => {
-    if (filter.solvedState === "all") {
-      return setListToView(listReport);
-    }
-
-    if (filter.solvedState === "in progress") {
-      const arrayCommun = listToView.filter((item) => item.resolved === false);
-      setListToView(arrayCommun);
-    }
-
-    if (filter.solvedState === "solved") {
-      const arrayCommun = listToView.filter((item) => item.resolved === true);
-      setListToView(arrayCommun);
-    }
-  }, [filter.solvedState]);
 
   return (
     <FormControl sx={{ width: "110px" }}>
@@ -329,32 +262,13 @@ export const SelectSolved = ({
 
 // screen state filter
 export const SelectScreenState = ({
-  listReport,
-  setListToView,
+
   filter,
   setFilter,
-  listToView,
+
 }) => {
   const screenStateInit = ["open", "closed", "all"];
-  useMemo(() => {
-    if (filter.screenState === "all") {
-      return setListToView(listReport);
-    }
 
-    if (filter.screenState === "open") {
-      const arrayCommun = listToView.filter(
-        (item) => item.screen_state === "open"
-      );
-      setListToView(arrayCommun);
-    }
-
-    if (filter.screenState === "closed") {
-      const arrayCommun = listToView.filter(
-        (item) => item.screen_state === "closed"
-      );
-      setListToView(arrayCommun);
-    }
-  }, [filter.screenState]);
   return (
     <FormControl sx={{ width: "110px" }}>
       <InputLabel sx={{ color: "white", fontWeight: "bold" }}>

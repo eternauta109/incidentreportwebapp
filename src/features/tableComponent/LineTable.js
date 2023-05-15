@@ -18,9 +18,9 @@ export const LineFound = ({ report, setListToView }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   /* console.log("linet report", report); */
-  const manageUpdateClick = async (e) => {
-    e.preventDefault();
-    await navigate("../reports", { state: { ...report } });
+  const manageUpdateClick = (report) => {
+    console.log("in line report", report);
+    navigate("../reports", { state: { ...report } });
   };
 
   const manageDeleteClick = async (id) => {
@@ -29,7 +29,7 @@ export const LineFound = ({ report, setListToView }) => {
     dispatch(deleteReportRedux(id)).then(
       setListToView((prev) => prev.filter((el) => el.idDoc !== id))
     );
-    /*  await navigate("../reports", { state: { ...report } }); */
+    await navigate("../reports", { state: { ...report } });
   };
 
   return (
@@ -96,7 +96,7 @@ export const LineFound = ({ report, setListToView }) => {
           <th style={thStyle} scope="row">
             <Box display="flex" flexDirection="column" gap={2}>
               <Button
-                onClick={(e) => manageUpdateClick(e)}
+                onClick={() => manageUpdateClick(report)}
                 variant="contained"
                 color="primary"
               >

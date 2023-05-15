@@ -54,33 +54,33 @@ export default function Report() {
     if (state) {
       if (reports.length > 0) {
         console.log("qui");
-        dispatch(
-          updateReportRedux({ reportId: report.idDoc, updates: report })
-        ).then(updateReport(state.idDoc, report).then(navigate("../landing")));
+        dispatch(updateReportRedux({ reportId: report.idDoc, updates: report }))
+          .then(() => updateReport(state.idDoc, report))
+          .then(() => navigate("../landing"));
       } else {
-        updateReport(state.idDoc, report).then(navigate("../landing"));
+        updateReport(state.idDoc, report).then(() => navigate("../landing"));
       }
     } else {
-      if (reports.length > 0) {
-        dispatch(addReportRedux({ report }));
-      }
       addReport(report)
         .then((res) => {
           console.log("res", res);
-          return dispatch(setIdDoc(res));
+          const updatedReport = { ...report, idDoc: res }; // Aggiungi l'ID al nuovo report
+          if (reports.length > 0) {
+            dispatch(addReportRedux({ report: updatedReport })); // Aggiungi il nuovo report con l'ID alla slice reports
+          }
+
+          dispatch(setIdDoc(res)); // Aggiorna l'ID nella slice report
         })
-        .then(() => {
-          navigate("../landing");
-        })
+        .then(() => navigate("../landing"))
         .catch((error) => {
           console.log("error", error);
         });
     }
   };
 
-  useMemo(() => {
+  /*  useMemo(() => {
     console.log("report in use memo", report);
-  }, [report]);
+  }, [report]); */
 
   //inizializzo lo slice report
   const initializeReport = () => {
