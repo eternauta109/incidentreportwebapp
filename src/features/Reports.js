@@ -54,16 +54,13 @@ export default function Report() {
     if (state) {
       if (reports.length > 0) {
         console.log("qui");
-        dispatch(
-          updateReportRedux({ reportId: report.idDoc, updates: report })
-        ).then(updateReport(state.idDoc, report).then(navigate("../landing")));
+        dispatch(updateReportRedux({ reportId: report.idDoc, updates: report }))
+          .then(() => updateReport(state.idDoc, report))
+          .then(() => navigate("../landing"));
       } else {
-        updateReport(state.idDoc, report).then(navigate("../landing"));
+        updateReport(state.idDoc, report).then(() => navigate("../landing"));
       }
     } else {
-      if (reports.length > 0) {
-        dispatch(addReportRedux({ report }));
-      }
       addReport(report)
         .then((res) => {
           console.log("res", res);
@@ -81,9 +78,9 @@ export default function Report() {
     }
   };
 
-  useMemo(() => {
+  /*  useMemo(() => {
     console.log("report in use memo", report);
-  }, [report]);
+  }, [report]); */
 
   //inizializzo lo slice report
   const initializeReport = () => {

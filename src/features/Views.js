@@ -2,7 +2,7 @@ import { useState, useEffect, useMemo } from "react";
 import { Grid, Box, Button, Typography } from "@mui/material";
 import { getAllReports, getCinemaReports } from "../store/slice/reportsSlice";
 import { useDispatch, useSelector } from "react-redux";
-import Chart from "./Chart";
+/* import Chart from "./Chart"; */
 /* import ExcelImport from "./ExcelImport"; */
 import ToExcel from "./ToExcel";
 import SecondView from "./SecondView";
@@ -92,6 +92,52 @@ export default function View() {
     setValueTab(newValue);
   };
 
+  //filtri comulati
+  useMemo(() => {
+    console.log("filter change", filter);
+    const tempArray = [...listReport]; // Copia temporanea dell'array originale
+    // Filtra per i cinema selezionati
+    const reportsFilteredByCinema =
+      filter.cinemaSelected.length > 0
+        ? tempArray.filter((item) =>
+            filter.cinemaSelected.includes(item.cinema)
+          )
+        : tempArray;
+    // Filtra per l'area
+    const reportsFilteredByArea =
+      filter.areaSelect === "all"
+        ? reportsFilteredByCinema
+        : reportsFilteredByCinema.filter(
+            (item) => item.area === filter.areaSelect
+          );
+
+    //filtra per categoria
+    const reportsFilteredByCategory =
+      filter.categorySelected.length > 0
+        ? reportsFilteredByArea.filter((item) =>
+            filter.categorySelected.includes(item.category)
+          )
+        : reportsFilteredByArea;
+
+    //filtra per screen screenState
+    const filteredByScreenState =
+      filter.screenState === "all"
+        ? reportsFilteredByCategory
+        : reportsFilteredByCategory.filter(
+            (item) => item.screen_state === filter.screenState
+          );
+
+    //filtra per screen solvedState
+    const filteredBySolvedState =
+      filter.solvedState === "all"
+        ? filteredByScreenState
+        : filter.solvedState === "solved"
+        ? filteredByScreenState.filter((item) => item.resolved === true)
+        : filteredByScreenState.filter((item) => item.resolved === false);
+
+    setListToView(filteredBySolvedState);
+  }, [filter]);
+
   useEffect(() => {
     if (reports.length > 0) {
       console.log("leggo reports da redux");
@@ -153,21 +199,19 @@ export default function View() {
         }}
       >
         <TabPanel value={valueTab} index={0}>
-       
-            <TableStructure
-              filter={filter}
-              setFilter={setFilter}
-              listReport={listReport}
-              listToView={listToView}
-              setListReport={setListToView}
-              setListToView={setListToView}
-              user={user}
-              loadingReport={loadingReport}
-            />
-    
+          <TableStructure
+            filter={filter}
+            setFilter={setFilter}
+            listReport={listReport}
+            listToView={listToView}
+            setListReport={setListToView}
+            setListToView={setListToView}
+            user={user}
+            loadingReport={loadingReport}
+          />
         </TabPanel>
         <TabPanel value={valueTab} index={1}>
-          {listReport.length > 1 && <Chart data={listReport} />}
+          {/* {listReport.length > 1 && <Chart data={listReport} />} */}
         </TabPanel>
       </Box>
 
