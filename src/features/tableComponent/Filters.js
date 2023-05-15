@@ -205,6 +205,7 @@ export const SelectCinema = ({ filter, setFilter, user }) => {
 };
 
 //category filters
+
 export const SelectCategory = ({ filter, setFilter }) => {
   return (
     <FormControl sx={{ width: "110px" }}>
@@ -230,12 +231,7 @@ export const SelectCategory = ({ filter, setFilter }) => {
 };
 
 // issuse state filter
-export const SelectSolved = ({
- 
-  filter,
-  setFilter,
-
-}) => {
+export const SelectSolved = ({ filter, setFilter }) => {
   const solvedStateInit = ["solved", "in progress", "all"];
 
   return (
@@ -261,12 +257,7 @@ export const SelectSolved = ({
 };
 
 // screen state filter
-export const SelectScreenState = ({
-
-  filter,
-  setFilter,
-
-}) => {
+export const SelectScreenState = ({ filter, setFilter }) => {
   const screenStateInit = ["open", "closed", "all"];
 
   return (
