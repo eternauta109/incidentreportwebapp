@@ -84,10 +84,22 @@ export default function Navbar(props) {
             logOutEventClick(e);
           }}
           variant="contained"
-          sx={{ color: "#fff", mb: "4px" }}
+          sx={{ color: "#fff", mt: "20px" }}
         >
           LogOut
         </Button>
+        {user.admin && (
+          <Button
+            color="secondary"
+            onClick={(e) => {
+              navigate("dash");
+            }}
+            variant="contained"
+            sx={{ color: "#fff", mt: "40px" }}
+          >
+            dashboard
+          </Button>
+        )}
       </Stack>
     </Box>
   );

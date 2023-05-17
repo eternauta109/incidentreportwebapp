@@ -225,8 +225,12 @@ export default function View() {
       >
         <ToExcel data={listToView} sx={{ mr: 2 }} />
         {user.is_facility && <SecondView data={listToView} />}
-        <ExcelImport />
       </Box>
+      {user.admin && (
+        <Box>
+          <ExcelImport />
+        </Box>
+      )}
     </>
   );
 }

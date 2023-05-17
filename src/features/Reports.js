@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 /* import ConfirmNewReport from "./ComfirmNewReport"; */
 import { useNavigate, useLocation } from "react-router-dom";
 import { useTheme } from "@mui/material/styles";
@@ -81,9 +81,9 @@ export default function Report() {
     }
   };
 
-  /*  useMemo(() => {
+  useMemo(() => {
     console.log("report in use memo", report);
-  }, [report]); */
+  }, [report]);
 
   //inizializzo lo slice report
   const initializeReport = () => {

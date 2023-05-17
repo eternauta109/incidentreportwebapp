@@ -101,7 +101,7 @@ export const LineFound = ({ report, setListToView, user }) => {
               >
                 Update
               </Button>
-              {user.is_facility && (
+              {user.admin && (
                 <Button
                   onClick={() => manageDeleteClick(report.idDoc)}
                   variant="contained"

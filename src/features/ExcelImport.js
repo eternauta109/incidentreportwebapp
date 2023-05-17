@@ -18,6 +18,7 @@ function ExcelImport() {
 
   return (
     <div>
+      importa file solo admin
       <input type="file" onChange={handleFileChange} />
     </div>
   );

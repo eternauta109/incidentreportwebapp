@@ -14,6 +14,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import image from "./assets/diagonalihd.jpeg";
 import Navbar from "./features/Navbar";
 import ProtectedRoute from "./services/ProtectedRoute";
+import Dashboard from "./features/dashboard/Dashboard";
 
 const theme = createTheme({
   palette: {
@@ -106,7 +107,7 @@ export default function App() {
               </ProtectedRoute>
             }
           />
-
+          <Route path="dash" element={<Dashboard />} />
           <Route path="/" element={<Login />} />
         </Routes>
       </Container>

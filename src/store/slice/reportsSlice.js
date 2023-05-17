@@ -31,7 +31,6 @@ export const getAllReports = createAsyncThunk(
     const reportsSnap = await getDocs(reportsCollectionRef);
     console.log("getAllReports");
     reportsSnap.forEach((doc) => {
-      console.log("conta");
       let report = { ...doc.data(), workDays: workDaysCalculate(doc.data()) };
       reports = [...reports, report];
     });
@@ -42,7 +41,7 @@ export const getAllReports = createAsyncThunk(
 export const getCinemaReports = createAsyncThunk(
   "reports/getCinemaReports",
   async ({ cinema }) => {
-    console.log("cinema in store", cinema);
+    console.log("cinema in store getCinemaReports", cinema);
     let reports = [];
     const q = query(reportsCollectionRef, where("cinema", "==", cinema));
     const reportsSnap = await getDocs(q);
@@ -110,7 +109,6 @@ export const reportsSlice = createSlice({
         /*  console.log("loading"); */
       })
       .addCase(getAllReports.fulfilled, (state, action) => {
-        console.log("action.payload: ", action.payload);
         state = action.payload;
         return state;
       })

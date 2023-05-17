@@ -5,6 +5,7 @@ import {
   collection,
   getDocs,
   deleteDoc,
+  setDoc,
   query,
   where,
   getDoc,
@@ -47,6 +48,16 @@ class ReportsServices {
       });
   };
 }
+
+export const setUser = async ({ newUser, idDoc }) => {
+  console.log("setUser", newUser, idDoc);
+  try {
+    const usersRef = collection(db, "users");
+    await setDoc(doc(usersRef, idDoc), newUser);
+  } catch (error) {
+    console.log("error setUser", error);
+  }
+};
 
 export const addReport = async (newReport) => {
   console.log("addReport", newReport);
