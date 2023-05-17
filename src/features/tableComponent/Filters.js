@@ -12,13 +12,7 @@ import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import { categoryList } from "../../config/structure";
 
 // area filter
-export const AreaSelect = ({
-  listReport,
-  setListToView,
-  filter,
-  setFilter,
-  listToView,
-}) => {
+export const AreaSelect = ({ filter, setFilter }) => {
   const areaStateInit = [1, 2, 3, 4, "all"];
 
   return (
@@ -44,8 +38,7 @@ export const AreaSelect = ({
 //data filter
 export const DataSorter = ({
   val,
-  listReport,
-  listToView,
+
   setListToView,
   sortDirection,
   setSortDirection,
@@ -149,10 +142,6 @@ export const DataSorter = ({
           color="secondary"
           component="span"
           onClick={() => {
-            /*   console.log(listToView);
-            const newArray = [...listToView];
-            console.log("new", newArray);
-            setListToView(newArray.sort(sortAscendateDate)); */
             setListToView((prev) => [...prev.sort(sortAscendateDate)]);
             setSortDirection(() => !sortDirection);
           }}
@@ -164,8 +153,6 @@ export const DataSorter = ({
           color="secondary"
           component="span"
           onClick={() => {
-            /* const newArray = listToView.sort(sortDescendentDate);
-            setListToView(newArray); */
             setListToView((prev) => [...prev.sort(sortDescendentDate)]);
             setSortDirection(() => !sortDirection);
           }}

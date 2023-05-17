@@ -14,7 +14,7 @@ const thStyle = {
   verticalAlign: "middle",
 };
 
-export const LineFound = ({ report, setListToView }) => {
+export const LineFound = ({ report, setListToView, user }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   /* console.log("linet report", report); */
@@ -23,13 +23,12 @@ export const LineFound = ({ report, setListToView }) => {
     navigate("../reports", { state: { ...report } });
   };
 
-  const manageDeleteClick = async (id) => {
+  const manageDeleteClick = (id) => {
     console.log(id);
     deleteReport(id);
     dispatch(deleteReportRedux(id)).then(
       setListToView((prev) => prev.filter((el) => el.idDoc !== id))
     );
- 
   };
 
   return (
@@ -102,13 +101,15 @@ export const LineFound = ({ report, setListToView }) => {
               >
                 Update
               </Button>
-              <Button
-                onClick={() => manageDeleteClick(report.idDoc)}
-                variant="contained"
-                color="secondary"
-              >
-                Delete
-              </Button>
+              {user.is_facility && (
+                <Button
+                  onClick={() => manageDeleteClick(report.idDoc)}
+                  variant="contained"
+                  color="secondary"
+                >
+                  Delete
+                </Button>
+              )}
             </Box>
           </th>
         </tr>

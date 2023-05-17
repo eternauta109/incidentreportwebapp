@@ -18,7 +18,7 @@ function importExcel(file) {
           reject(new Error("Worksheet not found"));
           return;
         }
-        const rows = worksheet.getRows(2, 184);
+        const rows = worksheet.getRows(2, 226);
 
         const titleColumn = [];
 
@@ -48,6 +48,7 @@ function importExcel(file) {
           } else {
             rowData["resolved"] = true;
           }
+          rowData["visible"] = true;
           console.log(rowData);
           addReport(rowData);
           data.push(rowData);

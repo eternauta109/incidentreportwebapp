@@ -28,6 +28,7 @@ const INITIAL_STATE = {
   note: "",
   redattore: "",
   workDays: null,
+  visible: true,
 };
 
 const reportSlice = createSlice({
@@ -106,6 +107,9 @@ const reportSlice = createSlice({
     setWorkDays: (state, action) => {
       state.workDays = action.payload;
     },
+    setVisible: (state, action) => {
+      return (state.visible = action.payload);
+    },
     resetReport: (state, action) => {
       return INITIAL_STATE;
     },
@@ -135,6 +139,7 @@ export const {
   setIssue,
   setNote,
   setRedattore,
+  setVisible,
   setWorkDays,
   resetReport,
 } = reportSlice.actions;

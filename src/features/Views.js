@@ -2,8 +2,8 @@ import { useState, useEffect, useMemo } from "react";
 import { Grid, Box, Button, Typography } from "@mui/material";
 import { getAllReports, getCinemaReports } from "../store/slice/reportsSlice";
 import { useDispatch, useSelector } from "react-redux";
-import Chart from "./Chart"; 
-/* import ExcelImport from "./ExcelImport"; */
+import Chart from "./Chart";
+import ExcelImport from "./ExcelImport";
 import ToExcel from "./ToExcel";
 import SecondView from "./SecondView";
 import { Tabs, Tab } from "@mui/material";
@@ -61,6 +61,7 @@ export default function View() {
   const { state } = useLocation();
   const { user } = state;
 
+  //carico i report
   const loadReport = () => {
     if (user.is_facility) {
       try {
@@ -77,7 +78,7 @@ export default function View() {
           .then(setLoadingReport(false))
           .catch((error) => {
             console.log("get all reports for cinema errors", error);
-            setIsLoading(false);
+            setLoadingReport(false);
           });
       } catch (err) {
         console.log("get all reports for cinema errors", err);
@@ -139,23 +140,24 @@ export default function View() {
   }, [filter]);
 
   useEffect(() => {
+    console.log(reports.length);
     if (reports.length > 0) {
       console.log("leggo reports da redux");
-
       setLoadingReport(false);
+      setListToView([...reports]);
+      setListReport([...reports]);
     } else {
       console.log("leggo reports prima volta da firebase");
       loadReport();
+      console.log(reports.length);
     }
 
-    setListToView([...reports]);
-    setListReport([...reports]);
     return () => {
       console.log("views unmounted");
       setListReport([]);
       setListToView([]);
     };
-  }, [reports]);
+  }, [reports.length]);
 
   return (
     <>
@@ -211,7 +213,7 @@ export default function View() {
           />
         </TabPanel>
         <TabPanel value={valueTab} index={1}>
-          {listReport.length > 1 && <Chart data={listReport} />} 
+          {listReport.length > 1 && <Chart data={listReport} />}
         </TabPanel>
       </Box>
 
@@ -223,7 +225,7 @@ export default function View() {
       >
         <ToExcel data={listToView} sx={{ mr: 2 }} />
         {user.is_facility && <SecondView data={listToView} />}
-        {/* <ExcelImport /> */}
+        <ExcelImport />
       </Box>
     </>
   );

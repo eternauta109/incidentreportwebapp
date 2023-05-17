@@ -1,6 +1,6 @@
-import { useState, useEffect, useMemo, useReducer } from "react";
+import { useState, useEffect } from "react";
 /* import ConfirmNewReport from "./ComfirmNewReport"; */
-import { useNavigate, useLocation, Link } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useTheme } from "@mui/material/styles";
 import {
   addReport,
@@ -56,7 +56,10 @@ export default function Report() {
         console.log("qui");
         dispatch(updateReportRedux({ reportId: report.idDoc, updates: report }))
           .then(() => updateReport(state.idDoc, report))
-          .then(() => navigate("../landing"));
+          .then(() => navigate("../landing"))
+          .catch((error) => {
+            console.log("error in onSubmitReport redux exist", error);
+          });
       } else {
         updateReport(state.idDoc, report).then(() => navigate("../landing"));
       }
@@ -73,7 +76,7 @@ export default function Report() {
         })
         .then(() => navigate("../landing"))
         .catch((error) => {
-          console.log("error", error);
+          console.log("error in onSubmitReport if redux do not exist", error);
         });
     }
   };

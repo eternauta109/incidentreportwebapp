@@ -19,6 +19,7 @@ export const sendEmail = (update, report, user) => {
     comps: report.comps,
     note: report.note,
     solved: report.resolved,
+    redattore: report.redattore,
     sender_user: "incident report mail service",
     send_to_mail: user.maillist[0],
     cc_to: user.maillist[1],

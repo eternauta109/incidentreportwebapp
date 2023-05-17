@@ -9,7 +9,7 @@ import {
   setRedattore,
   setWorkDays,
 } from "../../store/slice/reportSlice";
-import { useEffect } from "react";
+
 dayjs.locale("it");
 
 const CloseSection = ({ report }) => {
