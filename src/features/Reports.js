@@ -14,7 +14,7 @@ import DataCinema from "./reportsSections/DataCinema";
 import IssueDescription from "./reportsSections/IssueDescription";
 import RefoundsDeal from "./reportsSections/RefoundsDeal";
 import CloseSection from "./reportsSections/CloseSection";
-
+import { sendEmail } from "./SendMail";
 import { useDispatch, useSelector } from "react-redux";
 import { addReportRedux, updateReportRedux } from "../store/slice/reportsSlice";
 import {
@@ -49,19 +49,22 @@ export default function Report() {
   //registra o aggiorna il report
   const onSubmitReport = (e) => {
     e.preventDefault();
-    /* sendEmail(update, report, user); */
+    sendEmail(update, report, user);
 
     if (state) {
       if (reports.length > 0) {
         console.log("qui");
         dispatch(updateReportRedux({ reportId: report.idDoc, updates: report }))
           .then(() => updateReport(state.idDoc, report))
-          .then(() => navigate("../landing"))
+          .then(() => navigate("../landing", { state: { succes: true } }))
           .catch((error) => {
             console.log("error in onSubmitReport redux exist", error);
+            navigate("../landing", { state: { succes: false } });
           });
       } else {
-        updateReport(state.idDoc, report).then(() => navigate("../landing"));
+        updateReport(state.idDoc, report).then(() =>
+          navigate("../landing", { state: { succes: true } })
+        );
       }
     } else {
       addReport(report)
@@ -74,9 +77,10 @@ export default function Report() {
 
           dispatch(setIdDoc(res)); // Aggiorna l'ID nella slice report
         })
-        .then(() => navigate("../landing"))
+        .then(() => navigate("../landing", { state: { succes: true } }))
         .catch((error) => {
           console.log("error in onSubmitReport if redux do not exist", error);
+          navigate("../landing", { state: { succes: false } });
         });
     }
   };

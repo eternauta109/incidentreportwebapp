@@ -4,6 +4,7 @@ export const cinemaList = [
     screens: 18,
     area: 4,
     seats: 4017,
+    email: "multicinema.magliana@thespacecinema.it",
     screens_det: [
       { screen: 1, seats: 259 },
       { screen: 2, seats: 173 },
@@ -28,6 +29,7 @@ export const cinemaList = [
   },
   {
     name: "TSC Beinasco (TO)",
+    email: "multicinema.beinasco@thespacecinema.it",
     screens: 9,
     area: 1,
     seats: 2385,
@@ -49,6 +51,7 @@ export const cinemaList = [
     screens: 12,
     area: 4,
     seats: 2404,
+    email: "multicinema.catania@thespacecinema.it",
     screens_det: [
       { screen: 1, seats: 169 },
       { screen: 2, seats: 178 },
@@ -70,6 +73,7 @@ export const cinemaList = [
     name: "TSC Bologna (BO)",
     screens: 9,
     area: 3,
+    email: "multicinema.bologna@thespacecinema.it",
     seats: 1757,
     screens_det: [
       { screen: 1, seats: 463 },
@@ -86,6 +90,7 @@ export const cinemaList = [
   },
   {
     name: "TSC Casamassima (BA)",
+    email: "multicinema.bari@thespacecinema.it",
     screens: 9,
     area: 4,
     seats: 1989,
@@ -104,6 +109,7 @@ export const cinemaList = [
   },
   {
     name: "TSC Catanzaro (CZ)",
+    email: "multicinema.catanzaro@thespacecinema.it",
     screens: 7,
     seats: 1221,
     area: 1,
@@ -120,6 +126,7 @@ export const cinemaList = [
   },
   {
     name: "TSC Cerro Maggiore (MI)",
+    email: "multicinema.cerro@thespacecinema.it",
     screens: 11,
     seats: 2390,
     area: 1,
@@ -140,6 +147,7 @@ export const cinemaList = [
   },
   {
     name: "TSC Corciano (PG)",
+    email: "multicinema.perugia@thespacecinema.it",
     screens: 11,
     seats: 2404,
     area: 3,
@@ -160,6 +168,7 @@ export const cinemaList = [
   },
   {
     name: "TSC Firenze (FI)",
+    email: "multicinema.firenze@thespacecinema.it",
     screens: 8,
     seats: 1885,
     area: 3,
@@ -177,6 +186,7 @@ export const cinemaList = [
   },
   {
     name: "TSC Genova (GE)",
+    email: "multicinema.genova@thespacecinema.it",
     screens: 12,
     seats: 1809,
     area: 1,
@@ -196,6 +206,7 @@ export const cinemaList = [
   },
   {
     name: "TSC Grosseto (GR)",
+    email: "multicinema.grosseto@thespacecinema.it",
     screens: 7,
     seats: 1210,
     area: 3,
@@ -212,6 +223,7 @@ export const cinemaList = [
   },
   {
     name: "TSC Guidonia (RM)",
+    email: "multicinema.guidonia@thespacecinema.it",
     screens: 10,
     seats: 2412,
     area: 4,
@@ -231,6 +243,7 @@ export const cinemaList = [
   },
   {
     name: "TSC Lamezia Terme (CZ)",
+    email: "multicinema.lamezia@thespacecinema.it",
     screens: 5,
     seats: 985,
     area: 4,
@@ -245,6 +258,7 @@ export const cinemaList = [
   },
   {
     name: "TSC Limena (PD)",
+    email: "multicinema.limena@thespacecinema.it",
     screens: 14,
     seats: 3098,
     area: 2,
@@ -268,6 +282,7 @@ export const cinemaList = [
   },
   {
     name: "TSC Livorno (LI)",
+    email: "multicinema.livorno@thespacecinema.it",
     screens: 9,
     seats: 2175,
     area: 3,
@@ -286,6 +301,7 @@ export const cinemaList = [
   },
   {
     name: "TSC Lugagnano (VR)",
+    email: "multicinema.verona@thespacecinema.it",
     screens: 8,
     seats: 1117,
     area: 2,
@@ -303,6 +319,7 @@ export const cinemaList = [
   },
   {
     name: "TSC Milano Odeon (MI)",
+    email: "multicinema.odeon@thespacecinema.it",
     screens: 10,
     seats: 2222,
     area: 1,
@@ -322,6 +339,7 @@ export const cinemaList = [
   },
   {
     name: "TSC Montebello (PV)",
+    email: "multicinema.montebello@thespacecinema.it",
     screens: 9,
     seats: 1835,
     area: 1,
@@ -340,6 +358,7 @@ export const cinemaList = [
   },
   {
     name: "TSC Montesilvano (PE)",
+    email: "multicinema.montesilvano@thespacecinema.it",
     screens: 11,
     seats: 2040,
     area: 3,
@@ -360,6 +379,7 @@ export const cinemaList = [
   },
   {
     name: "TSC Napoli (NA)",
+    email: "multicinema.napoli@thespacecinema.it",
     screens: 11,
     seats: 2684,
     area: 4,
@@ -380,6 +400,7 @@ export const cinemaList = [
   },
   {
     name: "TSC Nola (NA)",
+    email: "multicinema.nola@thespacecinema.it",
     screens: 9,
     seats: 2049,
     area: 4,
@@ -398,6 +419,7 @@ export const cinemaList = [
   },
   {
     name: "TSC Parma Campus (PR)",
+    email: "multicinema.parmacampus@thespacecinema.it",
     screens: 12,
     seats: 2451,
     area: 3,
@@ -419,6 +441,7 @@ export const cinemaList = [
   },
   {
     name: "TSC Parma Centro (PR)",
+    email: "multicinema.parma@thespacecinema.it",
     screens: 7,
     seats: 1405,
     area: 3,
@@ -435,6 +458,7 @@ export const cinemaList = [
   },
   {
     name: "TSC Pradamano (UD)",
+    email: "multicinema.pradamano@thespacecinema.it",
     screens: 12,
     seats: 2472,
     area: 2,
@@ -456,6 +480,7 @@ export const cinemaList = [
   },
   {
     name: "TSC Quartucciu (CA)",
+    email: "multicinema.cagliari@thespacecinema.it",
     screens: 13,
     seats: 1772,
     area: 2,
@@ -478,6 +503,7 @@ export const cinemaList = [
   },
   {
     name: "TSC Roma Moderno (RM)",
+    email: "multicinema.moderno@thespacecinema.it",
     screens: 5,
     seats: 1112,
     area: 4,
@@ -492,6 +518,7 @@ export const cinemaList = [
   },
   {
     name: "TSC Rozzano (MI)",
+    email: "multicinema.rozzano@thespacecinema.it",
     screens: 13,
     seats: 2876,
     area: 1,
@@ -514,6 +541,8 @@ export const cinemaList = [
   },
   {
     name: "TSC Salerno (SA)",
+
+    email: "multicinema.salerno@thespacecinema.it",
     screens: 11,
     seats: 2448,
     area: 4,
@@ -534,6 +563,7 @@ export const cinemaList = [
   },
   {
     name: "TSC Sestu (CA)",
+    email: "multicinema.sestu@thespacecinema.it",
     screens: 12,
     seats: 1629,
     area: 2,
@@ -555,6 +585,7 @@ export const cinemaList = [
   },
   {
     name: "TSC Silea (TV)",
+    email: "multicinema.silea@thespacecinema.it",
     screens: 12,
     seats: 2682,
     area: 2,
@@ -576,6 +607,7 @@ export const cinemaList = [
   },
   {
     name: "TSC Surbo (LE)",
+    email: "multicinema.surbo@thespacecinema.it",
     screens: 9,
     seats: 2410,
     area: 4,
@@ -594,6 +626,7 @@ export const cinemaList = [
   },
   {
     name: "TSC Terni (TR)",
+    email: "multicinema.terni@thespacecinema.it",
     screens: 9,
     seats: 2120,
     area: 3,
@@ -612,6 +645,7 @@ export const cinemaList = [
   },
   {
     name: "TSC Torino (TO)",
+    email: "multicinema.torino@thespacecinema.it",
     screens: 8,
     seats: 1247,
     area: 1,
@@ -629,6 +663,7 @@ export const cinemaList = [
   },
   {
     name: "TSC Torri di Quartesolo (VI)",
+    email: "multicinema.vicenza@thespacecinema.it",
     screens: 9,
     seats: 760,
     area: 2,
@@ -647,6 +682,7 @@ export const cinemaList = [
   },
   {
     name: "TSC Trieste (TS)",
+    email: "multicinema.trieste@thespacecinema.it",
     screens: 7,
     seats: 1252,
     area: 2,
@@ -663,6 +699,7 @@ export const cinemaList = [
   },
   {
     name: "TSC Vimercate (MB)",
+    email: "multicinema.vimercate@thespacecinema.it",
     screens: 16,
     seats: 3897,
     area: 1,

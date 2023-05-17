@@ -19,13 +19,16 @@ export const sendEmail = (update, report, user) => {
     comps: report.comps,
     note: report.note,
     solved: report.resolved,
+    age: report.workDays,
     redattore: report.redattore,
+    is_new: update ? "update" : "new",
     sender_user: "incident report mail service",
-    send_to_mail: user.maillist[0],
-    cc_to: user.maillist[1],
+    send_to_mail: "e_ternauta@live.it",
+    to_area_manager: "e_ternauta@live.it",
+    to_cinema: "darkside109@gmail.com",
   };
 
-  console.log(templateParams);
+  console.log(templateParams, user);
 
   /*  let server = emailjs.server.connect({
     user: "darkside109@gmail.com",
