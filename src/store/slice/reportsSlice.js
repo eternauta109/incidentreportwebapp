@@ -34,7 +34,7 @@ export const getAllReports = createAsyncThunk(
       let report = { ...doc.data(), workDays: workDaysCalculate(doc.data()) };
       reports = [...reports, report];
     });
-    console.log("reports in getAllReports", reports);
+    /* console.log("reports in getAllReports", reports); */
     return reports;
   }
 );

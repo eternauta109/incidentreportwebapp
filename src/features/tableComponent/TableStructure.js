@@ -32,7 +32,7 @@ const TableStructure = ({
     <Box
       sx={{
         fontSize: "0.8rem",
-        width: "2200px",
+        width: "2400px",
 
         bgcolor: "grey",
       }}
@@ -175,7 +175,9 @@ const TableStructure = ({
               </Typography>
             </th>
             <th scope="col">
-              <Typography sx={{ ...headerStyle }}>note</Typography>
+              <Typography sx={{ width: "200px", ...headerStyle }}>
+                note
+              </Typography>
             </th>
             <th scope="col">
               <SelectSolved

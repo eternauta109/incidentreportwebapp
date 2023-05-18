@@ -52,35 +52,40 @@ export default function Report() {
     sendEmail(update, report, user);
 
     if (state) {
-      if (reports.length > 0) {
-        console.log("qui");
-        dispatch(updateReportRedux({ reportId: report.idDoc, updates: report }))
-          .then(() => updateReport(state.idDoc, report))
-          .then(() => navigate("../landing", { state: { succes: true } }))
-          .catch((error) => {
-            console.log("error in onSubmitReport redux exist", error);
-            navigate("../landing", { state: { succes: false } });
-          });
-      } else {
-        updateReport(state.idDoc, report).then(() =>
-          navigate("../landing", { state: { succes: true } })
+      //se arrivo da views con un report da aggiornare
+      // e se già esiste reports in redux lo aggiungo
+
+      reports.length > 0 &&
+        dispatch(
+          updateReportRedux({ reportId: report.idDoc, updates: report })
         );
-      }
+      //altrimenti aggiorno il report su db
+      //al primo caricamento di Views redux si caricherà con
+      //tutti i report. Navigo in landing con un messaggio di successo
+      updateReport(state.idDoc, report)
+        .then(() => navigate("../landing", { state: { succes: true } }))
+        .catch((error) => {
+          console.log("error in onSubmitReport redux exist", error);
+          return navigate("../landing", { state: { succes: false } });
+        });
     } else {
+      //altriemnti aggiungo il report al db
+      //quindi prendo res=>idDoc a aggiorno il report.
+      //se esiste gia reports lo aggiungo se no niente, aggiorno solo
+      //idDoc di report
       addReport(report)
         .then((res) => {
-          console.log("res", res);
+          console.log("res in add report with no reports", res);
           const updatedReport = { ...report, idDoc: res }; // Aggiungi l'ID al nuovo report
-          if (reports.length > 0) {
+          reports.length > 0 &&
             dispatch(addReportRedux({ report: updatedReport })); // Aggiungi il nuovo report con l'ID alla slice reports
-          }
 
           dispatch(setIdDoc(res)); // Aggiorna l'ID nella slice report
         })
         .then(() => navigate("../landing", { state: { succes: true } }))
         .catch((error) => {
           console.log("error in onSubmitReport if redux do not exist", error);
-          navigate("../landing", { state: { succes: false } });
+          return navigate("../landing", { state: { succes: false } });
         });
     }
   };
@@ -96,31 +101,31 @@ export default function Report() {
 
     getRefNum(user.cinema[0]).then((r) => {
       dispatch(setCinema(cinemaFind.name));
-
       let appo = `${r + 1}/${dayjs().format("YYYY")}`;
       console.log("appo", appo);
       dispatch(setRef_num(`${r + 1}/${dayjs().format("YYYY")}`));
-
-      dispatch(setScreens_number(cinemaFind.screens));
-      dispatch(setSeats_number(cinemaFind.seats));
-      dispatch(setArea(cinemaFind.area));
-      dispatch(
-        setScreen_with_issue(
-          cinemaFind.screens_det[cinemaFind.screens_det.length - 1].screen
-        )
-      );
-      dispatch(
-        setScreen_with_issue_capacity(
-          cinemaFind.screens_det[cinemaFind.screens_det.length - 1].seats
-        )
-      );
     });
+
+    dispatch(setScreens_number(cinemaFind.screens));
+    dispatch(setSeats_number(cinemaFind.seats));
+    dispatch(setArea(cinemaFind.area));
+    dispatch(
+      setScreen_with_issue(
+        cinemaFind.screens_det[cinemaFind.screens_det.length - 1].screen
+      )
+    );
+    dispatch(
+      setScreen_with_issue_capacity(
+        cinemaFind.screens_det[cinemaFind.screens_det.length - 1].seats
+      )
+    );
+
     setLoading(false);
   };
 
   useEffect(() => {
+    console.log("stae in Report useEffect", state);
     if (state) {
-      console.log(state);
       setUpdate(true);
       dispatch(setAllReport(state));
       setLoading(false);

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getUser } from "../store/slice/userSlice";
@@ -38,8 +38,8 @@ function Copyright(props) {
 }
 
 export default function Login() {
-  const emailValue = useRef(null);
-  const passwordValue = useRef(null);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const user = useSelector((state) => state.user);
@@ -50,15 +50,13 @@ export default function Login() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    const email = emailValue.current.value;
-    const password = passwordValue.current.value;
 
     dispatch(getUser({ email, password }));
   };
 
   useEffect(() => {
     if (user) {
-      navigate("landing");
+      navigate("/landing");
     }
   }, [dispatch, user]);
 
@@ -101,7 +99,7 @@ export default function Login() {
               fullWidth
               sx={{ input: { backgroundColor: "white" } }}
               id="email"
-              inputRef={emailValue}
+              onChange={(e) => setEmail(e.target.value)}
               type="email"
               label="email"
               name="email"
@@ -113,7 +111,7 @@ export default function Login() {
               required
               sx={{ input: { backgroundColor: "white" } }}
               fullWidth
-              inputRef={passwordValue}
+              onChange={(e) => setPassword(e.target.value)}
               name="password"
               label="Password"
               type="password" /* {showPassword ? "text" : "password"} */

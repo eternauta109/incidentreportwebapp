@@ -8,7 +8,7 @@ import {
   setShow_stopped,
 } from "../../store/slice/reportSlice";
 
-function NumberFormatCustom(props) {
+const NumberFormatCustom = React.forwardRef((props, ref) => {
   const { inputRef, onChange, ...other } = props;
 
   return (
@@ -26,9 +26,10 @@ function NumberFormatCustom(props) {
       }}
       thousandSeparator
       // isNumericString
+      ref={ref}
     />
   );
-}
+});
 
 const RefoundsDeal = ({ report }) => {
   const dispatch = useDispatch();
@@ -46,7 +47,7 @@ const RefoundsDeal = ({ report }) => {
               event.target.select();
             }}
             onChange={(e) => dispatch(setShow_stopped(+e.target.value))}
-            value={report ? report.show_stopped : 0}
+            value={report.show_stopped ? report.show_stopped : 0}
             fullWidth
           />
         </Grid>
@@ -63,7 +64,7 @@ const RefoundsDeal = ({ report }) => {
               event.target.select();
             }}
             onChange={(e) => dispatch(setRefounds(+e.target.value))}
-            value={report ? report.refounds : 0}
+            value={report.refounds ? report.refounds : 0}
             fullWidth
           />
         </Grid>
@@ -77,7 +78,7 @@ const RefoundsDeal = ({ report }) => {
               event.target.select();
             }}
             onChange={(e) => dispatch(setComps(+e.target.value))}
-            value={report ? report.comps : 0}
+            value={report.comps ? report.comps : 0}
             fullWidth
           />
         </Grid>

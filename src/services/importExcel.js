@@ -48,6 +48,10 @@ function importExcel(file) {
           } else {
             rowData["resolved"] = true;
           }
+          rowData["redattore"] = "";
+          rowData["refounds"] = 0;
+          rowData["comps"] = 0;
+          rowData["issue"] = "";
           rowData["visible"] = true;
           console.log(rowData);
           addReport(rowData);

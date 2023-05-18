@@ -27,7 +27,7 @@ const INITIAL_STATE = {
   issue: "",
   note: "",
   redattore: "",
-  workDays: null,
+  workDays: 0,
   visible: true,
 };
 

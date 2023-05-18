@@ -29,10 +29,10 @@ export default function Navbar(props) {
   const user = useSelector((state) => state.user);
 
   const logOutEventClick = async () => {
+    navigate("/");
     dispatch(userLogOut());
     dispatch(reportsLogOut());
     await ReportsServices.logOut();
-    navigate("/");
   };
 
   const handleDrawerToggle = () => {

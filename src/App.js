@@ -83,10 +83,12 @@ export default function App() {
         {user && <Navbar />}
 
         <Routes>
+          <Route path="/" element={<Login />} />
+          <Route path="/login" element={<Login />} />
           <Route
             path="landing"
             element={
-              <ProtectedRoute>
+              <ProtectedRoute redirectTo="/login">
                 <Landing />{" "}
               </ProtectedRoute>
             }
@@ -94,7 +96,7 @@ export default function App() {
           <Route
             path="reports"
             element={
-              <ProtectedRoute>
+              <ProtectedRoute redirectTo="/login">
                 <Reports />
               </ProtectedRoute>
             }
@@ -102,7 +104,7 @@ export default function App() {
           <Route
             path="views"
             element={
-              <ProtectedRoute>
+              <ProtectedRoute redirectTo="/login">
                 <Views />
               </ProtectedRoute>
             }
@@ -110,13 +112,11 @@ export default function App() {
           <Route
             path="dash"
             element={
-              <ProtectedRoute>
+              <ProtectedRoute redirectTo="/login">
                 <Dashboard />
               </ProtectedRoute>
             }
           />
-
-          <Route path="/" element={<Login />} />
         </Routes>
       </Container>
     </ThemeProvider>
