@@ -2,6 +2,27 @@ import emailjs from "@emailjs/browser";
 
 export const sendEmail = (update, report, user) => {
   console.log(update, report, user);
+  let are_manager_email = "";
+
+  switch (user.cinemaDet.area) {
+    case 1:
+      are_manager_email = "massimiliano.luciani@thespacecinema.it";
+      break;
+    case 2:
+      are_manager_email = "matteo.pavan@thespacecinema.it";
+      break;
+    case 3:
+      are_manager_email = "giuseppina.vernucci@thespacecinema.it";
+      break;
+    case 4:
+      are_manager_email = "mario.natalicchio@thespacecinema.it";
+      break;
+
+    default:
+      break;
+  }
+
+  console.log(are_manager_email, user.cinemaDet.email);
 
   let templateParams = {
     ref_num: `${report.ref_num}`,
@@ -23,9 +44,9 @@ export const sendEmail = (update, report, user) => {
     redattore: report.redattore,
     is_new: update ? "update" : "new",
     sender_user: "incident report mail service",
-    send_to_mail: "e_ternauta@live.it",
-    to_area_manager: "e_ternauta@live.it",
-    to_cinema: "darkside109@gmail.com",
+    send_to_mail: "incident.report@thespacecinema.it",
+    to_area_manager: are_manager_email,
+    to_cinema: user.cinemaDet.email,
   };
 
   console.log(templateParams, user);
