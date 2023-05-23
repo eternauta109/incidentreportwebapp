@@ -734,6 +734,7 @@ export const categoryList = [
   "Riscaldamento, ventilazione e aria condizionata (HVAC).",
   "Ristrutturazione",
   "Scale mobili",
+  "Diffusione sonora (EVAC)",
   "UPS E gruppi elettrogeni",
   "altro",
 ];
