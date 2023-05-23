@@ -49,7 +49,7 @@ export default function Report() {
   //registra o aggiorna il report
   const onSubmitReport = (e) => {
     e.preventDefault();
-    //sendEmail(update, report, user);
+    sendEmail(update, report, user);
 
     if (state) {
       //se arrivo da views con un report da aggiornare
