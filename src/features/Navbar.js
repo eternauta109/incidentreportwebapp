@@ -1,5 +1,7 @@
 import * as React from "react";
 import Box from "@mui/material/Box";
+
+import favicon from ".././favicon.ico";
 import { useNavigate } from "react-router-dom";
 import {
   Stack,
@@ -41,11 +43,19 @@ export default function Navbar(props) {
   //Toggle menu
   const drawer = (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: "center", p: 2 }}>
-      <Typography variant="h6" sx={{ my: 2, color: "orange" }}>
-        menu
-      </Typography>
+      <Stack direction="row" spacing={4} alignItems="center">
+        <img
+          src={favicon}
+          alt="Favicon"
+          style={{ width: "40px", height: "40px" }}
+        />
+        <Typography variant="h6" sx={{ my: 2, color: "orange" }}>
+          menu
+        </Typography>
+      </Stack>
+
       <Divider />
-      <Stack>
+      <Stack sx={{ mt: "20px" }}>
         <Button
           color="primary"
           variant="contained"

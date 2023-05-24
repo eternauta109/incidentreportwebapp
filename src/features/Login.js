@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import favicon from ".././favicon.ico";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getUser } from "../store/slice/userSlice";
@@ -81,6 +82,7 @@ export default function Login() {
             alignItems: "center",
           }}
         >
+          <img src={favicon} alt="Favicon" />
           <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
             <LockOutlinedIcon />
           </Avatar>
