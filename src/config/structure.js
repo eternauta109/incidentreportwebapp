@@ -731,6 +731,7 @@ export const categoryList = [
   "Elettrici",
   "Infiltrazioni",
   "Proiezione",
+  "Calamità naturali",
   "Riscaldamento, ventilazione e aria condizionata (HVAC).",
   "Ristrutturazione",
   "Scale mobili",
