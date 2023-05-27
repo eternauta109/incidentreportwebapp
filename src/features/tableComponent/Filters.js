@@ -36,114 +36,16 @@ export const AreaSelect = ({ filter, setFilter }) => {
 };
 
 //data filter
-export const DataSorter = ({
-  val,
-
-  setListToView,
-  sortDirection,
-  setSortDirection,
-}) => {
-  function sortAscendateDate(a, b) {
-    /* console.log("startdate a e b ", a.startDate, b.startDate); */
-    let dataA = new Date();
-    let dataB = new Date();
-    /* console.log("startdate a e b ", dataA, dataB); */
-    switch (val) {
-      case "startDate":
-        dataA = new Date(a.startDate.split("/").reverse().join("-")); // converte la data nel formato "YYYY-MM-DD"
-        dataB = new Date(b.startDate.split("/").reverse().join("-")); // converte la data nel formato "YYYY-MM-DD"
-        break;
-      case "endDate":
-        if (!a.endDate) {
-          dataA = new Date("2100/12/31");
-        } else if (!b.endDate) {
-          dataB = new Date("2100/12/31");
-        } else {
-          dataA = new Date(a.endDate.split("/").reverse().join("-")); // converte la data nel formato "YYYY-MM-DD"
-          dataB = new Date(b.endDate.split("/").reverse().join("-")); // converte la data nel formato "YYYY-MM-DD"
-        }
-        break;
-      case "datePrediction":
-        if (!a.datePrediction) {
-          dataA = new Date("2100/12/31");
-        } else if (!b.datePrediction) {
-          dataB = new Date("2100/12/31");
-        } else {
-          dataA = new Date(a.datePrediction.split("/").reverse().join("-")); // converte la data nel formato "YYYY-MM-DD"
-          dataB = new Date(b.datePrediction.split("/").reverse().join("-")); // converte la data nel formato "YYYY-MM-DD"
-        }
-        break;
-
-      default:
-        break;
-    }
-
-    if (dataA || dataB) {
-      if (dataA <= dataB) {
-        return -1;
-      }
-      if (dataA >= dataB) {
-        return 1;
-      }
-    }
-
-    return 0;
-  }
-
-  function sortDescendentDate(a, b) {
-    let dataA = new Date();
-    let dataB = new Date();
-    switch (val) {
-      case "startDate":
-        dataA = new Date(
-          a.startDate.split("/").reverse().join("-") + "T00:00:00"
-        ); // converte la data nel formato "YYYY-MM-DD"
-
-        dataB = new Date(b.startDate.split("/").reverse().join("-")); // converte la data nel formato "YYYY-MM-DD"
-
-        break;
-      case "endDate":
-        if (!a.endDate) {
-          dataA = new Date("2100/12/31");
-        } else if (!b.endDate) {
-          dataB = new Date("2100/12/31");
-        } else {
-          dataA = new Date(a.endDate.split("/").reverse().join("-")); // converte la data nel formato "YYYY-MM-DD"
-          dataB = new Date(b.endDate.split("/").reverse().join("-")); // converte la data nel formato "YYYY-MM-DD"
-        }
-        break;
-      case "datePrediction":
-        if (!a.datePrediction) {
-          dataA = new Date("2100/12/31");
-        } else if (!b.datePrediction) {
-          dataB = new Date("2100/12/31");
-        } else {
-          dataA = new Date(a.datePrediction.split("/").reverse().join("-")); // converte la data nel formato "YYYY-MM-DD"
-          dataB = new Date(b.datePrediction.split("/").reverse().join("-")); // converte la data nel formato "YYYY-MM-DD"
-        }
-        break;
-
-      default:
-        break;
-    }
-
-    if (dataA > dataB) {
-      return -1;
-    }
-    if (dataA < dataB) {
-      return 1;
-    }
-    return 0;
-  }
+export const DataSorterStartDate = ({ filter, setFilter }) => {
   return (
     <Stack direction="row" spacing={0}>
-      {sortDirection ? (
+      {filter.sorterStDate ? (
         <IconButton
           color="secondary"
           component="span"
           onClick={() => {
-            setListToView((prev) => [...prev.sort(sortAscendateDate)]);
-            setSortDirection(() => !sortDirection);
+            console.log("qui"),
+              setFilter((prev) => ({ ...prev, sorterStDate: false }));
           }}
         >
           <ArrowDropUpIcon />
@@ -153,8 +55,8 @@ export const DataSorter = ({
           color="secondary"
           component="span"
           onClick={() => {
-            setListToView((prev) => [...prev.sort(sortDescendentDate)]);
-            setSortDirection(() => !sortDirection);
+            console.log("qua"),
+              setFilter((prev) => ({ ...prev, sorterStDate: true }));
           }}
         >
           <ArrowDropDownIcon />
@@ -164,9 +66,68 @@ export const DataSorter = ({
   );
 };
 
+export const DataSorterEndDate = ({ filter, setFilter }) => {
+  return (
+    <Stack direction="row" spacing={0}>
+      {filter.sorterEndDate ? (
+        <IconButton
+          color="secondary"
+          component="span"
+          onClick={() => {
+            console.log("qui"),
+              setFilter((prev) => ({ ...prev, sorterEndDate: false }));
+          }}
+        >
+          {/* <ArrowDropUpIcon /> */}
+        </IconButton>
+      ) : (
+        <IconButton
+          color="secondary"
+          component="span"
+          onClick={() => {
+            console.log("qua"),
+              setFilter((prev) => ({ ...prev, sorterEndDate: true }));
+          }}
+        >
+          {/* <ArrowDropDownIcon /> */}
+        </IconButton>
+      )}
+    </Stack>
+  );
+};
+export const DataSorterPredDate = ({ filter, setFilter }) => {
+  return (
+    <Stack direction="row" spacing={0}>
+      {filter.sorterPredDate ? (
+        <IconButton
+          color="secondary"
+          component="span"
+          onClick={() => {
+            console.log("qui"),
+              setFilter((prev) => ({ ...prev, sorterPredDate: false }));
+          }}
+        >
+          {/* <ArrowDropUpIcon /> */}
+        </IconButton>
+      ) : (
+        <IconButton
+          color="secondary"
+          component="span"
+          onClick={() => {
+            console.log("qua"),
+              setFilter((prev) => ({ ...prev, sorterPredDate: true }));
+          }}
+        >
+          {/* <ArrowDropDownIcon /> */}
+        </IconButton>
+      )}
+    </Stack>
+  );
+};
+
 //cinema select filter
 export const SelectCinema = ({ filter, setFilter, user }) => {
-  useEffect(() => {}, [filter.cinemaSelected]);
+  /* useEffect(() => {}, [filter.cinemaSelected]); */
 
   return (
     <FormControl sx={{ width: "100px" }}>

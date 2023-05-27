@@ -26,7 +26,7 @@ function Copyright(props) {
       borderRadius="5px"
       align="center"
       {...props}
-      sx={{ bgcolor: "gray", opacity: 0.9, width: "300px" }}
+      sx={{ bgcolor: "gray", opacity: 0.9, width: "300px", fontSize: "10px" }}
     >
       {"Dev By  "}
       <Link color="inherit" href="#">
@@ -64,6 +64,9 @@ export default function Login() {
   return (
     <Box sx={{ minHeight: "100vh", display: "flex", flexDirection: "column" }}>
       <Box sx={{ display: "flex", justifyContent: "center" }}>
+        <img src={favicon} alt="Favicon" />
+      </Box>
+      <Box sx={{ display: "flex", justifyContent: "center" }}>
         <Typography
           component="h1"
           variant="h3"
@@ -73,6 +76,7 @@ export default function Login() {
           incident report web app
         </Typography>
       </Box>
+
       <Container component="main" maxWidth="xs" sx={theme.formStyle}>
         <Box
           sx={{
@@ -82,7 +86,6 @@ export default function Login() {
             alignItems: "center",
           }}
         >
-          <img src={favicon} alt="Favicon" />
           <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
             <LockOutlinedIcon />
           </Avatar>

@@ -31,6 +31,7 @@ import {
 } from "../store/slice/reportSlice";
 import dayjs from "dayjs";
 import "dayjs/locale/it";
+import { setNewCinema } from "../store/slice/userSlice";
 
 dayjs.locale("it");
 
@@ -129,6 +130,10 @@ export default function Report() {
       setUpdate(true);
       dispatch(setAllReport(state));
       setLoading(false);
+      //prima aggiorno il dettaglio cinema nell'user
+      const cinemaFind = cinemaList.find((el) => el.name === state.cinema);
+      console.log("cinemafind0!!!!", cinemaFind);
+      dispatch(setNewCinema({ cinemaFind }));
     } else {
       initializeReport();
     }
@@ -154,7 +159,7 @@ export default function Report() {
               color="primary"
               fontWeight="bold"
             >
-              incident report
+              {update ? "update " : "new "}incident report
             </Typography>
           </Box>
 
@@ -164,7 +169,12 @@ export default function Report() {
               date and cinema data
             </Typography>
             <DateSection update={update} report={report} user={user} />
-            <DataCinema user={user} report={report} cinemaList={cinemaList} />
+            <DataCinema
+              user={user}
+              report={report}
+              cinemaList={cinemaList}
+              update={update}
+            />
 
             <Typography variant="h6" color="secondary" sx={{ mb: "20px" }}>
               issue description
@@ -188,7 +198,7 @@ export default function Report() {
                 variant="contained"
                 sx={{ width: "300px", mt: 4, mb: 2 }}
               >
-                {state ? "UpDate" : "Save"}
+                {update ? "UpDate ans send email" : "Save and send email"}
               </Button>
             </Grid>
           </Box>

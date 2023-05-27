@@ -2,6 +2,10 @@ import { useState, useEffect, useMemo } from "react";
 import { Grid, Box, Button, Typography } from "@mui/material";
 import { getAllReports, getCinemaReports } from "../store/slice/reportsSlice";
 import { useDispatch, useSelector } from "react-redux";
+import {
+  sortDescDateStartDate,
+  sortAscDateStartDate,
+} from "../services/sorterArrayData";
 import Chart from "./Chart";
 import ExcelImport from "./ExcelImport";
 import ToExcel from "./ToExcel";
@@ -41,7 +45,9 @@ function a11yProps(index) {
 }
 
 const filterInit = {
-  sorter: true,
+  sorterStDate: false,
+  sorterEndDate: false,
+  sorterPredDate: false,
   areaSelect: "all",
   cinemaSelected: [],
   categorySelected: [],
@@ -65,24 +71,20 @@ export default function View() {
   const loadReport = () => {
     if (user.is_facility) {
       try {
-        dispatch(getAllReports()).then(setLoadingReport(false));
+        dispatch(getAllReports());
       } catch (err) {
         console.log("get all reports for facility errors", err);
-        setLoadingReport(false); // impostiamo isLoading a false anche in caso di errori
+        // impostiamo isLoading a false anche in caso di errori
       }
     } else {
       try {
         let cinemaUser = user.cinema[0];
         console.log(cinemaUser);
-        dispatch(getCinemaReports({ cinema: cinemaUser }))
-          .then(setLoadingReport(false))
-          .catch((error) => {
-            console.log("get all reports for cinema errors", error);
-            setLoadingReport(false);
-          });
+        dispatch(getCinemaReports({ cinema: cinemaUser })).catch((error) => {
+          console.log("get all reports for cinema errors", error);
+        });
       } catch (err) {
         console.log("get all reports for cinema errors", err);
-        setLoadingReport(false);
       }
     }
   };
@@ -97,6 +99,7 @@ export default function View() {
   useMemo(() => {
     console.log("filter change", filter);
     const tempArray = [...listReport]; // Copia temporanea dell'array originale
+
     // Filtra per i cinema selezionati
     const reportsFilteredByCinema =
       filter.cinemaSelected.length > 0
@@ -136,21 +139,42 @@ export default function View() {
         ? filteredByScreenState.filter((item) => item.resolved === true)
         : filteredByScreenState.filter((item) => item.resolved === false);
 
+    const sorterStartDate = filter.sorterStDate
+      ? (filteredBySolvedState.sort(sortAscDateStartDate), console.log("true"))
+      : (filteredBySolvedState.sort(sortDescDateStartDate),
+        console.log("false"));
+
+    /* const sorterEndDate = filter.sorterEndDate
+      ? (filteredBySolvedState.sort(sortAscDateEndDate), console.log("true"))
+      : (filteredBySolvedState.sort(sortDescDateEndDate), console.log("false"));
+
+    const sorterPredDate = filter.sorterPredDate
+      ? (filteredBySolvedState.sort(sortDescPredEndDate), console.log("true"))
+      : (filteredBySolvedState.sort(sortAscPredEndDate), console.log("false")); */
+
     setListToView(filteredBySolvedState);
   }, [filter]);
 
+  useMemo(() => {
+    console.log("ccciic");
+    setListToView((prev) => [...prev.sort(sortDescDateStartDate)]);
+    setListReport((prev) => [...prev.sort(sortDescDateStartDate)]);
+  }, [loadingReport]);
+
   useEffect(() => {
     console.log(reports.length);
+
     if (reports.length > 0) {
-      console.log("leggo reports da redux");
-      setLoadingReport(false);
-      setListToView([...reports]);
-      setListReport([...reports]);
-    } else {
-      console.log("leggo reports prima volta da firebase");
-      loadReport();
-      console.log(reports.length);
+      return (
+        console.log("leggo reports da redux"),
+        setListToView([...reports]),
+        setListReport([...reports]),
+        setLoadingReport(false)
+      );
     }
+    console.log("leggo reports prima volta da firebase");
+    loadReport();
+    console.log(reports.length);
 
     return () => {
       console.log("views unmounted");

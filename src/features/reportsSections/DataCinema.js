@@ -23,7 +23,7 @@ import {
   Grid,
 } from "@mui/material";
 
-const DataCinema = ({ report, cinemaList, user }) => {
+const DataCinema = ({ report, cinemaList, user, update }) => {
   const dispatch = useDispatch();
 
   const onCinemaChange = (e) => {
@@ -60,7 +60,7 @@ const DataCinema = ({ report, cinemaList, user }) => {
           <InputLabel>cinema</InputLabel>
           <Select
             name="cinema"
-            disabled={user.is_facility ? false : true}
+            disabled={update || !user.is_facility}
             value={report?.cinema ? report.cinema : ""}
             label="cinema"
             onChange={(e) => onCinemaChange(e)}

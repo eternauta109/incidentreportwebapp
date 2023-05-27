@@ -5,6 +5,7 @@ import {
   setResolved,
   setEndDate,
   setWorkDays,
+  setScreen_state,
 } from "../../store/slice/reportSlice";
 
 import { TextField, Checkbox, Grid, FormControlLabel } from "@mui/material";
@@ -98,6 +99,8 @@ const DateSection = ({ report }) => {
                   if (!report.resolved) {
                     dispatch(setResolved(!report.resolved));
                     dispatch(setEndDate(dayjs().format("DD/MM/YYYY")));
+                    report.screen_state === "closed" &&
+                      dispatch(setScreen_state("open"));
                   } else {
                     dispatch(setResolved(!report.resolved));
                     dispatch(setEndDate(null));

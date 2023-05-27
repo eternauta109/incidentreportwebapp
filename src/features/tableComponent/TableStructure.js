@@ -4,7 +4,9 @@ import LineTable from "./LineTable";
 import Table from "react-bootstrap/Table";
 import {
   AreaSelect,
-  DataSorter,
+  DataSorterStartDate,
+  DataSorterEndDate,
+  DataSorterPredDate,
   SelectCinema,
   SelectCategory,
   SelectSolved,
@@ -26,8 +28,6 @@ const TableStructure = ({
   setListToView,
   user,
 }) => {
-  const [sortDirection, setSortDirection] = useState(true);
-
   return (
     <Box
       sx={{
@@ -53,12 +53,10 @@ const TableStructure = ({
             <th>
               <Typography style={{ width: "130px", ...headerStyle }}>
                 Start Date
-                <DataSorter
+                <DataSorterStartDate
                   val="startDate"
                   filter={filter}
                   setFilter={setFilter}
-                  sortDirection={sortDirection}
-                  setSortDirection={setSortDirection}
                   listReport={listReport}
                   listToView={listToView}
                   setListToView={setListToView}
@@ -68,13 +66,10 @@ const TableStructure = ({
             <th>
               <Typography style={{ width: "130px", ...headerStyle }}>
                 End Date
-                <DataSorter
-                  val="endDate"
+                <DataSorterEndDate
                   filter={filter}
                   listToView={listToView}
                   setFilter={setFilter}
-                  sortDirection={sortDirection}
-                  setSortDirection={setSortDirection}
                   listReport={listReport}
                   setListToView={setListToView}
                 />
@@ -83,13 +78,10 @@ const TableStructure = ({
             <th>
               <Typography style={{ width: "130px", ...headerStyle }}>
                 res. pred. date
-                <DataSorter
-                  val="datePrediction"
+                <DataSorterPredDate
                   filter={filter}
                   listToView={listToView}
                   setFilter={setFilter}
-                  sortDirection={sortDirection}
-                  setSortDirection={setSortDirection}
                   listReport={listReport}
                   setListToView={setListToView}
                 />
