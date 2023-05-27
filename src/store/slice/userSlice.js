@@ -40,7 +40,7 @@ export const setNewCinema = createAsyncThunk(
   async ({ cinemaFind }, { dispatch, getState }) => {
     /* console.log("state new cinema det", cinemaFind); */
     const state = getState(); // <-- qui ottieni lo state
-    console.log("state new cinema state", state, cinemaFind);
+
     const res = await { ...state.user, cinemaDet: cinemaFind };
     /* console.log("state new cinema res", res); */
     return res;

@@ -7,7 +7,15 @@ import {
   updateReport,
   getRefNum,
 } from "../services/reportsServices";
-import { Button, Grid, Box, Container, Typography } from "@mui/material";
+import {
+  Button,
+  Grid,
+  Box,
+  Container,
+  Typography,
+  FormControlLabel,
+  Checkbox,
+} from "@mui/material";
 import { cinemaList } from "../config/structure";
 import DateSection from "./reportsSections/DateSections";
 import DataCinema from "./reportsSections/DataCinema";
@@ -36,6 +44,7 @@ import { setNewCinema } from "../store/slice/userSlice";
 dayjs.locale("it");
 
 export default function Report() {
+  const [checkedForEmail, setCheckedForEmail] = useState(true);
   const { state } = useLocation();
   const theme = useTheme();
   const user = useSelector((state) => state.user);
@@ -50,7 +59,10 @@ export default function Report() {
   //registra o aggiorna il report
   const onSubmitReport = (e) => {
     e.preventDefault();
-    sendEmail(update, report, user);
+
+    checkedForEmail
+      ? sendEmail(update, report, user)
+      : console.log("mail non inviata");
 
     if (state) {
       //se arrivo da views con un report da aggiornare
@@ -91,19 +103,18 @@ export default function Report() {
     }
   };
 
-  useMemo(() => {
+  /*   useMemo(() => {
     console.log("report in use memo", report);
-  }, [report]);
+  }, [report]); */
 
   //inizializzo lo slice report
   const initializeReport = () => {
     const cinemaFind = cinemaList.find((el) => el.name === user.cinema[0]);
-    console.log("initializing cinema find", cinemaFind);
 
     getRefNum(user.cinema[0]).then((r) => {
       dispatch(setCinema(cinemaFind.name));
       let appo = `${r + 1}/${dayjs().format("YYYY")}`;
-      console.log("appo", appo);
+
       dispatch(setRef_num(`${r + 1}/${dayjs().format("YYYY")}`));
     });
 
@@ -192,13 +203,27 @@ export default function Report() {
             <CloseSection user={user} report={report} />
 
             <Grid container justifyContent="center">
+              <FormControlLabel
+                sx={{ ml: "25px" }}
+                control={
+                  <Checkbox
+                    checked={checkedForEmail}
+                    onChange={() => setCheckedForEmail(!checkedForEmail)}
+                  />
+                }
+                label={
+                  checkedForEmail
+                    ? "send email (default option). The app will save report and send mail "
+                    : " DON'T send email. The app will save the report without send email"
+                }
+              />
               <Button
                 type="submit"
                 color="primary"
                 variant="contained"
                 sx={{ width: "300px", mt: 4, mb: 2 }}
               >
-                {update ? "UpDate ans send email" : "Save and send email"}
+                {update ? "UpDate reports" : "Save reports"}
               </Button>
             </Grid>
           </Box>

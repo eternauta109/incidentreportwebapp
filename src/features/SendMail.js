@@ -51,13 +51,6 @@ export const sendEmail = (update, report, user) => {
 
   console.log(templateParams, user);
 
-  /*  let server = emailjs.server.connect({
-    user: "darkside109@gmail.com",
-    password: "FCv$t&v$p109",
-    host: "smtp.gmail.com",
-    ssl: true,
-  });
- */
   emailjs
     .send(
       "service_4qlb4wq",
@@ -73,36 +66,4 @@ export const sendEmail = (update, report, user) => {
         console.log(error.text);
       }
     );
-  /* const sendEmail = (e) => {
-    e.preventDefault();
-
-    console.log(form.current.user_name.value);
-
-    let templateParams = {
-      to_name: "destinatario",
-      ref_num: "ref_num",
-      user_email: form.current.user_email.value,
-      user_name: "cinema mittente",
-      sender_user: "incident report mail service",
-      sender_mail: form.current.reply_to.value,
-      reply_to: form.current.reply_to.value,
-      message: form.current.message.value
-    };
-
-    emailjs
-      .send(
-        "service_62jmrjb",
-        "template_qji02yn",
-        templateParams,
-        "cBX7tpOEhb4l4eVFI"
-      )
-      .then(
-        (result) => {
-          console.log(result.text);
-        },
-        (error) => {
-          console.log(error.text);
-        }
-      );
-  }; */
 };

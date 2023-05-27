@@ -140,9 +140,8 @@ export default function View() {
         : filteredByScreenState.filter((item) => item.resolved === false);
 
     const sorterStartDate = filter.sorterStDate
-      ? (filteredBySolvedState.sort(sortAscDateStartDate), console.log("true"))
-      : (filteredBySolvedState.sort(sortDescDateStartDate),
-        console.log("false"));
+      ? filteredBySolvedState.sort(sortAscDateStartDate)
+      : filteredBySolvedState.sort(sortDescDateStartDate);
 
     /* const sorterEndDate = filter.sorterEndDate
       ? (filteredBySolvedState.sort(sortAscDateEndDate), console.log("true"))
@@ -156,14 +155,11 @@ export default function View() {
   }, [filter]);
 
   useMemo(() => {
-    console.log("ccciic");
     setListToView((prev) => [...prev.sort(sortDescDateStartDate)]);
     setListReport((prev) => [...prev.sort(sortDescDateStartDate)]);
   }, [loadingReport]);
 
   useEffect(() => {
-    console.log(reports.length);
-
     if (reports.length > 0) {
       return (
         console.log("leggo reports da redux"),
