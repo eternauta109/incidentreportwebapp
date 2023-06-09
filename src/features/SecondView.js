@@ -76,8 +76,8 @@ export const SecondView = ({ data }) => {
         width: 15,
         headerRow: 3,
       },
+      { key: "category", width: 30, headerRow: 3 },
       { key: "issue", width: 30, headerRow: 3 },
-      { key: "note", width: 30, headerRow: 3 },
       {
         key: "workDays",
         width: 15,
