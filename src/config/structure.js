@@ -236,7 +236,7 @@ export const cinemaList = [
       { screen: 6, seats: 253 },
       { screen: 7, seats: 253 },
       { screen: 8, seats: 253 },
-      { screen: 9, seats: 131 },
+      { screen: 9, seats: 313 },
       { screen: 10, seats: 313 },
       { screen: "all", seats: 2412 },
     ],
