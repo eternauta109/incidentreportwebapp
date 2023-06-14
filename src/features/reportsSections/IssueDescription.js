@@ -106,6 +106,7 @@ const IssueDescription = ({ report, user }) => {
           onChange={(e) => dispatch(setIssue(e.target.value))}
           value={report.issue ? report.issue : ""}
           multiline
+          rows={5}
           fullWidth
         />
       </Grid>

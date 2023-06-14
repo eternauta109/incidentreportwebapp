@@ -57,6 +57,7 @@ const CloseSection = ({ report }) => {
             onChange={(e) => dispatch(setNote(e.target.value))}
             value={report.note ? report.note : ""}
             multiline
+            rows={5}
             fullWidth
           />
         </Grid>
@@ -69,7 +70,6 @@ const CloseSection = ({ report }) => {
             label="(ob.) enter your name"
             onChange={(e) => dispatch(setRedattore(e.target.value))}
             value={report.redattore ? report.redattore : ""}
-            multiline
             fullWidth
           />
         </Grid>
