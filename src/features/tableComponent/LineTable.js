@@ -31,6 +31,11 @@ export const LineFound = ({ report, setListToView, user }) => {
     );
   };
 
+  const manageReuseClick = (report) => {
+    console.log("in reuse report", report);
+    navigate("../reports", { state: { report: { ...report }, reuse: true } });
+  };
+
   return (
     <>
       {report && (
@@ -100,6 +105,13 @@ export const LineFound = ({ report, setListToView, user }) => {
                 color="primary"
               >
                 Update
+              </Button>
+              <Button
+                onClick={() => manageReuseClick(report)}
+                variant="outlined"
+                color="secondary"
+              >
+                Reuse
               </Button>
               {user.admin && (
                 <Button

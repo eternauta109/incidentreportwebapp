@@ -65,7 +65,8 @@ const CloseSection = ({ report }) => {
             helperText="your name"
             id="redattore"
             name="redattore"
-            label="enter your name"
+            required={true}
+            label="(ob.) enter your name"
             onChange={(e) => dispatch(setRedattore(e.target.value))}
             value={report.redattore ? report.redattore : ""}
             multiline

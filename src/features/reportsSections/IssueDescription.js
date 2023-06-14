@@ -101,7 +101,8 @@ const IssueDescription = ({ report, user }) => {
           helperText="explain the issues type"
           id="issue"
           name="issue"
-          label="Issue"
+          required={true}
+          label="(ob.) Issue description"
           onChange={(e) => dispatch(setIssue(e.target.value))}
           value={report.issue ? report.issue : ""}
           multiline

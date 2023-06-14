@@ -45,7 +45,7 @@ dayjs.locale("it");
 
 export default function Report() {
   const [checkedForEmail, setCheckedForEmail] = useState(true);
-  const { state } = useLocation();
+
   const theme = useTheme();
   const user = useSelector((state) => state.user);
   const reports = useSelector((state) => state.reports);
@@ -53,6 +53,8 @@ export default function Report() {
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(true);
   const [update, setUpdate] = useState(false);
+  const { state } = useLocation();
+  console.log(state);
 
   const navigate = useNavigate();
 
@@ -63,8 +65,12 @@ export default function Report() {
     checkedForEmail
       ? sendEmail(update, report, user)
       : console.log("mail non inviata");
+    console.log(report.redattore, report.issue);
+    if (!report.redattore || !report.issue) {
+      return alert("some request field are empty");
+    }
 
-    if (state) {
+    if (update) {
       //se arrivo da views con un report da aggiornare
       // e se già esiste reports in redux lo aggiungo
 
@@ -109,35 +115,63 @@ export default function Report() {
 
   //inizializzo lo slice report
   const initializeReport = () => {
-    const cinemaFind = cinemaList.find((el) => el.name === user.cinema[0]);
+    let cinemaFind = null;
+    if (state) {
+      cinemaFind = cinemaList.find((el) => el.name === state.report.cinema);
+      console.log("reuse cine", cinemaFind);
+    } else {
+      cinemaFind = cinemaList.find((el) => el.name === user.cinema[0]);
+    }
+    console.log("cinemaFind", cinemaFind);
 
-    getRefNum(user.cinema[0]).then((r) => {
-      dispatch(setCinema(cinemaFind.name));
-      let appo = `${r + 1}/${dayjs().format("YYYY")}`;
+    if (state) {
+      getRefNum(state.report.cinema).then((r) => {
+        dispatch(setCinema(cinemaFind.name));
+        dispatch(setRef_num(`${r + 1}/${dayjs().format("YYYY")}`));
+      });
+      console.log("reuse cine", state.report);
+      let newReuseReport = {
+        ...state.report,
+        startDate: dayjs().format("DD/MM/YYYY"),
+        datePrediction: dayjs().format("DD/MM/YYYY"),
+        endDate: null,
+        idDoc: null,
+        resolved: false,
+      };
+      console.log("newReuseReport", newReuseReport);
+      dispatch(setAllReport({ ...newReuseReport }));
+    } else {
+      getRefNum(user.cinema[0]).then((r) => {
+        dispatch(setCinema(cinemaFind.name));
+        dispatch(setRef_num(`${r + 1}/${dayjs().format("YYYY")}`));
+      });
 
-      dispatch(setRef_num(`${r + 1}/${dayjs().format("YYYY")}`));
-    });
-
-    dispatch(setScreens_number(cinemaFind.screens));
-    dispatch(setSeats_number(cinemaFind.seats));
-    dispatch(setArea(cinemaFind.area));
-    dispatch(
-      setScreen_with_issue(
-        cinemaFind.screens_det[cinemaFind.screens_det.length - 1].screen
-      )
-    );
-    dispatch(
-      setScreen_with_issue_capacity(
-        cinemaFind.screens_det[cinemaFind.screens_det.length - 1].seats
-      )
-    );
+      dispatch(setScreens_number(cinemaFind.screens));
+      dispatch(setSeats_number(cinemaFind.seats));
+      dispatch(setArea(cinemaFind.area));
+      dispatch(
+        setScreen_with_issue(
+          cinemaFind.screens_det[cinemaFind.screens_det.length - 1].screen
+        )
+      );
+      dispatch(
+        setScreen_with_issue_capacity(
+          cinemaFind.screens_det[cinemaFind.screens_det.length - 1].seats
+        )
+      );
+    }
 
     setLoading(false);
   };
 
   useEffect(() => {
     console.log("stae in Report useEffect", state);
+
     if (state) {
+      if (state.reuse) {
+        return initializeReport();
+      }
+
       setUpdate(true);
       dispatch(setAllReport(state));
       setLoading(false);
